@@ -217,4 +217,15 @@ export const data = [
   },
 ];
 
-export const shortArray = [data[5], data[4], data[7], data[8], data[8]];
+export const URL = "https://norma.nomoreparties.space/api/ingredients";
+
+export const IMAGE = "https://code.s3.yandex.net/react/code/bun-02.png";
+
+export const blankCard = {
+  name: "",
+  fat: 0,
+  proteins: 0,
+  carbohydrates: 0,
+  calories: 0,
+  image_large: "",
+};

@@ -6,12 +6,11 @@ import {
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./BurgerConstructor.module.css";
-import { data, shortArray } from "../../utils/data";
+import { IMAGE } from "../../utils/data";
 import cn from "classnames";
+import { IBurgerConstructorProps } from "../../types/types";
 
-const BurgerConstructor = () => {
-  const image = data[0].image;
-
+const BurgerConstructor: React.FC<IBurgerConstructorProps> = ({ data, handleOpenOrder }) => {
   return (
     <section className={cn("pl-4 pt-25", styles.wrapper)}>
       <ConstructorElement
@@ -20,13 +19,13 @@ const BurgerConstructor = () => {
         isLocked={true}
         text="Краторная булка N-200i (верх)"
         price={200}
-        thumbnail={image}
+        thumbnail={IMAGE}
       />
 
       <ul className={cn("pr-2", styles.list)}>
-        {shortArray.map((item) => {
+        {data.map((item) => {
           return (
-            <li className={styles.item}>
+            <li className={styles.item} key={item._id}>
               <DragIcon type="primary" />
               <ConstructorElement
                 extraClass={styles.element}
@@ -44,14 +43,14 @@ const BurgerConstructor = () => {
         isLocked={true}
         text="Краторная булка N-200i (низ)"
         price={200}
-        thumbnail={image}
+        thumbnail={IMAGE}
       />
       <div className={cn("mt-10", styles.container)}>
         <p className={cn("text text_type_digits-medium mr-10", styles.sum)}>
           610
           <CurrencyIcon type="primary" />
         </p>
-        <Button htmlType="button" type="primary" size="large">
+        <Button htmlType="button" type="primary" size="large" onClick={handleOpenOrder}>
           Оформить заказ
         </Button>
       </div>
