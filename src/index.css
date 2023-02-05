@@ -5,8 +5,10 @@ body {
   margin: 0;
   font-family: 'JetBrains Mono', sans-serif;
   --text-color: #F2F2F3;
+  --scroll-color: #8585AD;
   --bg-color: #131316;
   --bg-header: #1C1C21;
+  --bg-scroll: #2F2F37;
   background-color: var(--bg-color);
   color: var(--text-color)
 }

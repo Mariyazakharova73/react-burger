@@ -9,7 +9,7 @@ const CardList: React.FC<ICardListProps> = ({ current }) => {
   const newData = data.filter((item) => item.type === currentTabData?.type);
 
   return (
-    <div>
+    <div className={styles.wrapper}>
       <h2 className="mt-6 text text_type_main-medium">{currentTabData?.title}</h2>
       <ul className={styles.list}>
         {newData.map((item) => {

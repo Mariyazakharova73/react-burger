@@ -217,4 +217,4 @@ export const data = [
   },
 ];
 
-export const shortArray = [data[5], data[4], data[7], data[8], data[8]]
+export const shortArray = [data[5], data[4], data[7], data[8], data[8]];

@@ -8,7 +8,7 @@ const Card: React.FC<ICardProps> = ({ name, price, image }) => {
   return (
     <li className={styles.item}>
       <Counter count={1} size="default" />
-      <img src={image} alt="Ингредиент."/>
+      <img src={image} alt="Ингредиент." />
       <div className={cn("mt-2 text text_type_digits-default", styles.price)}>
         {price}
         <CurrencyIcon type="primary" />

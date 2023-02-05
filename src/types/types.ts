@@ -5,5 +5,5 @@ export interface ICardProps {
 }
 
 export interface ICardListProps {
- current: string;
+  current: string;
 }

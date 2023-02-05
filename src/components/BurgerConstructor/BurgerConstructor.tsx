@@ -13,9 +13,9 @@ const BurgerConstructor = () => {
   const image = data[0].image;
 
   return (
-    <section className={cn("ml-4 mr-4", styles.wrapper)}>
+    <section className={cn("pl-4 pt-25", styles.wrapper)}>
       <ConstructorElement
-        extraClass={cn("ml-8", styles.element)}
+        extraClass={cn("ml-6 mr-2", styles.element)}
         type="top"
         isLocked={true}
         text="Краторная булка N-200i (верх)"
@@ -23,7 +23,7 @@ const BurgerConstructor = () => {
         thumbnail={image}
       />
 
-      <ul className={cn("mt-4 b-4", styles.list)}>
+      <ul className={cn("pr-2", styles.list)}>
         {shortArray.map((item) => {
           return (
             <li className={styles.item}>
@@ -39,7 +39,7 @@ const BurgerConstructor = () => {
         })}
       </ul>
       <ConstructorElement
-        extraClass={cn("ml-8", styles.element)}
+        extraClass={cn("ml-6 mr-2", styles.element)}
         type="bottom"
         isLocked={true}
         text="Краторная булка N-200i (низ)"
