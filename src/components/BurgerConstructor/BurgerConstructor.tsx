@@ -6,7 +6,7 @@ import {
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./BurgerConstructor.module.css";
-import { IMAGE } from "../../utils/data";
+import { IMAGE } from "../../utils/constants.js";
 import cn from "classnames";
 import { IBurgerConstructorProps } from "../../types/types";
 

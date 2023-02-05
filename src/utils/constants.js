@@ -1,10 +1,4 @@
-export const tabInfo = [
-  { title: "Булки", type: "bun", key: "one" },
-  { title: "Соусы", type: "sauce", key: "two" },
-  { title: "Начинки", type: "main", key: "three" },
-];
-
-export const data = [
+export const DATA = [
   {
     _id: "60666c42cc7b410027a1a9b1",
     name: "Краторная булка N-200i",
@@ -221,7 +215,7 @@ export const URL = "https://norma.nomoreparties.space/api/ingredients";
 
 export const IMAGE = "https://code.s3.yandex.net/react/code/bun-02.png";
 
-export const blankCard = {
+export const BLANK_CARD = {
   name: "",
   fat: 0,
   proteins: 0,

@@ -6,7 +6,7 @@ import CardList from "../CardList/CardList";
 import { IBurgerIngredientsProps } from "../../types/types";
 
 const BurgerIngredients: React.FC<IBurgerIngredientsProps> = ({ data, handleOpenIngredient }) => {
-  const [current, setCurrent] = React.useState("one"); 
+  const [current, setCurrent] = React.useState("one");
 
   const arrWithBuns = data?.filter((item) => item.type === "bun");
   const arrWithSauces = data?.filter((item) => item.type === "sauce");
@@ -33,9 +33,27 @@ const BurgerIngredients: React.FC<IBurgerIngredientsProps> = ({ data, handleOpen
         </a>
       </div>
       <div className={styles.container}>
-        <CardList current={current} arr={arrWithBuns} title="Булки" id={"bun"} handleOpenIngredient={handleOpenIngredient}/>
-        <CardList current={current} arr={arrWithSauces} title="Соусы" id={"sauce"} handleOpenIngredient={handleOpenIngredient}/>
-        <CardList current={current} arr={arrWithFillings} title="Начинки" id={"main"} handleOpenIngredient={handleOpenIngredient}/>
+        <CardList
+          current={current}
+          arr={arrWithBuns}
+          title="Булки"
+          id={"bun"}
+          handleOpenIngredient={handleOpenIngredient}
+        />
+        <CardList
+          current={current}
+          arr={arrWithSauces}
+          title="Соусы"
+          id={"sauce"}
+          handleOpenIngredient={handleOpenIngredient}
+        />
+        <CardList
+          current={current}
+          arr={arrWithFillings}
+          title="Начинки"
+          id={"main"}
+          handleOpenIngredient={handleOpenIngredient}
+        />
       </div>
     </section>
   );

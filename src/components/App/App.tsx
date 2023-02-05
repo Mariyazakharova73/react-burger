@@ -4,7 +4,7 @@ import styles from "./App.module.css";
 import AppHeader from "../AppHeader/AppHeader";
 import BurgerIngredients from "../BurgerIngredients/BurgerIngredients";
 import BurgerConstructor from "../BurgerConstructor/BurgerConstructor";
-import { URL, blankCard } from "../../utils/data";
+import { URL, BLANK_CARD } from "../../utils/constants.js";
 import Modal from "../Modal/Modal";
 import OrderDetails from "../OrderDetails/OrderDetails";
 import IngredientDetails from "../IngredientDetails/IngredientDetails";
@@ -14,7 +14,7 @@ const App: React.FC = () => {
   const [data, setData] = useState([]);
   const [isOpenOrder, setIsOpenOrder] = useState(false);
   const [isOpenIngredient, setIsOpenIngredient] = useState(false);
-  const [selectedCard, setSelectedCard] = React.useState(blankCard);
+  const [selectedCard, setSelectedCard] = React.useState(BLANK_CARD);
 
   useEffect(() => {
     const getData = async () => {
@@ -61,11 +61,9 @@ const App: React.FC = () => {
         />
         <Route path="*" element={<p>Страница не найдена</p>} />
       </Routes>
-
       <Modal isOpen={isOpenIngredient} onClose={handleClose} title="Детали ингредиента">
         <IngredientDetails selectedCard={selectedCard} />
       </Modal>
-
       <Modal isOpen={isOpenOrder} onClose={handleClose}>
         <OrderDetails />
       </Modal>

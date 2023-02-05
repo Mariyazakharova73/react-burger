@@ -6,6 +6,8 @@ import ModalOverlay from "../ModalOverlay/ModalOverlay";
 import styles from "./Modal.module.css";
 import cn from "classnames";
 
+const modals = document.getElementById("modals") as HTMLElement;
+
 const Modal: React.FC<IModalProps> = ({ children, onClose, isOpen, title }) =>
   isOpen
     ? createPortal(
@@ -18,7 +20,7 @@ const Modal: React.FC<IModalProps> = ({ children, onClose, isOpen, title }) =>
             {children}
           </div>
         </ModalOverlay>,
-        document.body
+        modals
       )
     : null;
 
