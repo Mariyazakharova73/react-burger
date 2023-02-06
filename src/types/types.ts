@@ -1,4 +1,4 @@
-import { Ref, RefObject } from "react";
+import { Ref } from "react";
 
 export interface IIngredient {
   _id: string;
