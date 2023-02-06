@@ -1,57 +1,75 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./BurgerIngredients.module.css";
 import cn from "classnames";
 import CardList from "../CardList/CardList";
 import { IBurgerIngredientsProps } from "../../types/types";
 
-const BurgerIngredients: React.FC<IBurgerIngredientsProps> = ({ data, handleOpenIngredient }) => {
+const BurgerIngredients: React.FC<IBurgerIngredientsProps> = ({
+  ingredients,
+  handleOpenIngredient,
+}) => {
   const [current, setCurrent] = React.useState("one");
+  const refForBun = useRef<HTMLHeadingElement>(null);
+  const refForSause = useRef<HTMLHeadingElement>(null);
+  const refForMain = useRef<HTMLHeadingElement>(null);
 
-  const arrWithBuns = data?.filter((item) => item.type === "bun");
-  const arrWithSauces = data?.filter((item) => item.type === "sauce");
-  const arrWithFillings = data?.filter((item) => item.type === "main");
+  const filters = React.useMemo(() => {
+    const arrWithBuns = ingredients?.filter((item) => item.type === "bun");
+    const arrWithSauces = ingredients?.filter((item) => item.type === "sauce");
+    const arrWithFillings = ingredients?.filter((item) => item.type === "main");
+    return { arrWithBuns, arrWithSauces, arrWithFillings };
+  }, [ingredients]);
+
+  useEffect(() => {
+    const getRef = (): any => {
+      if (current === "one") {
+        return refForBun;
+      }
+      if (current === "two") {
+        return refForSause;
+      }
+      if (current === "three") {
+        return refForMain;
+      }
+    };
+
+    getRef().current.scrollIntoView({
+      behavior: "smooth",
+    });
+  }, [current]);
 
   return (
     <section className="pt-10">
       <h1 className="text text_type_main-large">Соберите бургер</h1>
       <div className={cn("pt-5 pb-4", styles.wrapper)}>
-        <a className={styles.link} href="#bun">
-          <Tab value="one" active={current === "one"} onClick={setCurrent}>
-            Булки
-          </Tab>
-        </a>
-        <a className={styles.link} href="#sauce">
-          <Tab value="two" active={current === "two"} onClick={setCurrent}>
-            Соусы
-          </Tab>
-        </a>
-        <a className={styles.link} href="#main">
-          <Tab value="three" active={current === "three"} onClick={setCurrent}>
-            Начинки
-          </Tab>
-        </a>
+        <Tab value="one" active={current === "one"} onClick={setCurrent}>
+          Булки
+        </Tab>
+        <Tab value="two" active={current === "two"} onClick={setCurrent}>
+          Соусы
+        </Tab>
+        <Tab value="three" active={current === "three"} onClick={setCurrent}>
+          Начинки
+        </Tab>
       </div>
       <div className={styles.container}>
         <CardList
-          current={current}
-          arr={arrWithBuns}
+          ref={refForBun}
+          arr={filters.arrWithBuns}
           title="Булки"
-          id={"bun"}
           handleOpenIngredient={handleOpenIngredient}
         />
         <CardList
-          current={current}
-          arr={arrWithSauces}
+          ref={refForSause}
+          arr={filters.arrWithSauces}
           title="Соусы"
-          id={"sauce"}
           handleOpenIngredient={handleOpenIngredient}
         />
         <CardList
-          current={current}
-          arr={arrWithFillings}
+          ref={refForMain}
+          arr={filters.arrWithFillings}
           title="Начинки"
-          id={"main"}
           handleOpenIngredient={handleOpenIngredient}
         />
       </div>

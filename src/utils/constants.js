@@ -213,8 +213,6 @@ export const DATA = [
 
 export const URL = "https://norma.nomoreparties.space/api/ingredients";
 
-export const IMAGE = "https://code.s3.yandex.net/react/code/bun-02.png";
-
 export const BLANK_CARD = {
   name: "",
   fat: 0,

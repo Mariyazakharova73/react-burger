@@ -11,7 +11,7 @@ import IngredientDetails from "../IngredientDetails/IngredientDetails";
 import { IIngredientDetails } from "../../types/types";
 
 const App: React.FC = () => {
-  const [data, setData] = useState([]);
+  const [ingredients, setIngredients] = useState([]);
   const [isOpenOrder, setIsOpenOrder] = useState(false);
   const [isOpenIngredient, setIsOpenIngredient] = useState(false);
   const [selectedCard, setSelectedCard] = React.useState(BLANK_CARD);
@@ -21,7 +21,7 @@ const App: React.FC = () => {
       try {
         const res = await fetch(URL);
         const obj = await res.json();
-        setData(obj.data);
+        setIngredients(obj.data);
       } catch (err) {
         console.log(err);
       }
@@ -53,8 +53,11 @@ const App: React.FC = () => {
             <>
               <AppHeader />
               <main className={styles.content}>
-                <BurgerIngredients data={data} handleOpenIngredient={handleOpenIngredient} />
-                <BurgerConstructor data={data} handleOpenOrder={handleOpenOrder} />
+                <BurgerIngredients
+                  ingredients={ingredients}
+                  handleOpenIngredient={handleOpenIngredient}
+                />
+                <BurgerConstructor ingredients={ingredients} handleOpenOrder={handleOpenOrder} />
               </main>
             </>
           }

@@ -6,24 +6,27 @@ import {
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./BurgerConstructor.module.css";
-import { IMAGE } from "../../utils/constants.js";
 import cn from "classnames";
 import { IBurgerConstructorProps } from "../../types/types";
 
-const BurgerConstructor: React.FC<IBurgerConstructorProps> = ({ data, handleOpenOrder }) => {
+const BurgerConstructor: React.FC<IBurgerConstructorProps> = ({ ingredients, handleOpenOrder }) => {
+  const name = ingredients[0]?.name;
+  const price = ingredients[0]?.price;
+  const image = ingredients[0]?.image;
+
   return (
     <section className={cn("pl-4 pt-25", styles.wrapper)}>
       <ConstructorElement
         extraClass={cn("ml-6 mr-2", styles.element)}
         type="top"
         isLocked={true}
-        text="Краторная булка N-200i (верх)"
-        price={200}
-        thumbnail={IMAGE}
+        text={`${name} (верх)`}
+        price={price}
+        thumbnail={image}
       />
 
       <ul className={cn("pr-2", styles.list)}>
-        {data.map((item) => {
+        {ingredients.map((item) => {
           return (
             <li className={styles.item} key={item._id}>
               <DragIcon type="primary" />
@@ -41,9 +44,9 @@ const BurgerConstructor: React.FC<IBurgerConstructorProps> = ({ data, handleOpen
         extraClass={cn("ml-6 mr-2", styles.element)}
         type="bottom"
         isLocked={true}
-        text="Краторная булка N-200i (низ)"
-        price={200}
-        thumbnail={IMAGE}
+        text={`${name} (низ)`}
+        price={price}
+        thumbnail={image}
       />
       <div className={cn("mt-10", styles.container)}>
         <p className={cn("text text_type_digits-medium mr-10", styles.sum)}>

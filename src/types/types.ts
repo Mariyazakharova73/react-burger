@@ -1,4 +1,6 @@
-export interface IData {
+import { Ref, RefObject } from "react";
+
+export interface IIngredient {
   _id: string;
   name: string;
   type: string;
@@ -14,12 +16,12 @@ export interface IData {
 }
 
 export type IIngredientDetails = Omit<
-  IData,
+  IIngredient,
   "_id" | "type" | "price" | "image_mobile" | "image" | "__v"
 >;
 
 export interface ICardProps {
-  item: IData;
+  item: IIngredient;
   handleOpenIngredient: (data: IIngredientDetails) => void;
 }
 
@@ -28,27 +30,26 @@ export interface IModalProps {
   onClose: () => void;
   children: React.ReactNode;
   title?: string;
-  selectedCard?: IData | {};
+  selectedCard?: IIngredient | {};
 }
 
-export type IModalOverlayProps = Omit<IModalProps, "title" | "selectedCard">;
+export type IModalOverlayProps = Omit<IModalProps, "title" | "selectedCard" | "children">;
 
 export interface IBurgerIngredientsProps {
-  data: IData[];
+  ingredients: IIngredient[];
   handleOpenIngredient: (data: IIngredientDetails) => void;
 }
 
 export interface IBurgerConstructorProps {
-  data: IData[];
+  ingredients: IIngredient[];
   handleOpenOrder: () => void;
 }
 
 export interface ICardListProps {
-  current: string;
-  arr: IData[];
+  arr: IIngredient[];
   title: string;
-  id: string;
-  handleOpenIngredient: (data: IIngredientDetails) => void;
+  handleOpenIngredient: (ingredient: IIngredientDetails) => void;
+  ref: Ref<HTMLHeadingElement>;
 }
 
 export interface IIngredientDetailsProps {

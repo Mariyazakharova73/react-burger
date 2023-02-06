@@ -11,7 +11,7 @@ const modals = document.getElementById("modals") as HTMLElement;
 const Modal: React.FC<IModalProps> = ({ children, onClose, isOpen, title }) =>
   isOpen
     ? createPortal(
-        <ModalOverlay onClose={onClose} isOpen={isOpen}>
+        <>
           <div className={styles.content}>
             <div className={styles.container}>
               <h2 className={cn("text text_type_main-large mt-0 mb-0", styles.title)}>{title}</h2>
@@ -19,7 +19,8 @@ const Modal: React.FC<IModalProps> = ({ children, onClose, isOpen, title }) =>
             </div>
             {children}
           </div>
-        </ModalOverlay>,
+          <ModalOverlay onClose={onClose} isOpen={isOpen} />
+        </>,
         modals
       )
     : null;
