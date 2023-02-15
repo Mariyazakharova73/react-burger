@@ -6,8 +6,8 @@ import CardList from "../CardList/CardList";
 import { IBurgerIngredientsProps } from "../../types/types";
 
 const BurgerIngredients: React.FC<IBurgerIngredientsProps> = ({
-  ingredients,
   handleOpenIngredient,
+  ingredients,
 }) => {
   const [current, setCurrent] = React.useState("one");
   const refForBun = useRef<HTMLHeadingElement>(null);

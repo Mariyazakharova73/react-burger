@@ -8,27 +8,45 @@ import {
 import styles from "./BurgerConstructor.module.css";
 import cn from "classnames";
 import { IBurgerConstructorProps } from "../../types/types";
+import uuid from "react-uuid";
+import { IngredientsContext } from "../../contexts/IngredientsContext";
 
-const BurgerConstructor: React.FC<IBurgerConstructorProps> = ({ ingredients, handleOpenOrder }) => {
-  const name = ingredients[0]?.name;
-  const price = ingredients[0]?.price;
-  const image = ingredients[0]?.image;
+const BurgerConstructor: React.FC<IBurgerConstructorProps> = ({ handleOpenOrder }) => {
+  const ingredients = React.useContext(IngredientsContext);
 
-  return (
+  const buns = React.useMemo(() => {
+    return ingredients.filter((item) => item.type === "bun");
+  }, [ingredients]);
+
+  const bun = buns[0];
+
+  const ingredientsWithoutBuns = React.useMemo(() => {
+    return ingredients.filter((item) => item.type !== "bun");
+  }, [ingredients]);
+
+  const calculateThePrice = () => {
+    const priceOfFillings = ingredientsWithoutBuns.reduce((acc, item) => {
+      return acc + item.price;
+    }, 0);
+    const priceOfBuns = bun.price * 2;
+    return priceOfFillings + priceOfBuns;
+  };
+
+  return bun ? (
     <section className={cn("pl-4 pt-25", styles.wrapper)}>
       <ConstructorElement
         extraClass={cn("ml-6 mr-2", styles.element)}
         type="top"
         isLocked={true}
-        text={`${name} (верх)`}
-        price={price}
-        thumbnail={image}
+        text={`${bun.name} (верх)`}
+        price={bun.price}
+        thumbnail={bun.image}
       />
 
       <ul className={cn("pr-2", styles.list)}>
-        {ingredients.map((item) => {
+        {ingredientsWithoutBuns.map((item) => {
           return (
-            <li className={styles.item} key={item._id}>
+            <li className={styles.item} key={uuid()}>
               <DragIcon type="primary" />
               <ConstructorElement
                 extraClass={styles.element}
@@ -44,13 +62,13 @@ const BurgerConstructor: React.FC<IBurgerConstructorProps> = ({ ingredients, han
         extraClass={cn("ml-6 mr-2", styles.element)}
         type="bottom"
         isLocked={true}
-        text={`${name} (низ)`}
-        price={price}
-        thumbnail={image}
+        text={`${bun.name} (низ)`}
+        price={bun.price}
+        thumbnail={bun.image}
       />
       <div className={cn("mt-10", styles.container)}>
         <p className={cn("text text_type_digits-medium mr-10", styles.sum)}>
-          610
+          {calculateThePrice()}
           <CurrencyIcon type="primary" />
         </p>
         <Button htmlType="button" type="primary" size="large" onClick={handleOpenOrder}>
@@ -58,7 +76,7 @@ const BurgerConstructor: React.FC<IBurgerConstructorProps> = ({ ingredients, han
         </Button>
       </div>
     </section>
-  );
+  ) : null;
 };
 
 export default BurgerConstructor;

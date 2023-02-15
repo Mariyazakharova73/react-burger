@@ -41,7 +41,6 @@ export interface IBurgerIngredientsProps {
 }
 
 export interface IBurgerConstructorProps {
-  ingredients: IIngredient[];
   handleOpenOrder: () => void;
 }
 
@@ -54,4 +53,18 @@ export interface ICardListProps {
 
 export interface IIngredientDetailsProps {
   selectedCard: IIngredientDetails;
+}
+
+export type IIdArray = string[];
+
+export interface IOrder {
+  name?: string;
+  order?: {
+    number: number;
+  };
+  success?: boolean;
+}
+
+export interface IOrderDetailsProps {
+  order: IOrder;
 }
