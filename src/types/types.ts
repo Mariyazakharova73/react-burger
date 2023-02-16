@@ -49,10 +49,6 @@ export interface ICardListProps {
   ref: Ref<HTMLHeadingElement>;
 }
 
-export interface IIngredientDetailsProps {
-  selectedCard: IIngredientDetails;
-}
-
 export type IIdArray = string[];
 
 export interface IOrder {
@@ -66,3 +62,13 @@ export interface IOrder {
 export interface IOrderDetailsProps {
   order: IOrder;
 }
+
+export enum cardActionTypes {
+  GET_CARD = "GET_CARD",
+  DELETE_CARD = "DELETE_CARD",
+}
+
+export enum orderActionTypes {
+  GET_ORDER_DETAILS = "GET_ORDER_DETAILS"
+}
+

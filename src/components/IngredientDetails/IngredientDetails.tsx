@@ -1,9 +1,11 @@
 import React from "react";
 import styles from "./IngredientDetails.module.css";
 import cn from "classnames";
-import { IIngredientDetailsProps } from "../../types/types";
+import { useTypedSelector } from "../../hooks/useTypedSelector";
 
-const IngredientDetails: React.FC<IIngredientDetailsProps> = ({ selectedCard }) => {
+const IngredientDetails: React.FC = () => {
+  const selectedCard = useTypedSelector((state) => state.card.selectedCard);
+
   const info = [
     { title: "Калории,ккал", value: selectedCard.calories },
     { title: "Белки, г", value: selectedCard.proteins },

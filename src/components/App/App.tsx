@@ -4,20 +4,20 @@ import styles from "./App.module.css";
 import AppHeader from "../AppHeader/AppHeader";
 import BurgerIngredients from "../BurgerIngredients/BurgerIngredients";
 import BurgerConstructor from "../BurgerConstructor/BurgerConstructor";
-import { BLANK_CARD } from "../../utils/constants";
 import { request, getOrderOptions } from "../../utils/ulils";
 import Modal from "../Modal/Modal";
 import OrderDetails from "../OrderDetails/OrderDetails";
 import IngredientDetails from "../IngredientDetails/IngredientDetails";
 import { IIngredientDetails, IIdArray } from "../../types/types";
 import { IngredientsContext } from "../../contexts/IngredientsContext";
+import { useDispatch } from "react-redux";
+import { getCard, deleteCard, getOrderDetails } from "../../services/actions/actions";
 
 const App: React.FC = () => {
   const [ingredients, setIngredients] = useState([]);
   const [isOpenOrder, setIsOpenOrder] = useState(false);
   const [isOpenIngredient, setIsOpenIngredient] = useState(false);
-  const [selectedCard, setSelectedCard] = React.useState(BLANK_CARD);
-  const [order, setOrder] = useState({});
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const getIngredients = () => request("ingredients");
@@ -33,7 +33,7 @@ const App: React.FC = () => {
   const getOrderData = (data: IIdArray) => {
     request("orders", getOrderOptions(data))
       .then((res) => {
-        setOrder(res);
+        dispatch(getOrderDetails(res));
       })
       .catch((err) => {
         console.log(err);
@@ -46,13 +46,14 @@ const App: React.FC = () => {
   };
 
   const handleOpenIngredient = (data: IIngredientDetails) => {
-    setSelectedCard(data);
+    dispatch(getCard(data));
     setIsOpenIngredient(true);
   };
 
   const handleClose = () => {
     setIsOpenOrder(false);
     setIsOpenIngredient(false);
+    dispatch(deleteCard());
   };
 
   return (
@@ -76,12 +77,12 @@ const App: React.FC = () => {
       </IngredientsContext.Provider>
       {isOpenIngredient && (
         <Modal onClose={handleClose} title="Детали ингредиента">
-          <IngredientDetails selectedCard={selectedCard} />
+          <IngredientDetails />
         </Modal>
       )}
       {isOpenOrder && (
         <Modal onClose={handleClose}>
-          <OrderDetails order={order} />
+          <OrderDetails/>
         </Modal>
       )}
     </div>

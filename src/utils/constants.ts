@@ -221,3 +221,5 @@ export const BLANK_CARD = {
   calories: 0,
   image_large: "",
 };
+
+export const GET_INGREDIENTS_FOR_BURGER = "GET_INGREDIENTS_FOR_BURGER";

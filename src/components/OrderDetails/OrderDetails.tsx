@@ -2,9 +2,10 @@ import React from "react";
 import styles from "./OrderDetails.module.css";
 import cn from "classnames";
 import image from "../../images/done.svg";
-import { IOrderDetailsProps } from "../../types/types";
+import { useTypedSelector } from "../../hooks/useTypedSelector";
 
-const OrderDetails: React.FC<IOrderDetailsProps> = ({ order }) => {
+const OrderDetails: React.FC = () => {
+  const order = useTypedSelector((state) => state.order.order);
   return (
     order && (
       <div className={styles.wrapper}>
