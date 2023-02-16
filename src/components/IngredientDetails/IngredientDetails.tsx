@@ -15,7 +15,7 @@ const IngredientDetails: React.FC<IIngredientDetailsProps> = ({ selectedCard }) 
     <div className={styles.wrapper}>
       <img
         src={selectedCard.image_large}
-        alt={selectedCard.name}
+        alt={`${selectedCard.name}.`}
         className={cn("ml-5 mr-5", styles.image)}
       />
       <p className={cn("text text_type_main-medium mt-4", styles.title)}>{selectedCard.name}</p>

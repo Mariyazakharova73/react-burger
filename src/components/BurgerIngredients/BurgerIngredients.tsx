@@ -4,11 +4,10 @@ import styles from "./BurgerIngredients.module.css";
 import cn from "classnames";
 import CardList from "../CardList/CardList";
 import { IBurgerIngredientsProps } from "../../types/types";
+import { IngredientsContext } from "../../contexts/IngredientsContext";
 
-const BurgerIngredients: React.FC<IBurgerIngredientsProps> = ({
-  handleOpenIngredient,
-  ingredients,
-}) => {
+const BurgerIngredients: React.FC<IBurgerIngredientsProps> = ({ handleOpenIngredient }) => {
+  const ingredients = React.useContext(IngredientsContext);
   const [current, setCurrent] = React.useState("one");
   const refForBun = useRef<HTMLHeadingElement>(null);
   const refForSause = useRef<HTMLHeadingElement>(null);

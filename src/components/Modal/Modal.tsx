@@ -8,9 +8,9 @@ import cn from "classnames";
 
 const modals = document.getElementById("modals") as HTMLElement;
 
-const Modal: React.FC<IModalProps> = ({ children, onClose, isOpen, title }) =>
-  isOpen
-    ? createPortal(
+const Modal: React.FC<IModalProps> = ({ children, onClose, title }) =>
+ 
+     createPortal(
         <>
           <div className={styles.content}>
             <div className={styles.container}>
@@ -19,10 +19,9 @@ const Modal: React.FC<IModalProps> = ({ children, onClose, isOpen, title }) =>
             </div>
             {children}
           </div>
-          <ModalOverlay onClose={onClose} isOpen={isOpen} />
+          <ModalOverlay onClose={onClose}/>
         </>,
         modals
       )
-    : null;
 
 export default Modal;

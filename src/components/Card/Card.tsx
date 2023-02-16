@@ -21,7 +21,7 @@ const Card: React.FC<ICardProps> = ({ item, handleOpenIngredient }) => {
   return (
     <li className={styles.item} onClick={handleClick}>
       <Counter count={1} size="default" />
-      <img src={item.image} alt="Ингредиент." />
+      <img src={item.image} alt={`${item.name}.`} />
       <div className={cn("mt-2 text text_type_digits-default", styles.price)}>
         {item.price}
         <CurrencyIcon type="primary" />

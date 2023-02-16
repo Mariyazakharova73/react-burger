@@ -4,7 +4,8 @@ import styles from "./App.module.css";
 import AppHeader from "../AppHeader/AppHeader";
 import BurgerIngredients from "../BurgerIngredients/BurgerIngredients";
 import BurgerConstructor from "../BurgerConstructor/BurgerConstructor";
-import { URL, BLANK_CARD } from "../../utils/constants.js";
+import { BLANK_CARD } from "../../utils/constants";
+import { request, getOrderOptions } from "../../utils/ulils";
 import Modal from "../Modal/Modal";
 import OrderDetails from "../OrderDetails/OrderDetails";
 import IngredientDetails from "../IngredientDetails/IngredientDetails";
@@ -19,36 +20,24 @@ const App: React.FC = () => {
   const [order, setOrder] = useState({});
 
   useEffect(() => {
-    const getData = async () => {
-      try {
-        const res = await fetch(`${URL}/ingredients`);
-        const obj = await res.json();
-        setIngredients(obj.data);
-      } catch (err) {
+    const getIngredients = () => request("ingredients");
+    getIngredients()
+      .then((res) => {
+        setIngredients(res.data);
+      })
+      .catch((err) => {
         console.log(err);
-      }
-    };
-
-    getData();
+      });
   }, []);
 
-  const getOrderData = async (data: IIdArray) => {
-    try {
-      const res = await fetch(`${URL}/orders`, {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          ingredients: data,
-        }),
+  const getOrderData = (data: IIdArray) => {
+    request("orders", getOrderOptions(data))
+      .then((res) => {
+        setOrder(res);
+      })
+      .catch((err) => {
+        console.log(err);
       });
-      const obj = await res.json();
-      setOrder(obj);
-    } catch (err) {
-      console.log(err);
-    }
   };
 
   const handleOpenOrder = () => {
@@ -76,10 +65,7 @@ const App: React.FC = () => {
               <>
                 <AppHeader />
                 <main className={styles.content}>
-                  <BurgerIngredients
-                    ingredients={ingredients}
-                    handleOpenIngredient={handleOpenIngredient}
-                  />
+                  <BurgerIngredients handleOpenIngredient={handleOpenIngredient} />
                   <BurgerConstructor handleOpenOrder={handleOpenOrder} />
                 </main>
               </>
@@ -88,12 +74,16 @@ const App: React.FC = () => {
           <Route path="*" element={<p>Страница не найдена</p>} />
         </Routes>
       </IngredientsContext.Provider>
-      <Modal isOpen={isOpenIngredient} onClose={handleClose} title="Детали ингредиента">
-        <IngredientDetails selectedCard={selectedCard} />
-      </Modal>
-      <Modal isOpen={isOpenOrder} onClose={handleClose}>
-        <OrderDetails order={order} />
-      </Modal>
+      {isOpenIngredient && (
+        <Modal onClose={handleClose} title="Детали ингредиента">
+          <IngredientDetails selectedCard={selectedCard} />
+        </Modal>
+      )}
+      {isOpenOrder && (
+        <Modal onClose={handleClose}>
+          <OrderDetails order={order} />
+        </Modal>
+      )}
     </div>
   );
 };

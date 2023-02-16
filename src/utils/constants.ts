@@ -211,7 +211,7 @@ export const DATA = [
   },
 ];
 
-export const URL = "https://norma.nomoreparties.space/api";
+export const BASE_URL = "https://norma.nomoreparties.space/api/";
 
 export const BLANK_CARD = {
   name: "",

@@ -26,7 +26,6 @@ export interface ICardProps {
 }
 
 export interface IModalProps {
-  isOpen: boolean;
   onClose: () => void;
   children: React.ReactNode;
   title?: string;
@@ -36,7 +35,6 @@ export interface IModalProps {
 export type IModalOverlayProps = Omit<IModalProps, "title" | "selectedCard" | "children">;
 
 export interface IBurgerIngredientsProps {
-  ingredients: IIngredient[];
   handleOpenIngredient: (data: IIngredientDetails) => void;
 }
 

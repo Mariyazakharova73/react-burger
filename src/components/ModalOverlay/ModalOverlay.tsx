@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { IModalOverlayProps } from "../../types/types";
 import styles from "./ModalOverlay.module.css";
 
-const ModalOverlay: React.FC<IModalOverlayProps> = ({ isOpen, onClose }) => {
+const ModalOverlay: React.FC<IModalOverlayProps> = ({ onClose }) => {
   const closeByOverlay = (evt: React.MouseEvent) => {
     const target = evt.target as HTMLDivElement;
     if (target.classList.contains(styles.overlay)) {
@@ -11,18 +11,19 @@ const ModalOverlay: React.FC<IModalOverlayProps> = ({ isOpen, onClose }) => {
   };
 
   useEffect(() => {
+    
     const closeByEsc = (evt: KeyboardEvent | React.KeyboardEvent) => {
       if (evt.key === "Escape") {
         onClose();
       }
     };
-    if (isOpen) {
-      document.addEventListener("keydown", closeByEsc);
-    }
+
+    document.addEventListener("keydown", closeByEsc);
+
     return () => {
       document.removeEventListener("keydown", closeByEsc);
     };
-  }, [isOpen]);
+  }, [onClose]);
 
   return <div onClick={closeByOverlay} className={styles.overlay} />;
 };
