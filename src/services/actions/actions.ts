@@ -5,7 +5,7 @@ import {
   IOrder,
   IIngredient,
 } from "../../types/types";
-import { GET_INGREDIENTS_FOR_BURGER } from "../../utils/constants";
+import { GET_INGREDIENTS_FOR_BURGER, GET_INGREDIENTS } from "../../utils/constants";
 
 export function getCard(selectedCard: IIngredientDetails) {
   return {
@@ -30,6 +30,13 @@ export function getOrderDetails(order: IOrder) {
 export function getIngredientsForBurger(arr: IIngredient[]) {
   return {
     type: GET_INGREDIENTS_FOR_BURGER,
+    payload: arr,
+  };
+}
+
+export function getIngredients(arr: IIngredient[]) {
+  return {
+    type: GET_INGREDIENTS,
     payload: arr,
   };
 }
