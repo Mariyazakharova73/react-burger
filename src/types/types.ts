@@ -47,6 +47,7 @@ export interface ICardListProps {
   title: string;
   handleOpenIngredient: (ingredient: IIngredientDetails) => void;
   ref: Ref<HTMLHeadingElement>;
+  id: string
 }
 
 export type IIdArray = string[];

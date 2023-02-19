@@ -13,6 +13,7 @@ const BurgerIngredients: React.FC<IBurgerIngredientsProps> = ({ handleOpenIngred
   const refForBun = useRef<HTMLHeadingElement>(null);
   const refForSause = useRef<HTMLHeadingElement>(null);
   const refForMain = useRef<HTMLHeadingElement>(null);
+  const x = useRef<HTMLHeadingElement>(null);
 
   const filters = React.useMemo(() => {
     const arrWithBuns = ingredients?.filter((item) => item.type === "bun");
@@ -20,6 +21,41 @@ const BurgerIngredients: React.FC<IBurgerIngredientsProps> = ({ handleOpenIngred
     const arrWithFillings = ingredients?.filter((item) => item.type === "main");
     return { arrWithBuns, arrWithSauces, arrWithFillings };
   }, [ingredients]);
+
+  let xx: any = {};
+
+  const cb = (entries: any) => {
+    entries.forEach((entry: any) => {
+
+      if (entry.isIntersecting 
+        && entry.intersectionRatio > 0.5
+        ) {
+        console.log(entry.intersectionRatio);
+        xx= entry.target.id;
+      }
+      console.log(xx);
+      // console.log(entry.target.id);
+      // xx[entry.target.id] = entry.isIntersecting;
+    });
+    // console.log(xx);
+    // for (let id in xx) {
+    //   if (xx[id]) {
+    //     setCurrent(id);
+    //     break;
+    //   }
+    // }
+  };
+  const tabObserver = new IntersectionObserver(cb, {
+    //  root: x.current,
+    threshold: [0.2, 0.5, 0.8],
+    // threshold: 1,
+  });
+
+  if (refForBun.current && refForSause.current && refForMain.current) {
+    [refForBun.current, refForSause.current, refForMain.current].forEach((s) =>
+      tabObserver.observe(s)
+    );
+  }
 
   useEffect(() => {
     const getRef = (): any => {
@@ -53,20 +89,23 @@ const BurgerIngredients: React.FC<IBurgerIngredientsProps> = ({ handleOpenIngred
           Начинки
         </Tab>
       </div>
-      <div className={styles.container}>
+      <div className={styles.container} ref={x} style={{ border: "1px solid red" }}>
         <CardList
+          id="one"
           ref={refForBun}
           arr={filters.arrWithBuns}
           title="Булки"
           handleOpenIngredient={handleOpenIngredient}
         />
         <CardList
+          id="two"
           ref={refForSause}
           arr={filters.arrWithSauces}
           title="Соусы"
           handleOpenIngredient={handleOpenIngredient}
         />
         <CardList
+          id="three"
           ref={refForMain}
           arr={filters.arrWithFillings}
           title="Начинки"
