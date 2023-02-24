@@ -47,7 +47,6 @@ export interface ICardListProps {
   title: string;
   handleOpenIngredient: (ingredient: IIngredientDetails) => void;
   ref: Ref<HTMLHeadingElement>;
-  id: string
 }
 
 export type IIdArray = string[];
@@ -70,6 +69,9 @@ export enum cardActionTypes {
 }
 
 export enum orderActionTypes {
-  GET_ORDER_DETAILS = "GET_ORDER_DETAILS"
+  GET_ORDER_DETAILS = "GET_ORDER_DETAILS",
 }
 
+export interface IOptions {
+  [key: string]: boolean;
+}

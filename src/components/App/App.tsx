@@ -8,14 +8,14 @@ import Modal from "../Modal/Modal";
 import OrderDetails from "../OrderDetails/OrderDetails";
 import IngredientDetails from "../IngredientDetails/IngredientDetails";
 import { IIngredientDetails } from "../../types/types";
-import { useDispatch } from "react-redux";
 import { getCard, deleteCard } from "../../services/actions/actions";
-import { getDataIngredients, getDataOrder } from "../../services/thunk";
+import { getDataIngredients, getDataOrder } from "../../services/actions/actions";
+import { useAppDispatch } from "../../hooks/useAppDispatch";
 
 const App: React.FC = () => {
   const [isOpenOrder, setIsOpenOrder] = useState(false);
   const [isOpenIngredient, setIsOpenIngredient] = useState(false);
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     dispatch(getDataIngredients());
