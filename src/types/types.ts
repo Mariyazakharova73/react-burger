@@ -88,8 +88,8 @@ export enum burgerActionTypes {
 }
 
 export enum requestActionTypes {
-  GET_DATA_REQUEST = "GET_ITEMS_REQUEST",
-  GET_DATA_FAILED = "GET_ITEMS_FAILED",
+  GET_DATA_REQUEST = "GET_DATA_REQUEST",
+  GET_DATA_FAILED = "GET_DATA_FAILED",
 }
 
 export interface IOptions {
