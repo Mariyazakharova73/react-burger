@@ -14,7 +14,7 @@ export interface IIngredient {
   image_large: string;
   __v: number;
   dragId?: string;
-  count?: number
+  count?: number;
 }
 
 export type IIngredientDetails = Omit<
@@ -52,9 +52,9 @@ export interface ICardListProps {
 }
 
 export interface IOrderedIngredientProps {
-  item: IIngredient,
-  index: number,
-  moveCard: any
+  item: IIngredient;
+  index: number;
+  moveCard: any;
 }
 
 export type IIdArray = string[];
@@ -85,6 +85,11 @@ export enum burgerActionTypes {
   DELETE_INGREDIENT = "DELETE_INGREDIENT",
   UPDATE_LIST = "UPDATE_LIST",
   SET_CURRENT_BUN = "SET_CURRENT_BUN",
+}
+
+export enum requestActionTypes {
+  GET_FEED = "GET_FEED",
+  GET_FEED_FAILED = "GET_FEED_FAILED",
 }
 
 export interface IOptions {

@@ -40,7 +40,9 @@ const BurgerIngredients: React.FC<IBurgerIngredientsProps> = ({ handleOpenIngred
     },
   ];
 
-  const arr = [refForBun.current, refForSause.current, refForMain.current];
+  const arr = React.useMemo(() => {
+    return [refForBun.current, refForSause.current, refForMain.current];
+  }, [refForBun, refForSause, refForMain]);
 
   useEffect(() => {
     let intersectionStatus: IOptions = {};

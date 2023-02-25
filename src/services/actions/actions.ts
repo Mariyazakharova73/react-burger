@@ -7,7 +7,8 @@ import {
   orderActionTypes,
   IOrder,
   IIngredient,
-  burgerActionTypes
+  burgerActionTypes,
+  requestActionTypes,
 } from "../../types/types";
 import { GET_INGREDIENTS } from "../../utils/constants";
 import { getOrderOptions, request } from "../../utils/ulils";
@@ -67,15 +68,30 @@ export function setCurrentBun(obj: IIngredient) {
   };
 }
 
+export function getFeed() {
+  return {
+    type: requestActionTypes.GET_FEED,
+  };
+}
+
+export function getFeedFailed() {
+  return {
+    type: requestActionTypes.GET_FEED_FAILED,
+  };
+}
+
 type ThunkActionType = ThunkAction<void, RootState, unknown, AnyAction>;
 
 export const getDataIngredients = (): ThunkActionType => {
   return (dispatch) => {
+    dispatch(getFeed); // начало выполенния запроса
     request("ingredients")
       .then((res) => {
         dispatch(getIngredients(res.data));
       })
       .catch((err) => {
+        // Если сервер не вернул данных, отправляем экшен об ошибке
+        dispatch(getFeedFailed);
         console.log(err);
       });
   };
@@ -83,11 +99,14 @@ export const getDataIngredients = (): ThunkActionType => {
 
 export const getDataOrder = (data: string[]): ThunkActionType => {
   return (dispatch) => {
+    dispatch(getFeed); // начало выполенния запроса
     request("orders", getOrderOptions(data))
       .then((res) => {
         dispatch(getOrderDetails(res));
       })
       .catch((err) => {
+        // Если сервер не вернул данных, отправляем экшен об ошибке
+        dispatch(getFeedFailed);
         console.log(err);
       });
   };

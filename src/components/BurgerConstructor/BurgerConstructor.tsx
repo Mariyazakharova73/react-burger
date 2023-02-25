@@ -20,7 +20,7 @@ const BurgerConstructor: React.FC<IBurgerConstructorProps> = ({ handleOpenOrder 
   const bun = useTypedSelector((state) => state.buy.bun);
 
   const calculateThePrice = () => {
-    const priceOfFillings = x.reduce((acc, item: any) => {
+    const priceOfFillings = draggedElementsWithoutBun.reduce((acc, item: any) => {
       return acc + item.price;
     }, 0);
     const priceOfBuns = bun?.price * 2;
@@ -69,7 +69,7 @@ const BurgerConstructor: React.FC<IBurgerConstructorProps> = ({ handleOpenOrder 
     [draggedElements, dispatch]
   );
 
-  const x = React.useMemo(() => {
+  const draggedElementsWithoutBun = React.useMemo(() => {
     return draggedElements.filter((item) => item.type !== "bun");
   }, [draggedElements]);
 
@@ -89,8 +89,8 @@ const BurgerConstructor: React.FC<IBurgerConstructorProps> = ({ handleOpenOrder 
         className={cn("pr-2", styles.list, `${isHover ? styles.onHover : ""}`)}
         ref={dropTargerRef}
       >
-        {x[0] ? (
-          x.map((item, index) => {
+        {draggedElementsWithoutBun[0] ? (
+          draggedElementsWithoutBun.map((item, index) => {
             return (
               <OrderedIngredient key={item.dragId} index={index} item={item} moveCard={moveCard} />
             );
