@@ -5,6 +5,7 @@
 
 .element {
   background-color: var(--bg-header);
+  cursor: pointer;
 }
 
 .list {
@@ -51,4 +52,12 @@
   display: flex;
   align-items: center;
   gap: 8px;
+}
+
+.ingredients {
+  min-height: 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }

@@ -13,6 +13,8 @@ export interface IIngredient {
   image_mobile: string;
   image_large: string;
   __v: number;
+  dragId?: string;
+  count?: number
 }
 
 export type IIngredientDetails = Omit<
@@ -49,6 +51,12 @@ export interface ICardListProps {
   ref: Ref<HTMLHeadingElement>;
 }
 
+export interface IOrderedIngredientProps {
+  item: IIngredient,
+  index: number,
+  moveCard: any
+}
+
 export type IIdArray = string[];
 
 export interface IOrder {
@@ -70,6 +78,13 @@ export enum cardActionTypes {
 
 export enum orderActionTypes {
   GET_ORDER_DETAILS = "GET_ORDER_DETAILS",
+}
+
+export enum burgerActionTypes {
+  ADD_INGREDIENT = "ADD_INGREDIENT",
+  DELETE_INGREDIENT = "DELETE_INGREDIENT",
+  UPDATE_LIST = "UPDATE_LIST",
+  SET_CURRENT_BUN = "SET_CURRENT_BUN",
 }
 
 export interface IOptions {

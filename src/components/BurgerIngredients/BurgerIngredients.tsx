@@ -50,7 +50,6 @@ const BurgerIngredients: React.FC<IBurgerIngredientsProps> = ({ handleOpenIngred
         entries.forEach((entry) => {
           intersectionStatus[entry.target.textContent!] = entry.isIntersecting;
         });
-        console.log(intersectionStatus);
         for (const item in intersectionStatus) {
           if (intersectionStatus[item]) {
             setCurrent(item);

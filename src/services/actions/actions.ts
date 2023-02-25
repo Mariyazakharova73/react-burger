@@ -7,8 +7,9 @@ import {
   orderActionTypes,
   IOrder,
   IIngredient,
+  burgerActionTypes
 } from "../../types/types";
-import { GET_INGREDIENTS_FOR_BURGER, GET_INGREDIENTS } from "../../utils/constants";
+import { GET_INGREDIENTS } from "../../utils/constants";
 import { getOrderOptions, request } from "../../utils/ulils";
 
 export function getCard(selectedCard: IIngredientDetails) {
@@ -31,9 +32,23 @@ export function getOrderDetails(order: IOrder) {
   };
 }
 
-export function getIngredientsForBurger(arr: IIngredient[]) {
+export function addIngredient(obj: IIngredient) {
   return {
-    type: GET_INGREDIENTS_FOR_BURGER,
+    type: burgerActionTypes.ADD_INGREDIENT,
+    payload: obj,
+  };
+}
+
+export function deleteIngredient(id?: string) {
+  return {
+    type: burgerActionTypes.DELETE_INGREDIENT,
+    payload: id,
+  };
+}
+
+export function updateIngredients(arr: IIngredient[]) {
+  return {
+    type: burgerActionTypes.UPDATE_LIST,
     payload: arr,
   };
 }
@@ -42,6 +57,13 @@ export function getIngredients(arr: IIngredient[]) {
   return {
     type: GET_INGREDIENTS,
     payload: arr,
+  };
+}
+
+export function setCurrentBun(obj: IIngredient) {
+  return {
+    type: burgerActionTypes.SET_CURRENT_BUN,
+    payload: obj,
   };
 }
 

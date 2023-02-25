@@ -11,11 +11,23 @@ import { IIngredientDetails } from "../../types/types";
 import { getCard, deleteCard } from "../../services/actions/actions";
 import { getDataIngredients, getDataOrder } from "../../services/actions/actions";
 import { useAppDispatch } from "../../hooks/useAppDispatch";
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
+import { useTypedSelector } from "../../hooks/useTypedSelector";
 
 const App: React.FC = () => {
   const [isOpenOrder, setIsOpenOrder] = useState(false);
   const [isOpenIngredient, setIsOpenIngredient] = useState(false);
   const dispatch = useAppDispatch();
+  const ingredientsForBurger = useTypedSelector((state) => state.buy.ingredientsForBurger);
+  const bun = useTypedSelector((state) => state.buy.bun);
+
+  const arrIdWithBuns = React.useMemo(() => {
+    const arrId = ingredientsForBurger.map((item) => {
+      return item._id;
+    });
+    return [...arrId, bun._id, bun._id];
+  }, [ingredientsForBurger, bun]);
 
   useEffect(() => {
     dispatch(getDataIngredients());
@@ -23,7 +35,7 @@ const App: React.FC = () => {
 
   const handleOpenOrder = () => {
     setIsOpenOrder(true);
-    dispatch(getDataOrder(["60d3b41abdacab0026a733cb", "60d3b41abdacab0026a733ce"]));
+    dispatch(getDataOrder(arrIdWithBuns));
   };
 
   const handleOpenIngredient = (data: IIngredientDetails) => {
@@ -46,8 +58,10 @@ const App: React.FC = () => {
             <>
               <AppHeader />
               <main className={styles.content}>
-                <BurgerIngredients handleOpenIngredient={handleOpenIngredient} />
-                <BurgerConstructor handleOpenOrder={handleOpenOrder} />
+                <DndProvider backend={HTML5Backend}>
+                  <BurgerIngredients handleOpenIngredient={handleOpenIngredient} />
+                  <BurgerConstructor handleOpenOrder={handleOpenOrder} />
+                </DndProvider>
               </main>
             </>
           }
