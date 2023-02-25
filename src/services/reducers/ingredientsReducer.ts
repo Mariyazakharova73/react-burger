@@ -41,7 +41,7 @@ export const ingredientsReducer = (state = initialState, action: IIngredientsAct
       return {
         ...state,
         // Запрос начал выполняться
-        dataRequestt: true,
+        dataRequest: true,
         // Сбрасываем статус наличия ошибок от предыдущего запроса
         // на случай, если он был и завершился с ошибкой
         dataFailed: false,
@@ -54,7 +54,7 @@ export const ingredientsReducer = (state = initialState, action: IIngredientsAct
         // выставляем соответсвующие значения в хранилище
         dataFailed: true,
         // Запрос закончил своё выполнение
-        dataRequestt: false,
+        dataRequest: false,
       };
     }
     default:

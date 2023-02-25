@@ -31,7 +31,7 @@ export const orderDetailsReducer = (state = initialState, action: IOrderDetailsA
       return {
         ...state,
         // Запрос начал выполняться
-        dataRequestt: true,
+        dataRequest: true,
         // Сбрасываем статус наличия ошибок от предыдущего запроса
         // на случай, если он был и завершился с ошибкой
         dataFailed: false,
@@ -44,7 +44,7 @@ export const orderDetailsReducer = (state = initialState, action: IOrderDetailsA
         // выставляем соответсвующие значения в хранилище
         dataFailed: true,
         // Запрос закончил своё выполнение
-        dataRequestt: false,
+        dataRequest: false,
       };
     }
     default:
