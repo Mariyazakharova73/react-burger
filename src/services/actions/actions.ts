@@ -68,15 +68,15 @@ export function setCurrentBun(obj: IIngredient) {
   };
 }
 
-export function getFeed() {
+export function getData() {
   return {
-    type: requestActionTypes.GET_FEED,
+    type: requestActionTypes.GET_DATA_REQUEST,
   };
 }
 
-export function getFeedFailed() {
+export function getDataFailed() {
   return {
-    type: requestActionTypes.GET_FEED_FAILED,
+    type: requestActionTypes.GET_DATA_FAILED,
   };
 }
 
@@ -84,14 +84,14 @@ type ThunkActionType = ThunkAction<void, RootState, unknown, AnyAction>;
 
 export const getDataIngredients = (): ThunkActionType => {
   return (dispatch) => {
-    dispatch(getFeed); // начало выполенния запроса
+    dispatch(getData); // начало выполенния запроса
     request("ingredients")
       .then((res) => {
         dispatch(getIngredients(res.data));
       })
       .catch((err) => {
         // Если сервер не вернул данных, отправляем экшен об ошибке
-        dispatch(getFeedFailed);
+        dispatch(getDataFailed);
         console.log(err);
       });
   };
@@ -99,14 +99,14 @@ export const getDataIngredients = (): ThunkActionType => {
 
 export const getDataOrder = (data: string[]): ThunkActionType => {
   return (dispatch) => {
-    dispatch(getFeed); // начало выполенния запроса
+    dispatch(getData); // начало выполенния запроса
     request("orders", getOrderOptions(data))
       .then((res) => {
         dispatch(getOrderDetails(res));
       })
       .catch((err) => {
         // Если сервер не вернул данных, отправляем экшен об ошибке
-        dispatch(getFeedFailed);
+        dispatch(getDataFailed);
         console.log(err);
       });
   };

@@ -3,14 +3,14 @@ import { IRequestAction, IRequestFailedAction } from "./ingredientsReducer";
 
 export interface IOrderDetailsState {
   order: IOrder;
-  feedRequest: boolean;
-  feedFailed: boolean;
+  dataRequest: boolean;
+  dataFailed: boolean;
 }
 
 const initialState: IOrderDetailsState = {
   order: {},
-  feedRequest: false,
-  feedFailed: false,
+  dataRequest: false,
+  dataFailed: false,
 };
 
 export interface IOrderDetailsSuccessAction {
@@ -18,30 +18,33 @@ export interface IOrderDetailsSuccessAction {
   payload: IOrder;
 }
 
-export type IOrderDetailsAction = IOrderDetailsSuccessAction | IRequestAction | IRequestFailedAction;
+export type IOrderDetailsAction =
+  | IOrderDetailsSuccessAction
+  | IRequestAction
+  | IRequestFailedAction;
 
 export const orderDetailsReducer = (state = initialState, action: IOrderDetailsAction) => {
   switch (action.type) {
     case orderActionTypes.GET_ORDER_DETAILS:
       return { ...state, order: action.payload };
-    case requestActionTypes.GET_FEED: {
+    case requestActionTypes.GET_DATA_REQUEST: {
       return {
         ...state,
         // Запрос начал выполняться
-        feedRequest: true,
+        dataRequestt: true,
         // Сбрасываем статус наличия ошибок от предыдущего запроса
         // на случай, если он был и завершился с ошибкой
-        feedFailed: false,
+        dataFailed: false,
       };
     }
-    case requestActionTypes.GET_FEED_FAILED: {
+    case requestActionTypes.GET_DATA_FAILED: {
       return {
         ...state,
         // Запрос выполнился с ошибкой,
         // выставляем соответсвующие значения в хранилище
-        feedFailed: true,
+        dataFailed: true,
         // Запрос закончил своё выполнение
-        feedRequest: false,
+        dataRequestt: false,
       };
     }
     default:
