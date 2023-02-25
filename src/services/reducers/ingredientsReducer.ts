@@ -13,7 +13,7 @@ const initialState: IIngredientsState = {
   feedFailed: false,
 };
 
-export interface IIngredientsSuccesAction {
+export interface IIngredientsSuccessAction {
   type: typeof GET_INGREDIENTS;
   payload: IIngredient[];
 }
@@ -26,7 +26,7 @@ export interface IRequestFailedAction {
   type: requestActionTypes.GET_FEED_FAILED;
 }
 
-export type IIngredientsAction = IIngredientsSuccesAction | IRequestAction | IRequestFailedAction;
+export type IIngredientsAction = IIngredientsSuccessAction | IRequestAction | IRequestFailedAction;
 
 export const ingredientsReducer = (state = initialState, action: IIngredientsAction) => {
   switch (action.type) {

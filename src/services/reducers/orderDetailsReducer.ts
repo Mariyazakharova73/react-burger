@@ -13,12 +13,12 @@ const initialState: IOrderDetailsState = {
   feedFailed: false,
 };
 
-export interface IOrderDetailsSuccesAction {
+export interface IOrderDetailsSuccessAction {
   type: orderActionTypes.GET_ORDER_DETAILS;
   payload: IOrder;
 }
 
-export type IOrderDetailsAction = IOrderDetailsSuccesAction | IRequestAction | IRequestFailedAction;
+export type IOrderDetailsAction = IOrderDetailsSuccessAction | IRequestAction | IRequestFailedAction;
 
 export const orderDetailsReducer = (state = initialState, action: IOrderDetailsAction) => {
   switch (action.type) {
