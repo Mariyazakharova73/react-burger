@@ -44,6 +44,10 @@ export interface IBurgerConstructorProps {
   handleOpenOrder: () => void;
 }
 
+export interface IMainPageProps extends IBurgerConstructorProps, IBurgerIngredientsProps{
+
+}
+
 export interface ICardListProps {
   arr: IIngredient[];
   title: string;
@@ -94,4 +98,9 @@ export enum requestActionTypes {
 
 export interface IOptions {
   [key: string]: boolean;
+}
+
+export interface IFormProps {
+  title: string;
+  buttonText: string;
 }

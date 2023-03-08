@@ -2,8 +2,6 @@ import React, { useEffect, useState } from "react";
 import { Route, Routes } from "react-router";
 import styles from "./App.module.css";
 import AppHeader from "../AppHeader/AppHeader";
-import BurgerIngredients from "../BurgerIngredients/BurgerIngredients";
-import BurgerConstructor from "../BurgerConstructor/BurgerConstructor";
 import Modal from "../Modal/Modal";
 import OrderDetails from "../OrderDetails/OrderDetails";
 import IngredientDetails from "../IngredientDetails/IngredientDetails";
@@ -11,9 +9,15 @@ import { IIngredientDetails } from "../../types/types";
 import { getCard, deleteCard } from "../../services/actions/actions";
 import { getDataIngredients, getDataOrder } from "../../services/actions/actions";
 import { useAppDispatch } from "../../hooks/useAppDispatch";
-import { DndProvider } from "react-dnd";
-import { HTML5Backend } from "react-dnd-html5-backend";
 import { useTypedSelector } from "../../hooks/useTypedSelector";
+import MainPage from "../../pages/MainPage/MainPage";
+import RegisterPage from "../../pages/RegisterPage/RegisterPage";
+import LoginPage from "../../pages/LoginPage/LoginPage";
+import FogotPasswordPage from "../../pages/FogotPasswordPage/FogotPasswordPage";
+import ResetPasswordPage from "../../pages/ResetPasswordPage/ResetPasswordPage";
+import ProfilePage from "../../pages/ProfilePage/ProfilePage";
+import IngredientDetailsPage from "../../pages/IngredientDetailsPage/IngredientDetailsPage";
+import NotFoundPage from "../../pages/NotFoundPage/NotFoundPage";
 
 const App: React.FC = () => {
   const [isOpenOrder, setIsOpenOrder] = useState(false);
@@ -51,22 +55,24 @@ const App: React.FC = () => {
 
   return (
     <div className={styles.page}>
+      <AppHeader />
       <Routes>
         <Route
           path="/"
           element={
-            <>
-              <AppHeader />
-              <main className={styles.content}>
-                <DndProvider backend={HTML5Backend}>
-                  <BurgerIngredients handleOpenIngredient={handleOpenIngredient} />
-                  <BurgerConstructor handleOpenOrder={handleOpenOrder} />
-                </DndProvider>
-              </main>
-            </>
+            <MainPage
+              handleOpenOrder={handleOpenOrder}
+              handleOpenIngredient={handleOpenIngredient}
+            />
           }
         />
-        <Route path="*" element={<p>Страница не найдена</p>} />
+        <Route path="/register" element={<RegisterPage />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/forgot-password" element={<FogotPasswordPage />} />
+        <Route path="/reset-password" element={<ResetPasswordPage />} />
+        <Route path="/profile" element={<ProfilePage />} />
+        <Route path="/ingredients/:id" element={<IngredientDetailsPage />} />
+        <Route path="*" element={<NotFoundPage/>} />
       </Routes>
 
       {isOpenIngredient && (
