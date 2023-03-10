@@ -15,7 +15,7 @@
 .menu {
   display: flex;
   flex-direction: column;
-  
+
 }
 
 .link {
@@ -35,4 +35,8 @@
 
 .text {
   opacity: .4;
+}
+
+.form {
+  max-width: 480px;
 }

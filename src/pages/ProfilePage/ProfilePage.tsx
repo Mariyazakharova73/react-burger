@@ -3,14 +3,10 @@ import React, { ChangeEvent, FormEvent } from "react";
 import { NavLink } from "react-router-dom";
 import styles from "../ProfilePage/ProfilePage.module.css";
 import cn from "classnames";
+import { useFormAndValidation } from "../../hooks/useFormAndValidation";
 
 const ProfilePage: React.FC = () => {
-  const [values, setValues] = React.useState({ email: "", password: "", name: "", code: "" });
-
-  const handleChange = (evt: ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = evt.target;
-    setValues({ ...values, [name]: value });
-  };
+  const { values, handleChange, errors, isValid } = useFormAndValidation();
 
   const handleSubmit = (evt: FormEvent) => {
     evt.preventDefault();
@@ -48,7 +44,7 @@ const ProfilePage: React.FC = () => {
         </p>
       </div>
 
-      <form className="ml-15" onSubmit={handleSubmit}>
+      <form className={cn("form", "ml-15", styles.form)} onSubmit={handleSubmit}>
         <Input
           type="text"
           placeholder="Имя"
@@ -58,8 +54,12 @@ const ProfilePage: React.FC = () => {
           onChange={handleChange}
           value={values.name || ""}
           required
+          error={!!errors.name}
+          errorText={errors.name}
+          minLength={2}
         />
         <Input
+          type="email"
           extraClass="mt-6"
           placeholder="Логин"
           name="email"
@@ -68,14 +68,22 @@ const ProfilePage: React.FC = () => {
           onChange={handleChange}
           value={values.email || ""}
           required
+          error={!!errors.email}
+          errorText={errors.email}
+          minLength={2}
         />
-        <PasswordInput
+        <Input
+          type="password"
+          placeholder="Пароль"
           extraClass="mt-6"
           name="password"
           icon="EditIcon"
           onChange={handleChange}
           value={values.password || ""}
           required
+          error={!!errors.password}
+          errorText={errors.password}
+          minLength={6}
         />
       </form>
     </main>

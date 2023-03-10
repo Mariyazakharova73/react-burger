@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FormEvent } from "react";
+import React, { FormEvent } from "react";
 import {
   Button,
   EmailInput,
@@ -9,9 +9,10 @@ import cn from "classnames";
 import styles from "../Form/Form.module.css";
 import { Link, useLocation } from "react-router-dom";
 import { IFormProps } from "../../types/types";
+import { useFormAndValidation } from "../../hooks/useFormAndValidation";
 
 export const Form: React.FC<IFormProps> = ({ title, buttonText }) => {
-  const [values, setValues] = React.useState({ email: "", password: "", name: "", code: "" });
+  const { values, handleChange, errors, isValid } = useFormAndValidation();
 
   const { pathname } = useLocation();
 
@@ -20,18 +21,13 @@ export const Form: React.FC<IFormProps> = ({ title, buttonText }) => {
   const isFogotPasswordPage = pathname === "/forgot-password";
   const isResetPasswordPage = pathname === "/reset-password";
 
-  const handleChange = (evt: ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = evt.target;
-    setValues({ ...values, [name]: value });
-  };
-
   const handleSubmit = (evt: FormEvent) => {
     evt.preventDefault();
   };
 
   return (
     <>
-      <form className={styles.form} onSubmit={handleSubmit}>
+      <form className={cn(styles.form, "form")} onSubmit={handleSubmit}>
         <h1 className={cn("text text_type_main-medium", styles.title)}>{title}</h1>
         {isRegisterPage && (
           <Input
@@ -41,12 +37,16 @@ export const Form: React.FC<IFormProps> = ({ title, buttonText }) => {
             name="name"
             size="default"
             onChange={handleChange}
-            value={values.email || ""}
+            value={values.name || ""}
             required
+            error={!!errors.name}
+            errorText={errors.name}
+            minLength={2}
           />
         )}
         {isRegisterPage || isLoginPage || isFogotPasswordPage ? (
-          <EmailInput
+          <Input
+            type="email"
             extraClass="mt-6"
             placeholder={isRegisterPage || isLoginPage ? "E-mail" : "Укажите e-mail"}
             name="email"
@@ -54,10 +54,14 @@ export const Form: React.FC<IFormProps> = ({ title, buttonText }) => {
             onChange={handleChange}
             value={values.email || ""}
             required
+            error={!!errors.email}
+            errorText={errors.email}
+            minLength={2}
           />
         ) : null}
         {isRegisterPage || isLoginPage || isResetPasswordPage ? (
-          <PasswordInput
+          <Input
+            type="password"
             icon="ShowIcon"
             extraClass="mt-6"
             placeholder={isRegisterPage || isLoginPage ? "Пароль" : "Введите новый пароль"}
@@ -66,6 +70,9 @@ export const Form: React.FC<IFormProps> = ({ title, buttonText }) => {
             onChange={handleChange}
             value={values.password || ""}
             required
+            error={!!errors.password}
+            errorText={errors.password}
+            minLength={6}
           />
         ) : null}
         {isResetPasswordPage && (
@@ -78,6 +85,9 @@ export const Form: React.FC<IFormProps> = ({ title, buttonText }) => {
             onChange={handleChange}
             value={values.code || ""}
             required
+            error={!!errors.code}
+            errorText={errors.code}
+            minLength={2}
           />
         )}
         <Button
@@ -85,7 +95,7 @@ export const Form: React.FC<IFormProps> = ({ title, buttonText }) => {
           htmlType="submit"
           type="primary"
           size="medium"
-          // disabled={!isValid}
+          disabled={!isValid}
         >
           {buttonText}
         </Button>
