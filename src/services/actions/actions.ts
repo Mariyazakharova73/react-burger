@@ -11,7 +11,7 @@ import {
   requestActionTypes,
 } from "../../types/types";
 import { GET_INGREDIENTS } from "../../utils/constants";
-import { getOrderOptions, request } from "../../utils/ulils";
+import { getOrderOptions, request } from "../../utils/request";
 
 export function getCard(selectedCard: IIngredientDetails) {
   return {

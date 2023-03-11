@@ -1,4 +1,4 @@
-import { Ref } from "react";
+import { FormEvent, Ref } from "react";
 
 export interface IIngredient {
   _id: string;
@@ -44,9 +44,7 @@ export interface IBurgerConstructorProps {
   handleOpenOrder: () => void;
 }
 
-export interface IMainPageProps extends IBurgerConstructorProps, IBurgerIngredientsProps{
-
-}
+export interface IMainPageProps extends IBurgerConstructorProps, IBurgerIngredientsProps {}
 
 export interface ICardListProps {
   arr: IIngredient[];
@@ -103,4 +101,15 @@ export interface IOptions {
 export interface IFormProps {
   title: string;
   buttonText: string;
+  handleSubmit: (evt: FormEvent) => void;
+  isValid: boolean;
+  errors: any;
+  values: any;
+  handleChange: any;
+}
+
+export interface IUser {
+  name: string;
+  email: string;
+  password: string;
 }

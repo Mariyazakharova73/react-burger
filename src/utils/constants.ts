@@ -239,5 +239,12 @@ export const BUN_BY_DEFAULT = {
   image_mobile: "https://code.s3.yandex.net/react/code/bun-02-mobile.png",
   image_large: "https://code.s3.yandex.net/react/code/bun-02-large.png",
   __v: 0,
-  count: 2
+  count: 2,
 };
+
+export const ENDPOINT_FOR_LOGIN = "auth/login";
+export const ENDPOINT_FOR_REGISTER = "auth/register";
+export const ENDPOINT_FOR_LOGOUT = "auth/logout";
+export const ENDPOINT_FOR_UPDATE_TOKEN = "auth/token";
+
+export const REGISTER_USER_SUCCES = "REGISTER_USER_SUCCES";

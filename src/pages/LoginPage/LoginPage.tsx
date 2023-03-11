@@ -4,7 +4,7 @@ import { Form } from "../../components/Form/Form";
 const LoginPage: React.FC = () => {
   return (
     <main>
-      <Form title="Вход" buttonText="Войти"/>
+      {/* <Form title="Вход" buttonText="Войти"/> */}
     </main>
   );
 };

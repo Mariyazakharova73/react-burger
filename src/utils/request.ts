@@ -30,3 +30,31 @@ export const getOrderOptions = (data: string[]) => {
     }),
   };
 };
+
+export const getRegisterOptions = (name: string, email: string, password: string) => {
+  return {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      email: email,
+      password: password,
+      name: name,
+    }),
+  };
+};
+
+export const getFogotPasswordOptions = (email: string) => {
+  return {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      email: email,
+    }),
+  };
+};

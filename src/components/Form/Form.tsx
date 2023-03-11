@@ -1,18 +1,16 @@
-import React, { FormEvent } from "react";
+import React from "react";
 import {
   Button,
-  EmailInput,
   Input,
-  PasswordInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import cn from "classnames";
 import styles from "../Form/Form.module.css";
 import { Link, useLocation } from "react-router-dom";
 import { IFormProps } from "../../types/types";
-import { useFormAndValidation } from "../../hooks/useFormAndValidation";
 
-export const Form: React.FC<IFormProps> = ({ title, buttonText }) => {
-  const { values, handleChange, errors, isValid } = useFormAndValidation();
+export const Form: React.FC<IFormProps> = ({ title, buttonText, handleSubmit, handleChange, values, errors, isValid }) => {
+
+  
 
   const { pathname } = useLocation();
 
@@ -20,10 +18,6 @@ export const Form: React.FC<IFormProps> = ({ title, buttonText }) => {
   const isLoginPage = pathname === "/login";
   const isFogotPasswordPage = pathname === "/forgot-password";
   const isResetPasswordPage = pathname === "/reset-password";
-
-  const handleSubmit = (evt: FormEvent) => {
-    evt.preventDefault();
-  };
 
   return (
     <>
