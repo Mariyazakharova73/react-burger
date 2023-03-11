@@ -4,7 +4,9 @@
   flex-direction: column;
   align-items: center;
   padding-top: 246px;
+  color: #8585AD;
 }
+
 
 @media screen and (max-width: 1023px) {
   .not-found {
@@ -25,7 +27,6 @@
   font-weight: 400;
   font-size: 140px;
   line-height: 169px;
-  color: var(--text-color);
 }
 
 @media screen and (max-width: 450px) {
@@ -40,7 +41,6 @@
   font-weight: 400;
   font-size: 16px;
   line-height: 19px;
-  color: var(--text-color);
   margin-top: 5px;
   margin-bottom: 184px;
 }
@@ -57,9 +57,8 @@
 .not-found__link {
   margin: 0;
   font-weight: 400;
-  font-size: 14px;
-  line-height: 17px;
-  color: var(--bg-btn)
+  font-size: 20px;
+  color: #801ab3;
 }
 
 @media screen and (max-width: 450px) {

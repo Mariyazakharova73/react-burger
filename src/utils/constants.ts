@@ -246,5 +246,6 @@ export const ENDPOINT_FOR_LOGIN = "auth/login";
 export const ENDPOINT_FOR_REGISTER = "auth/register";
 export const ENDPOINT_FOR_LOGOUT = "auth/logout";
 export const ENDPOINT_FOR_UPDATE_TOKEN = "auth/token";
-
+export const ENDPOINT_FOR_FORGOT_PASSWORD = "password-reset";
+export const ENDPOINT_FOR_RESET_PASSWORD = "password-reset/reset";
 export const REGISTER_USER_SUCCES = "REGISTER_USER_SUCCES";

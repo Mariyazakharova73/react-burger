@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+// @ts-ignore
+import { ReactNotifications } from 'react-notifications-component'
 import { Route, Routes } from "react-router";
 import styles from "./App.module.css";
 import AppHeader from "../AppHeader/AppHeader";
@@ -18,6 +20,8 @@ import ResetPasswordPage from "../../pages/ResetPasswordPage/ResetPasswordPage";
 import ProfilePage from "../../pages/ProfilePage/ProfilePage";
 import IngredientDetailsPage from "../../pages/IngredientDetailsPage/IngredientDetailsPage";
 import NotFoundPage from "../../pages/NotFoundPage/NotFoundPage";
+import 'react-notifications-component/dist/theme.css'
+
 
 const App: React.FC = () => {
   const [isOpenOrder, setIsOpenOrder] = useState(false);
@@ -55,6 +59,7 @@ const App: React.FC = () => {
 
   return (
     <div className={styles.page}>
+      <ReactNotifications />
       <AppHeader />
       <Routes>
         <Route

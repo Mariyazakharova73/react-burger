@@ -46,6 +46,20 @@ export const getRegisterOptions = (name: string, email: string, password: string
   };
 };
 
+export const getLoginOptions = (email: string, password: string) => {
+  return {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      email: email,
+      password: password,
+    }),
+  };
+};
+
 export const getFogotPasswordOptions = (email: string) => {
   return {
     method: "POST",
@@ -55,6 +69,20 @@ export const getFogotPasswordOptions = (email: string) => {
     },
     body: JSON.stringify({
       email: email,
+    }),
+  };
+};
+
+export const getResetPasswordOptions = (password: string, code:string) => {
+  return {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      password: password,
+      token: code
     }),
   };
 };
