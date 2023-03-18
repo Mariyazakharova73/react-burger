@@ -39,3 +39,8 @@
 .form {
   max-width: 480px;
 }
+
+.buttonWrapper {
+  display: flex;
+  justify-content: end;
+}

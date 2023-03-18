@@ -9,9 +9,7 @@ import { Link, useLocation } from "react-router-dom";
 import { IFormProps } from "../../types/types";
 
 export const Form: React.FC<IFormProps> = ({ title, buttonText, handleSubmit, handleChange, values, errors, isValid }) => {
-
   
-
   const { pathname } = useLocation();
 
   const isRegisterPage = pathname === "/register";

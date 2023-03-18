@@ -1,10 +1,8 @@
 import { BASE_URL } from "./constants";
+import { getCookie, setCookie } from "./cookie";
 
 const checkResponse = (res: Response) => {
-  if (res.ok) {
-    return res.json();
-  }
-  return Promise.reject(`Ошибка ${res.status}`);
+  return res.ok ? res.json() : res.json().then((err) => Promise.reject(err));
 };
 
 const checkSuccess = (res: any) => {
@@ -14,7 +12,7 @@ const checkSuccess = (res: any) => {
   return Promise.reject(`Ответ не success: ${res}`);
 };
 
-export const request = (endpoint: RequestInfo | URL, options?: RequestInit) => {
+export const request = (endpoint: RequestInfo | URL, options?: any) => {
   return fetch(`${BASE_URL}${endpoint}`, options).then(checkResponse).then(checkSuccess);
 };
 
@@ -73,7 +71,7 @@ export const getFogotPasswordOptions = (email: string) => {
   };
 };
 
-export const getResetPasswordOptions = (password: string, code:string) => {
+export const getResetPasswordOptions = (password: string, code: string) => {
   return {
     method: "POST",
     headers: {
@@ -82,7 +80,47 @@ export const getResetPasswordOptions = (password: string, code:string) => {
     },
     body: JSON.stringify({
       password: password,
-      token: code
+      token: code,
     }),
+  };
+};
+
+export const getUserOptions = () => {
+  return {
+    method: "GET",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      Authorization: getCookie("accessToken"),
+    },
+  };
+};
+
+export const refreshTokenOptions = () => {
+  return {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      token: localStorage.getItem("refreshToken"),
+    }),
+  };
+};
+
+export const saveTokens = (refreshToken: string, accessToken: string) => {
+  setCookie("accessToken", accessToken);
+  localStorage.setItem("refreshToken", refreshToken);
+};
+
+export const updateUserOptions = () => {
+  return {
+    method: "GET",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      Authorization: getCookie("accessToken"),
+    },
   };
 };

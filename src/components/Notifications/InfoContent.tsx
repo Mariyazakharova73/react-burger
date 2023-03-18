@@ -11,7 +11,7 @@ interface IContentProps {
 export const InfoContent: FC<IContentProps> = ({ notificationConfig }) => {
   return (
     <div className={styles.containerSuccess}>
-      <p className={styles.title}>Успех!</p>
+      <p className={styles.title}>Информация:</p>
       <p className={styles.text}>{notificationConfig.message}</p>
     </div>
   );

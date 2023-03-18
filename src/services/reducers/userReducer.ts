@@ -1,5 +1,5 @@
 import { IUser, requestActionTypes } from "../../types/types";
-import { REGISTER_USER_SUCCES } from "../../utils/constants";
+import { GET_USER_SUCCESS, REGISTER_USER_SUCCES } from "../../utils/constants";
 import { IRequestAction, IRequestFailedAction } from "./ingredientsReducer";
 
 export interface IUserState {
@@ -21,10 +21,16 @@ export interface IRegisterUserSuccessAction {
   payload: IUser;
 }
 
+export interface IGetUserAction {
+  type: typeof GET_USER_SUCCESS;
+  payload: IUser;
+}
+
 export type IRegisterUserAction =
   | IRegisterUserSuccessAction
   | IRequestAction
-  | IRequestFailedAction;
+  | IRequestFailedAction
+  | IGetUserAction;
 
 export const userReducer = (state = initialState, action: IRegisterUserAction) => {
   switch (action.type) {
@@ -38,7 +44,7 @@ export const userReducer = (state = initialState, action: IRegisterUserAction) =
         dataFailed: false,
       };
     }
-    case REGISTER_USER_SUCCES:
+    case GET_USER_SUCCESS:
       return { ...state, user: action.payload, isLoggedIn: true };
 
     case requestActionTypes.GET_DATA_FAILED: {

@@ -21,6 +21,7 @@ import ProfilePage from "../../pages/ProfilePage/ProfilePage";
 import IngredientDetailsPage from "../../pages/IngredientDetailsPage/IngredientDetailsPage";
 import NotFoundPage from "../../pages/NotFoundPage/NotFoundPage";
 import 'react-notifications-component/dist/theme.css'
+import { getUserThunk } from "../../services/actions/userActions";
 
 
 const App: React.FC = () => {
@@ -39,6 +40,7 @@ const App: React.FC = () => {
 
   useEffect(() => {
     dispatch(getDataIngredients());
+    dispatch(getUserThunk());
   }, []);
 
   const handleOpenOrder = () => {
