@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 // @ts-ignore
-import { ReactNotifications } from 'react-notifications-component'
-import { Route, Routes } from "react-router";
+import { ReactNotifications } from "react-notifications-component";
+import { Route, Routes, useLocation, useNavigate } from "react-router";
 import styles from "./App.module.css";
 import AppHeader from "../AppHeader/AppHeader";
 import Modal from "../Modal/Modal";
@@ -20,16 +20,21 @@ import ResetPasswordPage from "../../pages/ResetPasswordPage/ResetPasswordPage";
 import ProfilePage from "../../pages/ProfilePage/ProfilePage";
 import IngredientDetailsPage from "../../pages/IngredientDetailsPage/IngredientDetailsPage";
 import NotFoundPage from "../../pages/NotFoundPage/NotFoundPage";
-import 'react-notifications-component/dist/theme.css'
+import "react-notifications-component/dist/theme.css";
 import { getUserThunk } from "../../services/actions/userActions";
-
+import { getCookie } from "../../utils/cookie";
+import { ProtectedRoute } from "../../HOC/ProtectedRoute";
 
 const App: React.FC = () => {
   const [isOpenOrder, setIsOpenOrder] = useState(false);
   const [isOpenIngredient, setIsOpenIngredient] = useState(false);
   const dispatch = useAppDispatch();
+  const location = useLocation();
+  let background = location.state && location.state.background;
   const ingredientsForBurger = useTypedSelector((state) => state.buy.ingredientsForBurger);
   const bun = useTypedSelector((state) => state.buy.bun);
+  const { isLoggedIn } = useTypedSelector((state) => state.user);
+  console.log(isLoggedIn);
 
   const arrIdWithBuns = React.useMemo(() => {
     const arrId = ingredientsForBurger.map((item) => {
@@ -40,8 +45,10 @@ const App: React.FC = () => {
 
   useEffect(() => {
     dispatch(getDataIngredients());
-    dispatch(getUserThunk());
-  }, []);
+    if (getCookie("accessToken")) {
+      dispatch(getUserThunk()); // загружаем пользователя
+    }
+  }, [isLoggedIn]);
 
   const handleOpenOrder = () => {
     setIsOpenOrder(true);
@@ -63,7 +70,7 @@ const App: React.FC = () => {
     <div className={styles.page}>
       <ReactNotifications />
       <AppHeader />
-      <Routes>
+      <Routes location={background || location}>
         <Route
           path="/"
           element={
@@ -73,13 +80,48 @@ const App: React.FC = () => {
             />
           }
         />
-        <Route path="/register" element={<RegisterPage />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/forgot-password" element={<FogotPasswordPage />} />
-        <Route path="/reset-password" element={<ResetPasswordPage />} />
-        <Route path="/profile" element={<ProfilePage />} />
+        <Route
+          path="/register"
+          element={
+            <ProtectedRoute onlyUnAuth>
+              <RegisterPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/login"
+          element={
+            <ProtectedRoute onlyUnAuth>
+              <LoginPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/forgot-password"
+          element={
+            <ProtectedRoute onlyUnAuth>
+              <FogotPasswordPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/reset-password"
+          element={
+            <ProtectedRoute onlyUnAuth>
+              <ResetPasswordPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/profile"
+          element={
+            <ProtectedRoute>
+              <ProfilePage />
+            </ProtectedRoute>
+          }
+        />
         <Route path="/ingredients/:id" element={<IngredientDetailsPage />} />
-        <Route path="*" element={<NotFoundPage/>} />
+        <Route path="*" element={<NotFoundPage />} />
       </Routes>
 
       {isOpenIngredient && (

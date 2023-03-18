@@ -1,19 +1,22 @@
 import { AnyAction } from "redux";
 import { ThunkAction } from "redux-thunk";
 import { RootState } from "../index";
-import { IUser, requestActionTypes } from "../../types/types";
+import { IUser, requestActionTypes, updateUserActionTypes } from "../../types/types";
 import {
   ENDPOINT_FOR_LOGIN,
+  ENDPOINT_FOR_LOGOUT,
   ENDPOINT_FOR_REGISTER,
   ENDPOINT_FOR_TOKEN,
   ENDPOINT_FOR_USER,
   GET_USER_SUCCESS,
   REGISTER_USER_SUCCES,
+  REMOVE_USER,
 } from "../../utils/constants";
 import {
   getLoginOptions,
   getRegisterOptions,
   getUserOptions,
+  logoutOptions,
   refreshTokenOptions,
   request,
   saveTokens,
@@ -33,6 +36,7 @@ export function getDataFailed() {
   };
 }
 
+// регистрация и авторизация
 export function registerUser() {
   return {
     type: REGISTER_USER_SUCCES,
@@ -46,6 +50,31 @@ export function getUser(user: IUser) {
   };
 }
 
+export function updateUser(user: IUser) {
+  return {
+    type: updateUserActionTypes.UPDATE_USER_SUCCESS,
+    payload: user,
+  };
+}
+
+export function updateUserRequest() {
+  return {
+    type: updateUserActionTypes.UPDATE_USER_REQUEST,
+  };
+}
+
+export function updateUserFailed() {
+  return {
+    type: updateUserActionTypes.UPDATE_USER_FAILED,
+  };
+}
+
+export function logout() {
+  return {
+    type: REMOVE_USER,
+  };
+}
+
 type ThunkActionType = ThunkAction<void, RootState, unknown, AnyAction>;
 
 export const registerUserThunk = (
@@ -54,7 +83,7 @@ export const registerUserThunk = (
   password: string
 ): ThunkActionType => {
   return (dispatch) => {
-    dispatch(getData); // начало выполенния запроса
+    dispatch(getData());
     request(ENDPOINT_FOR_REGISTER, getRegisterOptions(name, email, password))
       .then((res) => {
         InfoNotification("Вы успешно зарегистрированы!");
@@ -64,8 +93,7 @@ export const registerUserThunk = (
       })
       .catch((err) => {
         ErrorNotification("Ошибка при регистрации!");
-        // Если сервер не вернул данных, отправляем экшен об ошибке
-        dispatch(getDataFailed);
+        dispatch(getDataFailed());
         console.log(err);
       });
   };
@@ -73,19 +101,16 @@ export const registerUserThunk = (
 
 export const authorizeUserThunk = (email: string, password: string): ThunkActionType => {
   return (dispatch) => {
-    dispatch(getData); // начало выполенния запроса
+    dispatch(getData());
     request(ENDPOINT_FOR_LOGIN, getLoginOptions(email, password))
       .then((res) => {
         InfoNotification("Вы успешно авторизованы!");
-        // такой же Action Creator как и при регистрации
         dispatch(registerUser());
-        console.log(res);
         saveTokens(res.refreshToken, res.accessToken);
       })
       .catch((err) => {
         ErrorNotification("Ошибка при входе в профиль!");
-        // Если сервер не вернул данных, отправляем экшен об ошибке
-        dispatch(getDataFailed);
+        dispatch(getDataFailed());
         console.log(err);
       });
   };
@@ -93,7 +118,7 @@ export const authorizeUserThunk = (email: string, password: string): ThunkAction
 
 export const getUserThunk = (): ThunkActionType => {
   return (dispatch) => {
-    dispatch(getData); // начало выполенния запроса
+    dispatch(getData());
     request(ENDPOINT_FOR_USER, getUserOptions())
       .then((res) => {
         InfoNotification("Получены данные профиля!");
@@ -106,43 +131,60 @@ export const getUserThunk = (): ThunkActionType => {
           dispatch(refreshTokenThunk(getData()));
         } else {
           ErrorNotification("Ошибка при получении данных профиля!");
-          // Если сервер не вернул данных, отправляем экшен об ошибке
-          dispatch(getDataFailed);
+          dispatch(getDataFailed());
         }
       });
   };
 };
 
-export const refreshTokenThunk = (afterRefresh: any): ThunkActionType => {
+export const refreshTokenThunk = (action: any): ThunkActionType => {
   return (dispatch) => {
-    dispatch(getData); // начало выполенния запроса
+    dispatch(getData());
     request(ENDPOINT_FOR_TOKEN, refreshTokenOptions())
       .then((res) => {
         InfoNotification("Токен обновлен!");
         saveTokens(res.refreshToken, res.accessToken);
-        dispatch(afterRefresh);
+        dispatch(action);
       })
       .catch((err) => {
-        ErrorNotification("Произошла ошибка при обновлении токена!");
         console.log(err);
-        dispatch(getDataFailed);
+        ErrorNotification("Произошла ошибка при обновлении токена!");
+        dispatch(getDataFailed());
       });
   };
 };
 
-export const updatetUserThunk = (): ThunkActionType => {
+export const updatetUserThunk = (user: IUser): ThunkActionType => {
   return (dispatch) => {
-    dispatch(getData); // начало выполенния запроса
-    request(ENDPOINT_FOR_USER, updateUserOptions())
+    console.log("user", user);
+    dispatch(updateUserRequest());
+    request(ENDPOINT_FOR_USER, updateUserOptions(user))
       .then((res) => {
+        console.log("RES user", res.user);
         InfoNotification("Данные профиля успешно обновлены!");
-        dispatch(getUser(res.user));
+        dispatch(updateUser(res.user));
       })
       .catch((err) => {
         console.log(err);
         ErrorNotification("Ошибка при обновлении данных профиля!");
-        // Если сервер не вернул данных, отправляем экшен об ошибке
-        dispatch(getDataFailed);
+        dispatch(updateUserFailed());
+      });
+  };
+};
+
+export const logoutThunk = (): ThunkActionType => {
+  return (dispatch) => {
+    dispatch(getData());
+    request(ENDPOINT_FOR_LOGOUT, logoutOptions())
+      .then(() => {
+        InfoNotification("Вы вышли из профиля");
+        dispatch(logout());
+        saveTokens("", "");
+      })
+      .catch((err) => {
+        console.log(err);
+        ErrorNotification("Ошибка выхода из профиля!");
+        dispatch(getDataFailed());
       });
   };
 };

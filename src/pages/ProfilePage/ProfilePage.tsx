@@ -1,13 +1,15 @@
 import { Button, Input } from "@ya.praktikum/react-developer-burger-ui-components";
 import React, { FormEvent, useEffect } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import styles from "../ProfilePage/ProfilePage.module.css";
 import cn from "classnames";
 import { useFormAndValidation } from "../../hooks/useFormAndValidation";
 import { useTypedSelector } from "../../hooks/useTypedSelector";
 import { useAppDispatch } from "../../hooks/useAppDispatch";
+import { logoutThunk, updatetUserThunk } from "../../services/actions/userActions";
 
 const ProfilePage: React.FC = () => {
+  const navigate = useNavigate();
   const [buttonVisible, setButtonVisible] = React.useState(false);
   const [fieldEditing, setFieldEditing] = React.useState({
     name: false,
@@ -21,7 +23,8 @@ const ProfilePage: React.FC = () => {
 
   const handleSubmit = (evt: FormEvent) => {
     evt.preventDefault();
-    //dispatch(setUser(values));
+    dispatch(updatetUserThunk(values));
+    setButtonVisible((prev) => !prev);
   };
 
   const handleBlur = () => {
@@ -32,7 +35,7 @@ const ProfilePage: React.FC = () => {
     if (isLoggedIn) {
       setValues({ name: user?.name, email: user?.email, password: "******" });
     }
-  }, [isLoggedIn]);
+  }, [isLoggedIn, user]);
 
   useEffect(() => {
     const handleChangeValue = () => {
@@ -47,6 +50,20 @@ const ProfilePage: React.FC = () => {
       handleChangeValue();
     }
   }, [values]);
+
+  const resetChange = () => {
+    setValues({
+      name: user?.name,
+      email: user?.email,
+      password: "******",
+    });
+    setErrors({});
+  };
+
+  const handleLogout = () => {
+    dispatch(logoutThunk());
+    navigate("/");
+  };
 
   return (
     <main className={styles.wrapper}>
@@ -72,6 +89,7 @@ const ProfilePage: React.FC = () => {
         <button
           className={cn(styles.button, "text text_type_main-medium text_color_inactive")}
           type="button"
+          onClick={handleLogout}
         >
           <p>Выход</p>
         </button>
@@ -137,11 +155,11 @@ const ProfilePage: React.FC = () => {
         {buttonVisible && (
           <div className={styles.buttonWrapper}>
             <Button
-              // onClick={}
               htmlType="button"
               type="secondary"
               size="medium"
               extraClass="mt-6"
+              onClick={resetChange}
             >
               Отмена
             </Button>
@@ -162,3 +180,6 @@ const ProfilePage: React.FC = () => {
 };
 
 export default ProfilePage;
+function setErrors(arg0: {}) {
+  throw new Error("Function not implemented.");
+}

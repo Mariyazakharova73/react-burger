@@ -113,3 +113,9 @@ export interface IUser {
   email: string;
   password: string;
 }
+
+export enum updateUserActionTypes {
+  UPDATE_USER_REQUEST = "UPDATE_USER_REQUEST",
+  UPDATE_USER_SUCCESS = "UPDATE_USER_SUCCESS",
+  UPDATE_USER_FAILED = "UPDATE_USER_FAILED",
+}

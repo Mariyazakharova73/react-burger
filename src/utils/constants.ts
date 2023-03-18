@@ -252,3 +252,4 @@ export const ENDPOINT_FOR_FORGOT_PASSWORD = "password-reset";
 export const ENDPOINT_FOR_RESET_PASSWORD = "password-reset/reset";
 export const REGISTER_USER_SUCCES = "REGISTER_USER_SUCCES";
 export const GET_USER_SUCCESS = "GET_USER_SUCCESS";
+export const REMOVE_USER = "REMOVE_USER";

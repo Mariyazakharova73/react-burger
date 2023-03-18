@@ -1,5 +1,5 @@
-import React, { FormEvent } from "react";
-import { useNavigate } from "react-router";
+import React, { FormEvent, useEffect } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import Form from "../../components/Form/Form";
 import { ErrorNotification, InfoNotification } from "../../components/Notifications/Notification";
 import { useFormAndValidation } from "../../hooks/useFormAndValidation";
@@ -8,6 +8,7 @@ import { getResetPasswordOptions, request } from "../../utils/request";
 
 const ResetPasswordPage: React.FC = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const { values, handleChange, errors, isValid } = useFormAndValidation();
 
   const handleSubmit = (evt: FormEvent) => {
@@ -18,10 +19,16 @@ const ResetPasswordPage: React.FC = () => {
         navigate("/login");
       })
       .catch((err) => {
-        ErrorNotification("Произошла ошибка! Пропробуйте снова!");
+        ErrorNotification("Произошла ошибка при изменении пароля!");
         console.log(err);
       });
   };
+
+  useEffect(() => {
+    if (location.state !== "/forgot-password") {
+      navigate("/");
+    }
+  }, [navigate, location.state]);
 
   return (
     <main>

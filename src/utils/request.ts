@@ -1,3 +1,4 @@
+import { IUser } from "./../types/types";
 import { BASE_URL } from "./constants";
 import { getCookie, setCookie } from "./cookie";
 
@@ -114,13 +115,29 @@ export const saveTokens = (refreshToken: string, accessToken: string) => {
   localStorage.setItem("refreshToken", refreshToken);
 };
 
-export const updateUserOptions = () => {
+export const updateUserOptions = (user: IUser) => {
   return {
-    method: "GET",
+    method: "PATCH",
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
       Authorization: getCookie("accessToken"),
     },
+    body: JSON.stringify({
+      user,
+    }),
+  };
+};
+
+export const logoutOptions = () => {
+  return {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      token: localStorage.getItem("refreshToken"),
+    }),
   };
 };
