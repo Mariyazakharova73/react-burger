@@ -7,8 +7,9 @@ import { useFormAndValidation } from "../../hooks/useFormAndValidation";
 import { useTypedSelector } from "../../hooks/useTypedSelector";
 import { useAppDispatch } from "../../hooks/useAppDispatch";
 import { logoutThunk, updatetUserThunk } from "../../services/actions/userActions";
+import { MAIN_PATH, PROFILE_ORDERS_PATH, PROFILE_PATH } from "../../utils/constants";
 
-const ProfilePage: React.FC = () => {
+const ProfilePage: React.FC<any> = ({ children }) => {
   const navigate = useNavigate();
   const [buttonVisible, setButtonVisible] = React.useState(false);
   const [fieldEditing, setFieldEditing] = React.useState({
@@ -62,7 +63,7 @@ const ProfilePage: React.FC = () => {
 
   const handleLogout = () => {
     dispatch(logoutThunk());
-    navigate("/");
+    navigate(MAIN_PATH);
   };
 
   return (
@@ -75,12 +76,12 @@ const ProfilePage: React.FC = () => {
                 [styles.selected]: isActive,
               })
             }
-            to="/profile"
+            to={PROFILE_PATH}
           >
             <p>Профиль</p>
           </NavLink>
           <NavLink
-            to="/profile/orders"
+            to={PROFILE_ORDERS_PATH}
             className={cn(styles.link, "text text_type_main-medium text_color_inactive")}
           >
             <p>История заказов</p>

@@ -111,3 +111,9 @@ export enum updateUserActionTypes {
   UPDATE_USER_SUCCESS = "UPDATE_USER_SUCCESS",
   UPDATE_USER_FAILED = "UPDATE_USER_FAILED",
 }
+
+export interface ICookieProps {
+  path?: string;
+  expires?: Date | string | number | any;
+  [propName: string]: any;
+}

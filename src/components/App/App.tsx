@@ -24,6 +24,19 @@ import { getUserThunk } from "../../services/actions/userActions";
 import { getCookie } from "../../utils/cookie";
 import { ProtectedRoute } from "../../HOC/ProtectedRoute";
 import OrderPage from "../../pages/OrderPage/OrderPage";
+import HistoryOfOrdersPage from "../../pages/HistoryOfOrdersPage/HistoryOfOrdersPage";
+import {
+  ERROR_PATH,
+  FORGOT_PASSWORD_PATH,
+  INGREDIENT_PATH,
+  LOGIN_PATH,
+  MAIN_PATH,
+  ORDERS_PATH,
+  PROFILE_ORDERS_PATH,
+  PROFILE_PATH,
+  REGISTER_PATH,
+  RESET_PASSWORD_PATH,
+} from "../../utils/constants";
 
 const App: React.FC = () => {
   const [isOpenOrder, setIsOpenOrder] = useState(false);
@@ -54,7 +67,7 @@ const App: React.FC = () => {
       dispatch(getDataOrder(arrIdWithBuns));
       setIsOpenOrder(true);
     } else {
-      navigate("/login");
+      navigate(LOGIN_PATH);
     }
   };
 
@@ -72,9 +85,9 @@ const App: React.FC = () => {
       <ReactNotifications />
       <AppHeader />
       <Routes location={background || location}>
-        <Route path="/" element={<MainPage handleOpenOrder={handleOpenOrder} />} />
+        <Route path={MAIN_PATH} element={<MainPage handleOpenOrder={handleOpenOrder} />} />
         <Route
-          path="/register"
+          path={REGISTER_PATH}
           element={
             <ProtectedRoute onlyUnAuth>
               <RegisterPage />
@@ -82,7 +95,7 @@ const App: React.FC = () => {
           }
         />
         <Route
-          path="/login"
+          path={LOGIN_PATH}
           element={
             <ProtectedRoute onlyUnAuth>
               <LoginPage />
@@ -90,7 +103,7 @@ const App: React.FC = () => {
           }
         />
         <Route
-          path="/forgot-password"
+          path={FORGOT_PASSWORD_PATH}
           element={
             <ProtectedRoute onlyUnAuth>
               <FogotPasswordPage />
@@ -98,7 +111,7 @@ const App: React.FC = () => {
           }
         />
         <Route
-          path="/reset-password"
+          path={RESET_PASSWORD_PATH}
           element={
             <ProtectedRoute onlyUnAuth>
               <ResetPasswordPage />
@@ -106,7 +119,7 @@ const App: React.FC = () => {
           }
         />
         <Route
-          path="/profile"
+          path={PROFILE_PATH}
           element={
             <ProtectedRoute>
               <ProfilePage />
@@ -114,7 +127,15 @@ const App: React.FC = () => {
           }
         />
         <Route
-          path="/orders"
+          path={PROFILE_ORDERS_PATH}
+          element={
+            <ProtectedRoute>
+              <HistoryOfOrdersPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path={ORDERS_PATH}
           element={
             <ProtectedRoute>
               <OrderPage />
@@ -122,20 +143,20 @@ const App: React.FC = () => {
           }
         />
         <Route
-          path="/ingredients/:ingredientId"
+          path={INGREDIENT_PATH}
           element={
             <IngredientDetailsPage>
               <IngredientDetails />
             </IngredientDetailsPage>
           }
         />
-        <Route path="*" element={<NotFoundPage />} />
+        <Route path={ERROR_PATH} element={<NotFoundPage />} />
       </Routes>
 
       {background && (
         <Routes>
           <Route
-            path="/ingredients/:ingredientId"
+            path={INGREDIENT_PATH}
             element={
               <Modal onClose={handleClose} title="Детали ингредиента">
                 <IngredientDetails />

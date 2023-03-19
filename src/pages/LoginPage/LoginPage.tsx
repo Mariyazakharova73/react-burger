@@ -5,6 +5,7 @@ import { useAppDispatch } from "../../hooks/useAppDispatch";
 import { useFormAndValidation } from "../../hooks/useFormAndValidation";
 import { useTypedSelector } from "../../hooks/useTypedSelector";
 import { authorizeUserThunk } from "../../services/actions/userActions";
+import { MAIN_PATH } from "../../utils/constants";
 
 const LoginPage: React.FC = () => {
   const { values, handleChange, errors, isValid } = useFormAndValidation();
@@ -15,7 +16,7 @@ const LoginPage: React.FC = () => {
     evt.preventDefault();
     dispatch(authorizeUserThunk(values.email, values.password));
     if (isLoggedIn) {
-      navigate("/");
+      navigate(MAIN_PATH);
     }
   };
 

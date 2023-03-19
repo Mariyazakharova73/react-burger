@@ -5,6 +5,7 @@ import { useAppDispatch } from "../../hooks/useAppDispatch";
 import { useFormAndValidation } from "../../hooks/useFormAndValidation";
 import { useTypedSelector } from "../../hooks/useTypedSelector";
 import { registerUserThunk } from "../../services/actions/userActions";
+import { MAIN_PATH } from "../../utils/constants";
 
 const RegisterPage: React.FC = () => {
   const { values, handleChange, errors, isValid } = useFormAndValidation();
@@ -15,7 +16,7 @@ const RegisterPage: React.FC = () => {
     evt.preventDefault();
     dispatch(registerUserThunk(values.name, values.email, values.password));
     if (isLoggedIn) {
-      navigate("/");
+      navigate(MAIN_PATH);
     }
   };
 

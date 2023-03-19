@@ -1,4 +1,6 @@
-export function setCookie(name: string, value: string, props?: any) {
+import { ICookieProps } from "../types/types";
+
+export function setCookie(name: string, value: string, props?: ICookieProps) {
   props = props || {};
   let exp = props.expires;
   if (typeof exp == "number" && exp) {

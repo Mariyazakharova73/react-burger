@@ -8,6 +8,7 @@ import {
 import styles from "./AppHeader.module.css";
 import { Link } from "react-router-dom";
 import cn from "classnames";
+import { MAIN_PATH, ORDERS_PATH, PROFILE_PATH, PROFILE_ORDERS_PATH } from "../../utils/constants";
 
 const AppHeader = () => {
   const { pathname } = useLocation();
@@ -17,11 +18,11 @@ const AppHeader = () => {
         <nav>
           <ul className={styles.list}>
             <li>
-              <Link className={styles.link} to="/">
-                <BurgerIcon type={pathname === "/" ? "primary" : "secondary"} />
+              <Link className={styles.link} to={MAIN_PATH}>
+                <BurgerIcon type={pathname === MAIN_PATH ? "primary" : "secondary"} />
                 <p
                   className={cn("text text_type_main-default text_color_inactive", {
-                    [styles.active]: pathname === "/",
+                    [styles.active]: pathname === MAIN_PATH,
                   })}
                 >
                   Конструктор
@@ -29,11 +30,11 @@ const AppHeader = () => {
               </Link>
             </li>
             <li>
-              <Link className={styles.link} to="/orders">
-                <ListIcon type={pathname === "/orders" ? "primary" : "secondary"} />
+              <Link className={styles.link} to={ORDERS_PATH}>
+                <ListIcon type={pathname === ORDERS_PATH ? "primary" : "secondary"} />
                 <p
                   className={cn("text text_type_main-default text_color_inactive", {
-                    [styles.active]: pathname === "/orders",
+                    [styles.active]: pathname === ORDERS_PATH,
                   })}
                 >
                   Лента заказов
@@ -42,13 +43,19 @@ const AppHeader = () => {
             </li>
           </ul>
         </nav>
-        <Logo className="ml-33 mr-72" />
+        <Link to={MAIN_PATH}>
+          <Logo className="ml-33 mr-72" />
+        </Link>
       </div>
-      <Link className={styles.link} to="/profile">
-        <ProfileIcon type={pathname === "/profile" ? "primary" : "secondary"} />
+      <Link className={styles.link} to={PROFILE_PATH}>
+        <ProfileIcon
+          type={
+            pathname === PROFILE_PATH || pathname === PROFILE_ORDERS_PATH ? "primary" : "secondary"
+          }
+        />
         <p
           className={cn("text text_type_main-default text_color_inactive", {
-            [styles.active]: pathname === "/profile",
+            [styles.active]: pathname === PROFILE_PATH || pathname === PROFILE_ORDERS_PATH,
           })}
         >
           Личный кабинет

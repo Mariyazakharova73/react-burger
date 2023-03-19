@@ -40,3 +40,14 @@ export const ENDPOINT_FOR_RESET_PASSWORD = "password-reset/reset";
 export const REGISTER_USER_SUCCES = "REGISTER_USER_SUCCES";
 export const GET_USER_SUCCESS = "GET_USER_SUCCESS";
 export const REMOVE_USER = "REMOVE_USER";
+
+export const MAIN_PATH ="/"
+export const REGISTER_PATH ="/register"
+export const LOGIN_PATH ="/login"
+export const FORGOT_PASSWORD_PATH ="/forgot-password"
+export const RESET_PASSWORD_PATH ="/reset-password"
+export const PROFILE_PATH ="/profile"
+export const PROFILE_ORDERS_PATH ="/profile/orders"
+export const ORDERS_PATH ="/orders"
+export const INGREDIENT_PATH ="/ingredients/:ingredientId"
+export const ERROR_PATH ="*"

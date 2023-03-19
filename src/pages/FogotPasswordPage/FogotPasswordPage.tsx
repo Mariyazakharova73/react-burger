@@ -2,7 +2,7 @@ import { getFogotPasswordOptions, request } from "../../utils/request";
 import React, { FormEvent } from "react";
 import { Form } from "../../components/Form/Form";
 import { useFormAndValidation } from "../../hooks/useFormAndValidation";
-import { ENDPOINT_FOR_FORGOT_PASSWORD } from "../../utils/constants";
+import { ENDPOINT_FOR_FORGOT_PASSWORD, FORGOT_PASSWORD_PATH, MAIN_PATH, RESET_PASSWORD_PATH } from "../../utils/constants";
 import { Navigate, useNavigate } from "react-router";
 import { ErrorNotification, InfoNotification } from "../../components/Notifications/Notification";
 import { useTypedSelector } from "../../hooks/useTypedSelector";
@@ -17,7 +17,7 @@ const FogotPasswordPage: React.FC = () => {
     request(ENDPOINT_FOR_FORGOT_PASSWORD, getFogotPasswordOptions(values.email))
       .then(() => {
         InfoNotification("Вам на почту отправлено письмо с кодом подтверждения!");
-        navigate("/reset-password", { state: "/forgot-password" });
+        navigate(RESET_PASSWORD_PATH, { state: FORGOT_PASSWORD_PATH });
       })
       .catch((err) => {
         ErrorNotification("Произошла ошибка при восстановлении пароля!");
@@ -26,7 +26,7 @@ const FogotPasswordPage: React.FC = () => {
   };
 
   if (isLoggedIn) {
-    return <Navigate to={"/"} replace />;
+    return <Navigate to={MAIN_PATH} replace />;
   }
 
   return (

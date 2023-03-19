@@ -157,15 +157,20 @@ export const refreshTokenThunk = (action: any): ThunkActionType => {
 export const updatetUserThunk = (user: IUser): ThunkActionType => {
   return (dispatch) => {
     dispatch(updateUserRequest());
-    request(ENDPOINT_FOR_USER, updateUserOptions({ name: user.name, email: user.email }))
+    request(ENDPOINT_FOR_USER, updateUserOptions(user))
       .then((res) => {
         InfoNotification("Данные профиля успешно обновлены!");
         dispatch(updateUser(res.user));
       })
       .catch((err) => {
         console.log(err);
-        ErrorNotification("Ошибка при обновлении данных профиля!");
-        dispatch(updateUserFailed());
+        if (err.message === "jwt expired") {
+          ErrorNotification("Токен просрочен!");
+          dispatch(refreshTokenThunk(updateUserRequest()));
+        } else {
+          ErrorNotification("Ошибка при обновлении данных профиля!");
+          dispatch(getDataFailed());
+        }
       });
   };
 };

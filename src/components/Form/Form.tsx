@@ -4,6 +4,7 @@ import cn from "classnames";
 import styles from "../Form/Form.module.css";
 import { Link, useLocation } from "react-router-dom";
 import { IFormProps } from "../../types/types";
+import { FORGOT_PASSWORD_PATH, LOGIN_PATH, REGISTER_PATH, RESET_PASSWORD_PATH,  } from "../../utils/constants";
 
 export const Form: React.FC<IFormProps> = ({
   title,
@@ -16,10 +17,11 @@ export const Form: React.FC<IFormProps> = ({
 }) => {
   const { pathname } = useLocation();
 
-  const isRegisterPage = pathname === "/register";
-  const isLoginPage = pathname === "/login";
-  const isFogotPasswordPage = pathname === "/forgot-password";
-  const isResetPasswordPage = pathname === "/reset-password";
+  const isRegisterPage = pathname === REGISTER_PATH;
+  const isLoginPage = pathname === LOGIN_PATH
+  ;
+  const isFogotPasswordPage = pathname === FORGOT_PASSWORD_PATH;
+  const isResetPasswordPage = pathname === RESET_PASSWORD_PATH;
 
   return (
     <>
@@ -100,7 +102,7 @@ export const Form: React.FC<IFormProps> = ({
       {isRegisterPage && (
         <div className={cn(styles.wrapper, "mt-20")}>
           <p className="text text_type_main-default text_color_inactive">Уже зарегистрированы?</p>
-          <Link className={styles.link} to="/login">
+          <Link className={styles.link} to={LOGIN_PATH}>
             Войти
           </Link>
         </div>
@@ -112,13 +114,13 @@ export const Form: React.FC<IFormProps> = ({
             <p className="text text_type_main-default text_color_inactive">
               Вы - новый пользователь?
             </p>
-            <Link className={styles.link} to="/register">
+            <Link className={styles.link} to={REGISTER_PATH}>
               Зарегистрироваться
             </Link>
           </div>
           <div className={cn(styles.wrapper, "mt-4")}>
             <p className="text text_type_main-default text_color_inactive">Забыли пароль?</p>
-            <Link className={styles.link} to="/forgot-password">
+            <Link className={styles.link} to={FORGOT_PASSWORD_PATH}>
               Восстановить пароль
             </Link>
           </div>
@@ -127,7 +129,7 @@ export const Form: React.FC<IFormProps> = ({
       {isFogotPasswordPage || isResetPasswordPage ? (
         <div className={cn(styles.wrapper, "mt-20")}>
           <p className="text text_type_main-default text_color_inactive">Вспомнили пароль?</p>
-          <Link className={styles.link} to="/login">
+          <Link className={styles.link} to={LOGIN_PATH}>
             Войти
           </Link>
         </div>
