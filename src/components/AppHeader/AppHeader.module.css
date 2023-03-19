@@ -27,6 +27,9 @@
   justify-content: center;
   align-items: center;
   gap: 8px;
-  color: var(--text-color);
   text-decoration: none;
+}
+
+.active {
+  color: var(--text-color);
 }

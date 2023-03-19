@@ -1,14 +1,18 @@
-import React, { useMemo } from "react";
+import React, { useEffect, useMemo } from "react";
 import { ICardProps } from "../../types/types";
 import styles from "./Card.module.css";
 import { Counter, CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import cn from "classnames";
 import { useDrag } from "react-dnd";
 import { useTypedSelector } from "../../hooks/useTypedSelector";
+import { Link, useLocation } from "react-router-dom";
+import { getCard } from "../../services/actions/actions";
+import { useAppDispatch } from "../../hooks/useAppDispatch";
 
-const Card: React.FC<ICardProps> = ({ item, handleOpenIngredient }) => {
-  const { name, calories, proteins, fat, carbohydrates, image_large } = item;
-
+const Card: React.FC<ICardProps> = ({ item }) => {
+  const { name, calories, proteins, fat, carbohydrates, image_large, _id } = item;
+  const location = useLocation();
+  const dispatch = useAppDispatch();
   const ingredientsForBurger = useTypedSelector((state) => state.buy.ingredientsForBurger);
   const bun = useTypedSelector((state) => state.buy.bun);
 
@@ -28,7 +32,7 @@ const Card: React.FC<ICardProps> = ({ item, handleOpenIngredient }) => {
   };
 
   const handleClick = () => {
-    handleOpenIngredient(dataForModal);
+    dispatch(getCard(dataForModal));
   };
 
   // opacity - возвращается из функции collect
@@ -44,18 +48,25 @@ const Card: React.FC<ICardProps> = ({ item, handleOpenIngredient }) => {
   });
 
   return (
-    <li ref={dragRef} style={{ opacity }} className={styles.item} onClick={handleClick}>
-      <Counter
-        count={item.type === "bun" ? (item._id === bun._id ? 2 : 0) : count}
-        size="default"
-      />
-      <img src={item.image} alt={`${item.name}.`} />
-      <div className={cn("mt-2 text text_type_digits-default", styles.price)}>
-        {item.price}
-        <CurrencyIcon type="primary" />
-      </div>
-      <h3 className={cn("mt-2 text text_type_main-default", styles.title)}>{item.name}</h3>
-    </li>
+    <Link
+      key={_id}
+      to={`/ingredients/${_id}`}
+      state={{ background: location }}
+      className={cn("", styles.link)}
+    >
+      <li ref={dragRef} style={{ opacity }} className={styles.item} onClick={handleClick}>
+        <Counter
+          count={item.type === "bun" ? (item._id === bun._id ? 2 : 0) : count}
+          size="default"
+        />
+        <img src={item.image} alt={`${item.name}.`} />
+        <div className={cn("mt-2 text text_type_digits-default", styles.price)}>
+          {item.price}
+          <CurrencyIcon type="primary" />
+        </div>
+        <h3 className={cn("mt-2 text text_type_main-default", styles.title)}>{item.name}</h3>
+      </li>
+    </Link>
   );
 };
 

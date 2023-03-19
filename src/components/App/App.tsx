@@ -7,8 +7,7 @@ import AppHeader from "../AppHeader/AppHeader";
 import Modal from "../Modal/Modal";
 import OrderDetails from "../OrderDetails/OrderDetails";
 import IngredientDetails from "../IngredientDetails/IngredientDetails";
-import { IIngredientDetails } from "../../types/types";
-import { getCard, deleteCard } from "../../services/actions/actions";
+import { deleteCard } from "../../services/actions/actions";
 import { getDataIngredients, getDataOrder } from "../../services/actions/actions";
 import { useAppDispatch } from "../../hooks/useAppDispatch";
 import { useTypedSelector } from "../../hooks/useTypedSelector";
@@ -27,14 +26,14 @@ import { ProtectedRoute } from "../../HOC/ProtectedRoute";
 
 const App: React.FC = () => {
   const [isOpenOrder, setIsOpenOrder] = useState(false);
-  const [isOpenIngredient, setIsOpenIngredient] = useState(false);
   const dispatch = useAppDispatch();
   const location = useLocation();
+  const navigate = useNavigate();
   let background = location.state && location.state.background;
   const ingredientsForBurger = useTypedSelector((state) => state.buy.ingredientsForBurger);
   const bun = useTypedSelector((state) => state.buy.bun);
   const { isLoggedIn } = useTypedSelector((state) => state.user);
-  console.log(isLoggedIn);
+  console.log("isLoggedIn:", isLoggedIn);
 
   const arrIdWithBuns = React.useMemo(() => {
     const arrId = ingredientsForBurger.map((item) => {
@@ -51,19 +50,18 @@ const App: React.FC = () => {
   }, [isLoggedIn]);
 
   const handleOpenOrder = () => {
-    setIsOpenOrder(true);
-    dispatch(getDataOrder(arrIdWithBuns));
-  };
-
-  const handleOpenIngredient = (data: IIngredientDetails) => {
-    dispatch(getCard(data));
-    setIsOpenIngredient(true);
+    if (isLoggedIn) {
+      dispatch(getDataOrder(arrIdWithBuns));
+      setIsOpenOrder(true);
+    } else {
+      navigate("/login");
+    }
   };
 
   const handleClose = () => {
-    setIsOpenOrder(false);
-    setIsOpenIngredient(false);
+    navigate(-1);
     dispatch(deleteCard());
+    setIsOpenOrder(false);
   };
 
   return (
@@ -71,15 +69,7 @@ const App: React.FC = () => {
       <ReactNotifications />
       <AppHeader />
       <Routes location={background || location}>
-        <Route
-          path="/"
-          element={
-            <MainPage
-              handleOpenOrder={handleOpenOrder}
-              handleOpenIngredient={handleOpenIngredient}
-            />
-          }
-        />
+        <Route path="/" element={<MainPage handleOpenOrder={handleOpenOrder} />} />
         <Route
           path="/register"
           element={
@@ -120,14 +110,28 @@ const App: React.FC = () => {
             </ProtectedRoute>
           }
         />
-        <Route path="/ingredients/:id" element={<IngredientDetailsPage />} />
+        <Route
+          path="/ingredients/:ingredientId"
+          element={
+            <IngredientDetailsPage>
+              <IngredientDetails />
+            </IngredientDetailsPage>
+          }
+        />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
 
-      {isOpenIngredient && (
-        <Modal onClose={handleClose} title="Детали ингредиента">
-          <IngredientDetails />
-        </Modal>
+      {background && (
+        <Routes>
+          <Route
+            path="/ingredients/:ingredientId"
+            element={
+              <Modal onClose={handleClose} title="Детали ингредиента">
+                <IngredientDetails />
+              </Modal>
+            }
+          />
+        </Routes>
       )}
       {isOpenOrder && (
         <Modal onClose={handleClose}>

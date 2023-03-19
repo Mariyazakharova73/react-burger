@@ -11,7 +11,7 @@ export const rootReducer = combineReducers({
   order: orderDetailsReducer,
   buy: ingredientsForBurgerReducer,
   ingredients: ingredientsReducer,
-  user: userReducer
+  user: userReducer,
 });
 
 const composeEnhancers =

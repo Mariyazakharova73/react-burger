@@ -1,15 +1,19 @@
 import React from "react";
-import {
-  Button,
-  Input,
-} from "@ya.praktikum/react-developer-burger-ui-components";
+import { Button, Input } from "@ya.praktikum/react-developer-burger-ui-components";
 import cn from "classnames";
 import styles from "../Form/Form.module.css";
 import { Link, useLocation } from "react-router-dom";
 import { IFormProps } from "../../types/types";
 
-export const Form: React.FC<IFormProps> = ({ title, buttonText, handleSubmit, handleChange, values, errors, isValid }) => {
-  
+export const Form: React.FC<IFormProps> = ({
+  title,
+  buttonText,
+  handleSubmit,
+  handleChange,
+  values,
+  errors,
+  isValid,
+}) => {
   const { pathname } = useLocation();
 
   const isRegisterPage = pathname === "/register";

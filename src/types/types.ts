@@ -24,7 +24,6 @@ export type IIngredientDetails = Omit<
 
 export interface ICardProps {
   item: IIngredient;
-  handleOpenIngredient: (data: IIngredientDetails) => void;
 }
 
 export interface IModalProps {
@@ -36,20 +35,13 @@ export interface IModalProps {
 
 export type IModalOverlayProps = Omit<IModalProps, "title" | "selectedCard" | "children">;
 
-export interface IBurgerIngredientsProps {
-  handleOpenIngredient: (data: IIngredientDetails) => void;
-}
-
 export interface IBurgerConstructorProps {
   handleOpenOrder: () => void;
 }
 
-export interface IMainPageProps extends IBurgerConstructorProps, IBurgerIngredientsProps {}
-
 export interface ICardListProps {
   arr: IIngredient[];
   title: string;
-  handleOpenIngredient: (ingredient: IIngredientDetails) => void;
   ref: Ref<HTMLHeadingElement>;
 }
 

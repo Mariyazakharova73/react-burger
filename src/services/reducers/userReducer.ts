@@ -42,7 +42,7 @@ export type IUserAction =
   | IRequestFailedAction
   | IGetUserAction
   | IUpdateUserAction
-  | IRemoveUserAction
+  | IRemoveUserAction;
 
 export const userReducer = (state = initialState, action: IUserAction) => {
   switch (action.type) {

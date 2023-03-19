@@ -1,17 +1,41 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styles from "./IngredientDetails.module.css";
 import cn from "classnames";
 import { useTypedSelector } from "../../hooks/useTypedSelector";
+import { useParams } from "react-router-dom";
+import { getCard, getDataIngredients } from "../../services/actions/actions";
+import { useAppDispatch } from "../../hooks/useAppDispatch";
 
 const IngredientDetails: React.FC = () => {
   const selectedCard = useTypedSelector((state) => state.card.selectedCard);
-
   const info = [
     { title: "Калории,ккал", value: selectedCard.calories },
     { title: "Белки, г", value: selectedCard.proteins },
     { title: "Жиры, г", value: selectedCard.fat },
     { title: "Углеводы, г", value: selectedCard.carbohydrates },
   ];
+
+  const { ingredientId } = useParams();
+  const ingredients = useTypedSelector((state) => state.ingredients.ingredients);
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    if (ingredients.length === 0) {
+      dispatch(getDataIngredients());
+    }
+    const obj = ingredients.find((item) => item._id === ingredientId);
+    if (obj) {
+      const dataForModal = {
+        name: obj.name,
+        calories: obj.calories,
+        proteins: obj.proteins,
+        fat: obj.fat,
+        carbohydrates: obj.carbohydrates,
+        image_large: obj.image_large,
+      };
+      dispatch(getCard(dataForModal));
+    }
+  }, [ingredients]);
 
   return (
     <div className={styles.wrapper}>
