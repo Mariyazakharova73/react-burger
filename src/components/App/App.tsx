@@ -23,6 +23,7 @@ import "react-notifications-component/dist/theme.css";
 import { getUserThunk } from "../../services/actions/userActions";
 import { getCookie } from "../../utils/cookie";
 import { ProtectedRoute } from "../../HOC/ProtectedRoute";
+import OrderPage from "../../pages/OrderPage/OrderPage";
 
 const App: React.FC = () => {
   const [isOpenOrder, setIsOpenOrder] = useState(false);
@@ -33,7 +34,6 @@ const App: React.FC = () => {
   const ingredientsForBurger = useTypedSelector((state) => state.buy.ingredientsForBurger);
   const bun = useTypedSelector((state) => state.buy.bun);
   const { isLoggedIn } = useTypedSelector((state) => state.user);
-  console.log("isLoggedIn:", isLoggedIn);
 
   const arrIdWithBuns = React.useMemo(() => {
     const arrId = ingredientsForBurger.map((item) => {
@@ -61,6 +61,9 @@ const App: React.FC = () => {
   const handleClose = () => {
     navigate(-1);
     dispatch(deleteCard());
+  };
+
+  const handleOrderModalClose = () => {
     setIsOpenOrder(false);
   };
 
@@ -111,6 +114,14 @@ const App: React.FC = () => {
           }
         />
         <Route
+          path="/orders"
+          element={
+            <ProtectedRoute>
+              <OrderPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
           path="/ingredients/:ingredientId"
           element={
             <IngredientDetailsPage>
@@ -134,7 +145,7 @@ const App: React.FC = () => {
         </Routes>
       )}
       {isOpenOrder && (
-        <Modal onClose={handleClose}>
+        <Modal onClose={handleOrderModalClose}>
           <OrderDetails />
         </Modal>
       )}

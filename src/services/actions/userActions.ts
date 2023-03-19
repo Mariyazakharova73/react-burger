@@ -121,7 +121,7 @@ export const getUserThunk = (): ThunkActionType => {
     dispatch(getData());
     request(ENDPOINT_FOR_USER, getUserOptions())
       .then((res) => {
-        InfoNotification("Получены данные профиля!");
+        // InfoNotification("Получены данные профиля!");
         dispatch(getUser(res.user));
       })
       .catch((err) => {
@@ -156,11 +156,9 @@ export const refreshTokenThunk = (action: any): ThunkActionType => {
 
 export const updatetUserThunk = (user: IUser): ThunkActionType => {
   return (dispatch) => {
-    console.log("user", user);
     dispatch(updateUserRequest());
-    request(ENDPOINT_FOR_USER, updateUserOptions(user))
+    request(ENDPOINT_FOR_USER, updateUserOptions({ name: user.name, email: user.email }))
       .then((res) => {
-        console.log("RES user", res.user);
         InfoNotification("Данные профиля успешно обновлены!");
         dispatch(updateUser(res.user));
       })
