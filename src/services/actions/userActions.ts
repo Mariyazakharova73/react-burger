@@ -99,7 +99,10 @@ export const registerUserThunk = (
   };
 };
 
-export const authorizeUserThunk = (email: string, password: string): ThunkActionType => {
+export const authorizeUserThunk = (
+  email: string,
+  password: string
+): ThunkActionType => {
   return (dispatch) => {
     dispatch(getData());
     request(ENDPOINT_FOR_LOGIN, getLoginOptions(email, password))
@@ -128,7 +131,7 @@ export const getUserThunk = (): ThunkActionType => {
         console.log(err);
         if (err.message === "jwt expired") {
           ErrorNotification("Токен просрочен!");
-          dispatch(refreshTokenThunk(getData()));
+          dispatch(refreshTokenThunk(getUserThunk()));
         } else {
           ErrorNotification("Ошибка при получении данных профиля!");
           dispatch(getDataFailed());
@@ -154,7 +157,7 @@ export const refreshTokenThunk = (action: any): ThunkActionType => {
   };
 };
 
-export const updatetUserThunk = (user: IUser): ThunkActionType => {
+export const updateUserThunk = (user: IUser): ThunkActionType => {
   return (dispatch) => {
     dispatch(updateUserRequest());
     request(ENDPOINT_FOR_USER, updateUserOptions(user))
@@ -166,7 +169,7 @@ export const updatetUserThunk = (user: IUser): ThunkActionType => {
         console.log(err);
         if (err.message === "jwt expired") {
           ErrorNotification("Токен просрочен!");
-          dispatch(refreshTokenThunk(updateUserRequest()));
+          dispatch(refreshTokenThunk(updateUserThunk(user)));
         } else {
           ErrorNotification("Ошибка при обновлении данных профиля!");
           dispatch(getDataFailed());

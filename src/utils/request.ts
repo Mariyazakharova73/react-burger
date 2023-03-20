@@ -120,12 +120,10 @@ export const updateUserOptions = (user: IUser) => {
     method: "PATCH",
     headers: {
       Accept: "application/json",
-      "Content-Type": "application/json",
+      "Content-Type": "application/json;charset=utf-8",
       Authorization: getCookie("accessToken"),
     },
-    body: JSON.stringify({
-      user,
-    }),
+    body: JSON.stringify(user),
   };
 };
 

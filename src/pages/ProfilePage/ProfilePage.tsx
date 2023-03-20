@@ -6,7 +6,7 @@ import cn from "classnames";
 import { useFormAndValidation } from "../../hooks/useFormAndValidation";
 import { useTypedSelector } from "../../hooks/useTypedSelector";
 import { useAppDispatch } from "../../hooks/useAppDispatch";
-import { logoutThunk, updatetUserThunk } from "../../services/actions/userActions";
+import { logoutThunk, updateUserThunk } from "../../services/actions/userActions";
 import { MAIN_PATH, PROFILE_ORDERS_PATH, PROFILE_PATH } from "../../utils/constants";
 
 const ProfilePage: React.FC<any> = ({ children }) => {
@@ -17,14 +17,15 @@ const ProfilePage: React.FC<any> = ({ children }) => {
     email: false,
     password: false,
   });
-  const { values, handleChange, errors, isValid, setValues } = useFormAndValidation();
+  const { values, handleChange, errors, isValid, setValues, setErrors } =
+    useFormAndValidation();
   const inputRef = React.useRef(null);
   const { user, isLoggedIn } = useTypedSelector((state) => state.user);
   const dispatch = useAppDispatch();
 
   const handleSubmit = (evt: FormEvent) => {
     evt.preventDefault();
-    dispatch(updatetUserThunk(values));
+    dispatch(updateUserThunk(values));
     setButtonVisible((prev) => !prev);
   };
 
@@ -40,7 +41,11 @@ const ProfilePage: React.FC<any> = ({ children }) => {
 
   useEffect(() => {
     const handleChangeValue = () => {
-      if (values.name !== user?.name || values.email !== user?.email) {
+      if (
+        values.name !== user?.name ||
+        values.email !== user?.email ||
+        values.password !== "******"
+      ) {
         setButtonVisible(true);
       } else {
         setButtonVisible(false);
@@ -181,6 +186,3 @@ const ProfilePage: React.FC<any> = ({ children }) => {
 };
 
 export default ProfilePage;
-function setErrors(arg0: {}) {
-  throw new Error("Function not implemented.");
-}

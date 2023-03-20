@@ -5,7 +5,6 @@ import { LOGIN_PATH, MAIN_PATH } from "../utils/constants";
 export const ProtectedRoute = ({ onlyUnAuth = false, children }: any) => {
   const user = useTypedSelector((state) => state.user.user);
   const location = useLocation();
-  console.log(location);
 
   if (onlyUnAuth && user) {
     const { from } = location.state || { from: { pathname: MAIN_PATH } };
