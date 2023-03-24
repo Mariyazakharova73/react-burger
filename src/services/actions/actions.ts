@@ -3,7 +3,7 @@ import { ThunkAction } from "redux-thunk";
 import { RootState } from "../index";
 import {
   cardActionTypes,
-  IIngredientDetails,
+  TIngredientDetails,
   orderActionTypes,
   IOrder,
   IIngredient,
@@ -13,7 +13,7 @@ import {
 import { GET_INGREDIENTS } from "../../utils/constants";
 import { getOrderOptions, request } from "../../utils/request";
 
-export function getCard(selectedCard: IIngredientDetails) {
+export function getCard(selectedCard: TIngredientDetails) {
   return {
     type: cardActionTypes.GET_CARD,
     payload: selectedCard,

@@ -2,7 +2,12 @@ import { getFogotPasswordOptions, request } from "../../utils/request";
 import React, { FormEvent } from "react";
 import { Form } from "../../components/Form/Form";
 import { useFormAndValidation } from "../../hooks/useFormAndValidation";
-import { ENDPOINT_FOR_FORGOT_PASSWORD, FORGOT_PASSWORD_PATH, MAIN_PATH, RESET_PASSWORD_PATH } from "../../utils/constants";
+import {
+  ENDPOINT_FOR_FORGOT_PASSWORD,
+  FORGOT_PASSWORD_PATH,
+  MAIN_PATH,
+  RESET_PASSWORD_PATH,
+} from "../../utils/constants";
 import { Navigate, useNavigate } from "react-router";
 import { ErrorNotification, InfoNotification } from "../../components/Notifications/Notification";
 import { useTypedSelector } from "../../hooks/useTypedSelector";
@@ -36,7 +41,7 @@ const FogotPasswordPage: React.FC = () => {
         buttonText="Восстановить"
         handleSubmit={handleSubmit}
         handleChange={handleChange}
-        values={values}
+        values={values || ""}
         isValid={isValid}
         errors={errors}
       />

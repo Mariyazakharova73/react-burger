@@ -9,7 +9,7 @@ import { useAppDispatch } from "../../hooks/useAppDispatch";
 import { logoutThunk, updateUserThunk } from "../../services/actions/userActions";
 import { MAIN_PATH, PROFILE_ORDERS_PATH, PROFILE_PATH } from "../../utils/constants";
 
-const ProfilePage: React.FC<any> = ({ children }) => {
+const ProfilePage: React.FC = () => {
   const navigate = useNavigate();
   const [buttonVisible, setButtonVisible] = React.useState(false);
   const [fieldEditing, setFieldEditing] = React.useState({

@@ -67,7 +67,7 @@ const BurgerIngredients: React.FC = () => {
     });
   }, [arr]);
 
-  const handleClick = (refTitle: any, textTitle: string) => {
+  const handleClick = (refTitle: React.RefObject<HTMLHeadingElement>, textTitle: string) => {
     refTitle.current?.scrollIntoView({
       behavior: "smooth",
     });

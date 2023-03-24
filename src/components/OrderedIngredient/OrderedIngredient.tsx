@@ -1,6 +1,6 @@
 import { ConstructorElement, DragIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useRef } from "react";
-import { useDrag, useDrop } from "react-dnd";
+import { DropTargetMonitor, useDrag, useDrop } from "react-dnd";
 import { useAppDispatch } from "../../hooks/useAppDispatch";
 import { deleteIngredient } from "../../services/actions/actions";
 import { IOrderedIngredientProps } from "../../types/types";
@@ -11,14 +11,14 @@ const OrderedIngredient: React.FC<IOrderedIngredientProps> = ({ item, index, mov
   const ref = useRef<HTMLLIElement>(null);
   const [{ handlerId }, drop] = useDrop({
     accept: "component",
-    collect(monitor) {
+    collect(monitor: DropTargetMonitor) {
       return {
         handlerId: monitor.getHandlerId(),
       };
     },
     // Вызывается, когда перетаскиваемый элемент оказывается над ингредиентом,
     // индекс которого у нас задан в пропсах props.index
-    hover(item: any, monitor) {
+    hover(item: any, monitor: DropTargetMonitor) {
       if (!ref.current) {
         return;
       }

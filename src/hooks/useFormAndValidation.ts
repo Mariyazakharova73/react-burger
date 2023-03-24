@@ -1,8 +1,9 @@
+import { IErrors, IUser } from "./../types/types";
 import { useState, useCallback, ChangeEvent } from "react";
 
 export function useFormAndValidation() {
-  const [values, setValues] = useState<any>({ email: "", password: "", name: "", code: "" });
-  const [errors, setErrors] = useState<any>({});
+  const [values, setValues] = useState<IUser>({});
+  const [errors, setErrors] = useState<IErrors>({});
   const [isValid, setIsValid] = useState(false);
 
   const handleChange = (evt: ChangeEvent<HTMLInputElement>) => {
@@ -29,6 +30,6 @@ export function useFormAndValidation() {
     resetForm,
     setValues,
     setIsValid,
-    setErrors
+    setErrors,
   };
 }
