@@ -50,6 +50,7 @@ export const ingredientsReducer = (state = initialState, action: IIngredientsAct
     case requestActionTypes.GET_DATA_FAILED: {
       return {
         ...state,
+        ingredients: [],
         // Запрос выполнился с ошибкой,
         // выставляем соответсвующие значения в хранилище
         dataFailed: true,

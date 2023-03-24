@@ -1,4 +1,4 @@
-import { Ref } from "react";
+import { FormEvent, Ref } from "react";
 
 export interface IIngredient {
   _id: string;
@@ -24,7 +24,6 @@ export type IIngredientDetails = Omit<
 
 export interface ICardProps {
   item: IIngredient;
-  handleOpenIngredient: (data: IIngredientDetails) => void;
 }
 
 export interface IModalProps {
@@ -36,10 +35,6 @@ export interface IModalProps {
 
 export type IModalOverlayProps = Omit<IModalProps, "title" | "selectedCard" | "children">;
 
-export interface IBurgerIngredientsProps {
-  handleOpenIngredient: (data: IIngredientDetails) => void;
-}
-
 export interface IBurgerConstructorProps {
   handleOpenOrder: () => void;
 }
@@ -47,7 +42,6 @@ export interface IBurgerConstructorProps {
 export interface ICardListProps {
   arr: IIngredient[];
   title: string;
-  handleOpenIngredient: (ingredient: IIngredientDetails) => void;
   ref: Ref<HTMLHeadingElement>;
 }
 
@@ -94,4 +88,32 @@ export enum requestActionTypes {
 
 export interface IOptions {
   [key: string]: boolean;
+}
+
+export interface IFormProps {
+  title: string;
+  buttonText: string;
+  handleSubmit: (evt: FormEvent) => void;
+  isValid: boolean;
+  errors: any;
+  values: any;
+  handleChange: any;
+}
+
+export interface IUser {
+  name: string;
+  email: string;
+  password?: string;
+}
+
+export enum updateUserActionTypes {
+  UPDATE_USER_REQUEST = "UPDATE_USER_REQUEST",
+  UPDATE_USER_SUCCESS = "UPDATE_USER_SUCCESS",
+  UPDATE_USER_FAILED = "UPDATE_USER_FAILED",
+}
+
+export interface ICookieProps {
+  path?: string;
+  expires?: Date | string | number | any;
+  [propName: string]: any;
 }

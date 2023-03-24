@@ -11,7 +11,6 @@ const ModalOverlay: React.FC<IModalOverlayProps> = ({ onClose }) => {
   };
 
   useEffect(() => {
-    
     const closeByEsc = (evt: KeyboardEvent | React.KeyboardEvent) => {
       if (evt.key === "Escape") {
         onClose();

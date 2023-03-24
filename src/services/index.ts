@@ -3,6 +3,7 @@ import { selectedCardReducer } from "./reducers/selectedCardReducer";
 import { orderDetailsReducer } from "./reducers/orderDetailsReducer";
 import { ingredientsForBurgerReducer } from "./reducers/ingredientsForBurgerReducer";
 import { ingredientsReducer } from "./reducers/ingredientsReducer";
+import { userReducer } from "./reducers/userReducer";
 import thunk from "redux-thunk";
 
 export const rootReducer = combineReducers({
@@ -10,6 +11,7 @@ export const rootReducer = combineReducers({
   order: orderDetailsReducer,
   buy: ingredientsForBurgerReducer,
   ingredients: ingredientsReducer,
+  user: userReducer,
 });
 
 const composeEnhancers =

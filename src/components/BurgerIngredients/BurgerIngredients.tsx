@@ -3,10 +3,10 @@ import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./BurgerIngredients.module.css";
 import cn from "classnames";
 import CardList from "../CardList/CardList";
-import { IBurgerIngredientsProps, IOptions } from "../../types/types";
+import { IOptions } from "../../types/types";
 import { useTypedSelector } from "../../hooks/useTypedSelector";
 
-const BurgerIngredients: React.FC<IBurgerIngredientsProps> = ({ handleOpenIngredient }) => {
+const BurgerIngredients: React.FC = () => {
   const ingredients = useTypedSelector((state) => state.ingredients.ingredients);
 
   const [current, setCurrent] = React.useState("Булки");
@@ -95,15 +95,7 @@ const BurgerIngredients: React.FC<IBurgerIngredientsProps> = ({ handleOpenIngred
       </div>
       <div className={styles.container} ref={refForContainer}>
         {info.map((item, index) => {
-          return (
-            <CardList
-              key={item.name}
-              ref={item.title}
-              arr={item.arr}
-              title={item.name}
-              handleOpenIngredient={handleOpenIngredient}
-            />
-          );
+          return <CardList key={item.name} ref={item.title} arr={item.arr} title={item.name} />;
         })}
       </div>
     </section>

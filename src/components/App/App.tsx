@@ -1,26 +1,52 @@
 import React, { useEffect, useState } from "react";
-import { Route, Routes } from "react-router";
+// @ts-ignore
+import { ReactNotifications } from "react-notifications-component";
+import { Route, Routes, useLocation, useNavigate } from "react-router";
 import styles from "./App.module.css";
 import AppHeader from "../AppHeader/AppHeader";
-import BurgerIngredients from "../BurgerIngredients/BurgerIngredients";
-import BurgerConstructor from "../BurgerConstructor/BurgerConstructor";
 import Modal from "../Modal/Modal";
 import OrderDetails from "../OrderDetails/OrderDetails";
 import IngredientDetails from "../IngredientDetails/IngredientDetails";
-import { IIngredientDetails } from "../../types/types";
-import { getCard, deleteCard } from "../../services/actions/actions";
+import { deleteCard } from "../../services/actions/actions";
 import { getDataIngredients, getDataOrder } from "../../services/actions/actions";
 import { useAppDispatch } from "../../hooks/useAppDispatch";
-import { DndProvider } from "react-dnd";
-import { HTML5Backend } from "react-dnd-html5-backend";
 import { useTypedSelector } from "../../hooks/useTypedSelector";
+import MainPage from "../../pages/MainPage/MainPage";
+import RegisterPage from "../../pages/RegisterPage/RegisterPage";
+import LoginPage from "../../pages/LoginPage/LoginPage";
+import FogotPasswordPage from "../../pages/FogotPasswordPage/FogotPasswordPage";
+import ResetPasswordPage from "../../pages/ResetPasswordPage/ResetPasswordPage";
+import ProfilePage from "../../pages/ProfilePage/ProfilePage";
+import IngredientDetailsPage from "../../pages/IngredientDetailsPage/IngredientDetailsPage";
+import NotFoundPage from "../../pages/NotFoundPage/NotFoundPage";
+import "react-notifications-component/dist/theme.css";
+import { getUserThunk } from "../../services/actions/userActions";
+import { getCookie } from "../../utils/cookie";
+import { ProtectedRoute } from "../../HOC/ProtectedRoute";
+import OrderPage from "../../pages/OrderPage/OrderPage";
+import HistoryOfOrdersPage from "../../pages/HistoryOfOrdersPage/HistoryOfOrdersPage";
+import {
+  ERROR_PATH,
+  FORGOT_PASSWORD_PATH,
+  INGREDIENT_PATH,
+  LOGIN_PATH,
+  MAIN_PATH,
+  ORDERS_PATH,
+  PROFILE_ORDERS_PATH,
+  PROFILE_PATH,
+  REGISTER_PATH,
+  RESET_PASSWORD_PATH,
+} from "../../utils/constants";
 
 const App: React.FC = () => {
   const [isOpenOrder, setIsOpenOrder] = useState(false);
-  const [isOpenIngredient, setIsOpenIngredient] = useState(false);
   const dispatch = useAppDispatch();
+  const location = useLocation();
+  const navigate = useNavigate();
+  let background = location.state && location.state.background;
   const ingredientsForBurger = useTypedSelector((state) => state.buy.ingredientsForBurger);
   const bun = useTypedSelector((state) => state.buy.bun);
+  const { isLoggedIn } = useTypedSelector((state) => state.user);
 
   const arrIdWithBuns = React.useMemo(() => {
     const arrId = ingredientsForBurger.map((item) => {
@@ -31,51 +57,116 @@ const App: React.FC = () => {
 
   useEffect(() => {
     dispatch(getDataIngredients());
-  }, []);
+    if (getCookie("accessToken")) {
+      dispatch(getUserThunk()); // загружаем пользователя
+    }
+  }, [isLoggedIn]);
 
   const handleOpenOrder = () => {
-    setIsOpenOrder(true);
-    dispatch(getDataOrder(arrIdWithBuns));
-  };
-
-  const handleOpenIngredient = (data: IIngredientDetails) => {
-    dispatch(getCard(data));
-    setIsOpenIngredient(true);
+    if (isLoggedIn) {
+      dispatch(getDataOrder(arrIdWithBuns));
+      setIsOpenOrder(true);
+    } else {
+      navigate(LOGIN_PATH);
+    }
   };
 
   const handleClose = () => {
-    setIsOpenOrder(false);
-    setIsOpenIngredient(false);
+    navigate(-1);
     dispatch(deleteCard());
+  };
+
+  const handleOrderModalClose = () => {
+    setIsOpenOrder(false);
   };
 
   return (
     <div className={styles.page}>
-      <Routes>
+      <ReactNotifications />
+      <AppHeader />
+      <Routes location={background || location}>
+        <Route path={MAIN_PATH} element={<MainPage handleOpenOrder={handleOpenOrder} />} />
         <Route
-          path="/"
+          path={REGISTER_PATH}
           element={
-            <>
-              <AppHeader />
-              <main className={styles.content}>
-                <DndProvider backend={HTML5Backend}>
-                  <BurgerIngredients handleOpenIngredient={handleOpenIngredient} />
-                  <BurgerConstructor handleOpenOrder={handleOpenOrder} />
-                </DndProvider>
-              </main>
-            </>
+            <ProtectedRoute onlyUnAuth>
+              <RegisterPage />
+            </ProtectedRoute>
           }
         />
-        <Route path="*" element={<p>Страница не найдена</p>} />
+        <Route
+          path={LOGIN_PATH}
+          element={
+            <ProtectedRoute onlyUnAuth>
+              <LoginPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path={FORGOT_PASSWORD_PATH}
+          element={
+            <ProtectedRoute onlyUnAuth>
+              <FogotPasswordPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path={RESET_PASSWORD_PATH}
+          element={
+            <ProtectedRoute onlyUnAuth>
+              <ResetPasswordPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path={PROFILE_PATH}
+          element={
+            <ProtectedRoute>
+              <ProfilePage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path={PROFILE_ORDERS_PATH}
+          element={
+            <ProtectedRoute>
+              <HistoryOfOrdersPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path={ORDERS_PATH}
+          element={
+            <ProtectedRoute>
+              <OrderPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path={INGREDIENT_PATH}
+          element={
+            <IngredientDetailsPage>
+              <IngredientDetails />
+            </IngredientDetailsPage>
+          }
+        />
+        <Route path={ERROR_PATH} element={<NotFoundPage />} />
       </Routes>
 
-      {isOpenIngredient && (
-        <Modal onClose={handleClose} title="Детали ингредиента">
-          <IngredientDetails />
-        </Modal>
+      {background && (
+        <Routes>
+          <Route
+            path={INGREDIENT_PATH}
+            element={
+              <Modal onClose={handleClose} title="Детали ингредиента">
+                <IngredientDetails />
+              </Modal>
+            }
+          />
+        </Routes>
       )}
       {isOpenOrder && (
-        <Modal onClose={handleClose}>
+        <Modal onClose={handleOrderModalClose}>
           <OrderDetails />
         </Modal>
       )}

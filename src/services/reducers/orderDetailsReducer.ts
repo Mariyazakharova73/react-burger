@@ -40,6 +40,7 @@ export const orderDetailsReducer = (state = initialState, action: IOrderDetailsA
     case requestActionTypes.GET_DATA_FAILED: {
       return {
         ...state,
+        order: {},
         // Запрос выполнился с ошибкой,
         // выставляем соответсвующие значения в хранилище
         dataFailed: true,
