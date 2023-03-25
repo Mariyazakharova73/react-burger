@@ -44,7 +44,9 @@ const AppHeader = () => {
           </ul>
         </nav>
         <Link to={MAIN_PATH}>
-          <Logo className="ml-33 mr-72" />
+          <div className="ml-33 mr-72">
+            <Logo />
+          </div>
         </Link>
       </div>
       <Link className={styles.link} to={PROFILE_PATH}>

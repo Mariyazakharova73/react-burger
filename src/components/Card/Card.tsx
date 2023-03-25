@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo } from "react";
+import React, { useMemo } from "react";
 import { ICardProps } from "../../types/types";
 import styles from "./Card.module.css";
 import { Counter, CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
@@ -16,7 +16,7 @@ const Card: React.FC<ICardProps> = ({ item }) => {
   const ingredientsForBurger = useTypedSelector((state) => state.buy.ingredientsForBurger);
   const bun = useTypedSelector((state) => state.buy.bun);
 
-  const count = useMemo(() => {
+  const count = useMemo<number>(() => {
     return ingredientsForBurger.filter((ingredient) => {
       return ingredient._id === item._id;
     }).length;

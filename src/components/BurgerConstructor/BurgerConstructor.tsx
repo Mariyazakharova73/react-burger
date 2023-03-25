@@ -69,7 +69,7 @@ const BurgerConstructor: React.FC<IBurgerConstructorProps> = ({ handleOpenOrder 
     [draggedElements, dispatch]
   );
 
-  const draggedElementsWithoutBun = React.useMemo(() => {
+  const draggedElementsWithoutBun = React.useMemo<IIngredient[]>(() => {
     return draggedElements.filter((item) => item.type !== "bun");
   }, [draggedElements]);
 

@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-// @ts-ignore
 import { ReactNotifications } from "react-notifications-component";
 import { Route, Routes, useLocation, useNavigate } from "react-router";
 import styles from "./App.module.css";
@@ -48,7 +47,7 @@ const App: React.FC = () => {
   const bun = useTypedSelector((state) => state.buy.bun);
   const { isLoggedIn } = useTypedSelector((state) => state.user);
 
-  const arrIdWithBuns = React.useMemo(() => {
+  const arrIdWithBuns = React.useMemo<string[]>(() => {
     const arrId = ingredientsForBurger.map((item) => {
       return item._id;
     });
