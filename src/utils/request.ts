@@ -13,7 +13,7 @@ const checkSuccess = (res: any) => {
   return Promise.reject(`Ответ не success: ${res}`);
 };
 
-export const request = (endpoint: RequestInfo | URL, options?: any) => {
+export const request = (endpoint: RequestInfo | URL, options?: RequestInit | any) => {
   return fetch(`${BASE_URL}${endpoint}`, options).then(checkResponse).then(checkSuccess);
 };
 
@@ -30,7 +30,7 @@ export const getOrderOptions = (data: string[]) => {
   };
 };
 
-export const getRegisterOptions = (name: string, email: string, password: string) => {
+export const getRegisterOptions = (name?: string, email?: string, password?: string) => {
   return {
     method: "POST",
     headers: {
@@ -45,7 +45,7 @@ export const getRegisterOptions = (name: string, email: string, password: string
   };
 };
 
-export const getLoginOptions = (email: string, password: string) => {
+export const getLoginOptions = (email?: string, password?: string) => {
   return {
     method: "POST",
     headers: {
@@ -59,7 +59,7 @@ export const getLoginOptions = (email: string, password: string) => {
   };
 };
 
-export const getFogotPasswordOptions = (email: string) => {
+export const getFogotPasswordOptions = (email?: string) => {
   return {
     method: "POST",
     headers: {
@@ -72,7 +72,7 @@ export const getFogotPasswordOptions = (email: string) => {
   };
 };
 
-export const getResetPasswordOptions = (password: string, code: string) => {
+export const getResetPasswordOptions = (password?: string, code?: string) => {
   return {
     method: "POST",
     headers: {

@@ -78,9 +78,9 @@ export function logout() {
 type ThunkActionType = ThunkAction<void, RootState, unknown, AnyAction>;
 
 export const registerUserThunk = (
-  name: string,
-  email: string,
-  password: string
+  name?: string,
+  email?: string,
+  password?: string
 ): ThunkActionType => {
   return (dispatch) => {
     dispatch(getData());
@@ -100,8 +100,8 @@ export const registerUserThunk = (
 };
 
 export const authorizeUserThunk = (
-  email: string,
-  password: string
+  email?: string,
+  password?: string
 ): ThunkActionType => {
   return (dispatch) => {
     dispatch(getData());
@@ -140,7 +140,7 @@ export const getUserThunk = (): ThunkActionType => {
   };
 };
 
-export const refreshTokenThunk = (action: any): ThunkActionType => {
+export const refreshTokenThunk = (action: ThunkActionType): ThunkActionType => {
   return (dispatch) => {
     dispatch(getData());
     request(ENDPOINT_FOR_TOKEN, refreshTokenOptions())

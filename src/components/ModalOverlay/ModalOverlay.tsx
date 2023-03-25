@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
-import { IModalOverlayProps } from "../../types/types";
+import { TModalOverlayProps } from "../../types/types";
 import styles from "./ModalOverlay.module.css";
 
-const ModalOverlay: React.FC<IModalOverlayProps> = ({ onClose }) => {
+const ModalOverlay: React.FC<TModalOverlayProps> = ({ onClose }) => {
   const closeByOverlay = (evt: React.MouseEvent) => {
     const target = evt.target as HTMLDivElement;
     if (target.classList.contains(styles.overlay)) {

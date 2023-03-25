@@ -3,7 +3,7 @@ import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./BurgerIngredients.module.css";
 import cn from "classnames";
 import CardList from "../CardList/CardList";
-import { IOptions } from "../../types/types";
+import { IIngredient, IOptions } from "../../types/types";
 import { useTypedSelector } from "../../hooks/useTypedSelector";
 
 const BurgerIngredients: React.FC = () => {
@@ -15,7 +15,11 @@ const BurgerIngredients: React.FC = () => {
   const refForMain = useRef<HTMLHeadingElement>(null);
   const refForContainer = useRef<HTMLHeadingElement>(null);
 
-  const filters = React.useMemo(() => {
+  const filters = React.useMemo<{
+    arrWithBuns: IIngredient[];
+    arrWithSauces: IIngredient[];
+    arrWithFillings: IIngredient[];
+  }>(() => {
     const arrWithBuns = ingredients?.filter((item) => item.type === "bun");
     const arrWithSauces = ingredients?.filter((item) => item.type === "sauce");
     const arrWithFillings = ingredients?.filter((item) => item.type === "main");
@@ -67,7 +71,7 @@ const BurgerIngredients: React.FC = () => {
     });
   }, [arr]);
 
-  const handleClick = (refTitle: any, textTitle: string) => {
+  const handleClick = (refTitle: React.RefObject<HTMLHeadingElement>, textTitle: string) => {
     refTitle.current?.scrollIntoView({
       behavior: "smooth",
     });

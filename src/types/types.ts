@@ -1,4 +1,6 @@
-import { FormEvent, Ref } from "react";
+import { ChangeEvent, FormEvent, ReactElement, ReactNode, Ref } from "react";
+
+type TVoidFunc = () => void;
 
 export interface IIngredient {
   _id: string;
@@ -17,7 +19,7 @@ export interface IIngredient {
   count?: number;
 }
 
-export type IIngredientDetails = Omit<
+export type TIngredientDetails = Omit<
   IIngredient,
   "_id" | "type" | "price" | "image_mobile" | "image" | "__v"
 >;
@@ -27,16 +29,16 @@ export interface ICardProps {
 }
 
 export interface IModalProps {
-  onClose: () => void;
-  children: React.ReactNode;
+  onClose: TVoidFunc;
+  children: ReactNode;
   title?: string;
   selectedCard?: IIngredient | {};
 }
 
-export type IModalOverlayProps = Omit<IModalProps, "title" | "selectedCard" | "children">;
+export type TModalOverlayProps = Omit<IModalProps, "title" | "selectedCard" | "children">;
 
 export interface IBurgerConstructorProps {
-  handleOpenOrder: () => void;
+  handleOpenOrder: TVoidFunc;
 }
 
 export interface ICardListProps {
@@ -48,10 +50,8 @@ export interface ICardListProps {
 export interface IOrderedIngredientProps {
   item: IIngredient;
   index: number;
-  moveCard: any;
+  moveCard: (dragIndex: number, hoverIndex: number) => void
 }
-
-export type IIdArray = string[];
 
 export interface IOrder {
   name?: string;
@@ -95,15 +95,16 @@ export interface IFormProps {
   buttonText: string;
   handleSubmit: (evt: FormEvent) => void;
   isValid: boolean;
-  errors: any;
-  values: any;
-  handleChange: any;
+  errors: IErrors;
+  values: IUser;
+  handleChange: (evt: ChangeEvent<HTMLInputElement>) => void;
 }
 
 export interface IUser {
-  name: string;
-  email: string;
+  name?: string;
+  email?: string;
   password?: string;
+  code?: string;
 }
 
 export enum updateUserActionTypes {
@@ -116,4 +117,17 @@ export interface ICookieProps {
   path?: string;
   expires?: Date | string | number | any;
   [propName: string]: any;
+}
+
+export interface IProtectedRouteProps {
+  onlyUnAuth?: boolean;
+  children: ReactElement;
+}
+
+export interface IIngredientDetailsPageProps {
+  children: ReactNode;
+}
+
+export interface IErrors {
+  [key: string]: string;
 }

@@ -6,9 +6,9 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./BurgerConstructor.module.css";
 import cn from "classnames";
-import { IBurgerConstructorProps } from "../../types/types";
+import { IBurgerConstructorProps, IIngredient } from "../../types/types";
 import uuid from "react-uuid";
-import { useDrop } from "react-dnd";
+import { DropTargetMonitor, useDrop } from "react-dnd";
 import { useAppDispatch } from "../../hooks/useAppDispatch";
 import { useTypedSelector } from "../../hooks/useTypedSelector";
 import { addIngredient, setCurrentBun, updateIngredients } from "../../services/actions/actions";
@@ -20,7 +20,7 @@ const BurgerConstructor: React.FC<IBurgerConstructorProps> = ({ handleOpenOrder 
   const bun = useTypedSelector((state) => state.buy.bun);
 
   const calculateThePrice = () => {
-    const priceOfFillings = draggedElementsWithoutBun.reduce((acc, item: any) => {
+    const priceOfFillings = draggedElementsWithoutBun.reduce((acc, item) => {
       return acc + item.price;
     }, 0);
     const priceOfBuns = bun?.price * 2;
@@ -30,11 +30,11 @@ const BurgerConstructor: React.FC<IBurgerConstructorProps> = ({ handleOpenOrder 
   const [{ isHover }, dropTargerRef] = useDrop({
     // Такой тип как у перетаскиваемого ингредиента
     accept: "ingredient",
-    collect: (monitor) => ({
+    collect: (monitor: DropTargetMonitor) => ({
       isHover: monitor.isOver(),
     }),
     // выполняем диспатч в стор, в момент "бросания" ингредиента
-    drop(item: any) {
+    drop(item: IIngredient) {
       if (item.type !== "bun") {
         dispatch(addIngredient({ ...item, dragId: uuid() }));
       }
@@ -43,10 +43,10 @@ const BurgerConstructor: React.FC<IBurgerConstructorProps> = ({ handleOpenOrder 
 
   const [{ isHoverBun }, dropTargerRefBun] = useDrop({
     accept: "ingredient",
-    collect: (monitor) => ({
+    collect: (monitor: DropTargetMonitor) => ({
       isHoverBun: monitor.isOver(),
     }),
-    drop(item: any) {
+    drop(item: IIngredient) {
       if (item.type === "bun") {
         dispatch(setCurrentBun(item));
       }
@@ -69,7 +69,7 @@ const BurgerConstructor: React.FC<IBurgerConstructorProps> = ({ handleOpenOrder 
     [draggedElements, dispatch]
   );
 
-  const draggedElementsWithoutBun = React.useMemo(() => {
+  const draggedElementsWithoutBun = React.useMemo<IIngredient[]>(() => {
     return draggedElements.filter((item) => item.type !== "bun");
   }, [draggedElements]);
 

@@ -1,13 +1,13 @@
-import { cardActionTypes, IIngredientDetails } from "../../types/types";
+import { cardActionTypes, TIngredientDetails } from "../../types/types";
 import { BLANK_CARD } from "../../utils/constants";
 
 export interface ISelectedCardState {
-  selectedCard: IIngredientDetails;
+  selectedCard: TIngredientDetails;
 }
 
 export interface ISelectedCardShowAction {
   type: cardActionTypes.GET_CARD;
-  payload: IIngredientDetails;
+  payload: TIngredientDetails;
 }
 
 export interface ISelectedCardDeleteAction {
