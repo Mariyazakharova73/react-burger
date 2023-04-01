@@ -8,7 +8,7 @@ import {
 import styles from "./AppHeader.module.css";
 import { Link } from "react-router-dom";
 import cn from "classnames";
-import { MAIN_PATH, ORDERS_PATH, PROFILE_PATH, PROFILE_ORDERS_PATH } from "../../utils/constants";
+import { MAIN_PATH, FEED_PATH, PROFILE_PATH, PROFILE_ORDERS_PATH } from "../../utils/constants";
 
 const AppHeader = () => {
   const { pathname } = useLocation();
@@ -30,11 +30,11 @@ const AppHeader = () => {
               </Link>
             </li>
             <li>
-              <Link className={styles.link} to={ORDERS_PATH}>
-                <ListIcon type={pathname === ORDERS_PATH ? "primary" : "secondary"} />
+              <Link className={styles.link} to={FEED_PATH}>
+                <ListIcon type={pathname === FEED_PATH ? "primary" : "secondary"} />
                 <p
                   className={cn("text text_type_main-default text_color_inactive", {
-                    [styles.active]: pathname === ORDERS_PATH,
+                    [styles.active]: pathname === FEED_PATH,
                   })}
                 >
                   Лента заказов

@@ -22,7 +22,7 @@ import "react-notifications-component/dist/theme.css";
 import { getUserThunk } from "../../services/actions/userActions";
 import { getCookie } from "../../utils/cookie";
 import { ProtectedRoute } from "../../HOC/ProtectedRoute";
-import OrderPage from "../../pages/OrderPage/OrderPage";
+import OrderPage from "../../pages/FeedPage/FeedPage";
 import HistoryOfOrdersPage from "../../pages/HistoryOfOrdersPage/HistoryOfOrdersPage";
 import {
   ERROR_PATH,
@@ -30,7 +30,7 @@ import {
   INGREDIENT_PATH,
   LOGIN_PATH,
   MAIN_PATH,
-  ORDERS_PATH,
+  FEED_PATH,
   PROFILE_ORDERS_PATH,
   PROFILE_PATH,
   REGISTER_PATH,
@@ -134,7 +134,7 @@ const App: React.FC = () => {
           }
         />
         <Route
-          path={ORDERS_PATH}
+          path={FEED_PATH}
           element={
             <ProtectedRoute>
               <OrderPage />
