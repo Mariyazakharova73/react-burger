@@ -7,7 +7,6 @@ interface IContentProps {
 }
 
 export const ErrorContent: FC<IContentProps> = ({ notificationConfig }) => {
-  console.log(notificationConfig)
   return (
     <div className={styles.containerError}>
       <p className={styles.title}>Ошибка!</p>
