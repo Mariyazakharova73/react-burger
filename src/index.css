@@ -12,6 +12,9 @@ body {
   --bg-scroll: #2F2F37;
   background-color: var(--bg-color);
   color: var(--text-color)!important;
+  --bg-color-overlay: rgba(0, 0, 0, 0.6);
+  --gradient-color-blue: #4c4cff;
+  --gradient-color: #801ab2;
 }
 
 :root {

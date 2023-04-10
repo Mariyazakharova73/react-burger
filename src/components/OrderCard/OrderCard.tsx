@@ -2,6 +2,8 @@ import React from "react";
 import styles from "./OrderCard.module.css";
 import cn from "classnames";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
+import image from "../../images/bun-01.png";
+import { data } from "../../pages/FeedPage/FeedPage";
 
 const OrderCard: React.FC<any> = ({ item, status }) => {
   return (
@@ -25,15 +27,27 @@ const OrderCard: React.FC<any> = ({ item, status }) => {
         ) : null}
       </div>
       <div className={styles.imageWrapper}>
-        <div className={styles.imageItemWrapper}>
-          <div className={styles.image} />
-          <div className={styles.image} />
-          <div className={styles.image} />
-          <div className={styles.image} />
-          <div className={styles.image} />
-          <div className={styles.image} />
+        <ul className={styles.imageItemWrapper}>
+          <li className={cn(styles.listItem, { [styles.overlay]: item.images > 6 })}>
+            <img className={styles.image} src={image} alt="Ингредиент." />
+          </li>
+          <li className={styles.listItem}>
+            <img className={styles.image} src={image} alt="Ингредиент." />
+          </li>
+          <li className={styles.listItem}>
+            <img className={styles.image} src={image} alt="Ингредиент." />
+          </li>
+          <li className={styles.listItem}>
+            <img className={styles.image} src={image} alt="Ингредиент." />
+          </li>
+          <li className={styles.listItem}>
+            <img className={styles.image} src={image} alt="Ингредиент." />
+          </li>
+          <li className={styles.listItem}>
+            <img className={styles.image} src={image} alt="Ингредиент." />
+          </li>
           {item.images > 6 ? <p className={styles.count}>+{item.images - 6}</p> : null}
-        </div>
+        </ul>
         <div className={styles.priceWrapper}>
           <CurrencyIcon type="primary" />
           <p className={cn("text text_type_digits-default", styles.price)}>{item.price}</p>

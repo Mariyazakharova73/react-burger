@@ -59,7 +59,10 @@ const FeedPage = () => {
               <ul className={styles.digitsList}>
                 {digits.map((item) => {
                   return (
-                    <li className={cn("text text_type_digits-default pb-2", styles.digitsText)}>
+                    <li
+                      key={item}
+                      className={cn("text text_type_digits-default pb-2", styles.digitsText)}
+                    >
                       {item}
                     </li>
                   );
@@ -70,7 +73,11 @@ const FeedPage = () => {
               <p className="text text_type_main-medium m-0 pb-6">В работе:</p>
               <ul className={styles.digitsList}>
                 {digitsInWork.map((item) => {
-                  return <li className={cn("text text_type_digits-default pb-2")}>{item}</li>;
+                  return (
+                    <li key={item} className={cn("text text_type_digits-default pb-2")}>
+                      {item}
+                    </li>
+                  );
                 })}
               </ul>
             </div>

@@ -22,7 +22,6 @@ import "react-notifications-component/dist/theme.css";
 import { getUserThunk } from "../../services/actions/userActions";
 import { getCookie } from "../../utils/cookie";
 import { ProtectedRoute } from "../../HOC/ProtectedRoute";
-import OrderPage from "../../pages/FeedPage/FeedPage";
 import HistoryOfOrdersPage from "../../pages/HistoryOfOrdersPage/HistoryOfOrdersPage";
 import {
   ERROR_PATH,
@@ -31,11 +30,16 @@ import {
   LOGIN_PATH,
   MAIN_PATH,
   FEED_PATH,
+  FEED_ITEM_PATH,
   PROFILE_ORDERS_PATH,
+  PROFILE_ORDER_PATH,
   PROFILE_PATH,
   REGISTER_PATH,
   RESET_PASSWORD_PATH,
 } from "../../utils/constants";
+import FeedItemPage from "../../pages/FeedItemPage/FeedItemPage";
+import FeedPage from "../../pages/FeedPage/FeedPage";
+import ProfileOrderItemPage from "../../pages/ProfileOrderItemPage/ProfileOrderItemPage";
 
 const App: React.FC = () => {
   const [isOpenOrder, setIsOpenOrder] = useState(false);
@@ -134,10 +138,26 @@ const App: React.FC = () => {
           }
         />
         <Route
+          path={PROFILE_ORDER_PATH}
+          element={
+            <ProtectedRoute>
+              <ProfileOrderItemPage/>
+            </ProtectedRoute>
+          }
+        />
+        <Route
           path={FEED_PATH}
           element={
             <ProtectedRoute>
-              <OrderPage />
+              <FeedPage/>
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path={FEED_ITEM_PATH}
+          element={
+            <ProtectedRoute>
+              <FeedItemPage />
             </ProtectedRoute>
           }
         />
