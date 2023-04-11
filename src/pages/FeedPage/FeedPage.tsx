@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./FeedPage.module.css";
 import cn from "classnames";
 import OrderCard from "../../components/OrderCard/OrderCard";
-import { useAppDispatch } from "../../hooks/useAppDispatch";
+import { useTypedSelector } from "../../hooks/useTypedSelector";
 
 export const data = [
   {
@@ -45,8 +45,8 @@ const digits: string[] = ["034533", "034532", "034530", "034527", "034525"];
 const digitsInWork: string[] = ["034538", "034541", "034542"];
 
 const FeedPage = () => {
-
-  const dispatch = useAppDispatch();
+  const allOrders = useTypedSelector((state) => state.ws?.data);
+  console.log(allOrders)
 
   return (
     <main className={cn("pt-10", styles.content)}>

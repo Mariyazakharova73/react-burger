@@ -28,8 +28,6 @@ export const socketMiddleware = (wsUrl: string, wsActions: TWSStoreActions): Mid
         // функция, которая вызывается при получения события от сервера
         socket.onmessage = (event) => {
           const { data } = event;
-          // const parsedData = JSON.parse(data);
-          // const { success, ...restParsedData } = parsedData;
           dispatch({
             type: onMessage,
             payload: JSON.parse(data),

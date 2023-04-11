@@ -23,6 +23,13 @@ export interface IWSOrder {
   updatedAt: string;
 }
 
+export interface IWSData {
+  success: boolean;
+  orders: IWSOrder[];
+  total: number;
+  totalToday: number;
+}
+
 export interface IWSConnectionStart {
   readonly type: wsActionTypes.WS_CONNECTION_START;
 }
@@ -42,7 +49,7 @@ export interface IWSConnectionClosedAction {
 
 export interface IWSGetMessageAction {
   readonly type: wsActionTypes.WS_GET_MESSAGE;
-  readonly payload: IWSOrder[];
+  readonly payload: IWSData;
 }
 
 export interface IWSSendMessageAction {

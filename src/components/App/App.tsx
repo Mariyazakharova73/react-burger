@@ -143,7 +143,7 @@ const App: React.FC = () => {
           path={PROFILE_ORDER_PATH}
           element={
             <ProtectedRoute>
-              <ProfileOrderItemPage/>
+              <ProfileOrderItemPage />
             </ProtectedRoute>
           }
         />
@@ -151,7 +151,7 @@ const App: React.FC = () => {
           path={FEED_PATH}
           element={
             <ProtectedRoute>
-              <FeedPage/>
+              <FeedPage />
             </ProtectedRoute>
           }
         />
@@ -192,7 +192,7 @@ const App: React.FC = () => {
             path={PROFILE_ORDER_PATH}
             element={
               <Modal onClose={handleClose} title="">
-                <ProfileOrderItemPage/>
+                <ProfileOrderItemPage />
               </Modal>
             }
           />
@@ -204,7 +204,7 @@ const App: React.FC = () => {
             path={FEED_ITEM_PATH}
             element={
               <Modal onClose={handleClose} title="">
-                <FeedItemPage/>
+                <FeedItemPage />
               </Modal>
             }
           />

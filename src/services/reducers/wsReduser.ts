@@ -1,20 +1,14 @@
-import { wsActionTypes, IWSOrder, TWSActions } from "../../types/wsTypes";
+import { wsActionTypes, TWSActions, IWSData } from "../../types/wsTypes";
 
 interface IWSState {
   wsConnected: boolean;
-  orders: IWSOrder[];
+  data: IWSData[];
   error?: Event;
-  success: boolean;
-  total: number;
-  totalToday: number;
 }
 
 const initialState: IWSState = {
   wsConnected: false,
-  orders: [],
-  success: false,
-  total: 0,
-  totalToday: 0,
+  data: [],
 };
 
 export const wsReducer = (state = initialState, action: TWSActions) => {
@@ -49,9 +43,9 @@ export const wsReducer = (state = initialState, action: TWSActions) => {
       return {
         ...state,
         error: undefined,
-        orders: [...state.orders, action.payload],
+        data: [...state.data, action.payload],
       };
-
+      
     default:
       return state;
   }
