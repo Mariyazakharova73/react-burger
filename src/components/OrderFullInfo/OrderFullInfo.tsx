@@ -3,6 +3,7 @@ import styles from "./OrderFullInfo.module.css";
 import cn from "classnames";
 import image from "../../images/bun-01.png";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
+import { useLocation } from "react-router";
 
 const data = {
   number: "#034533",
@@ -12,17 +13,24 @@ const data = {
   price: "510",
   done: true,
   arr: [
-    { name: "Флюоресцентная булка R2-D3", count: 2, price: 20, image: image },
-    { name: "Филе Люминесцентного тетраодонтимформа", count: 1, price: 300, image: image },
-    { name: "Соус традиционный галактический", count: 1, price: 30, image: image },
-    { name: "Плоды фалленианского дерева", count: 1, price: 80, image: image },
+    { name: "Флюоресцентная булка R2-D3", count: 2, price: 20, image: image, id: 1 },
+    { name: "Филе Люминесцентного тетраодонтимформа", count: 1, price: 300, image: image, id: 2 },
+    { name: "Соус традиционный галактический", count: 1, price: 30, image: image, id: 3 },
+    { name: "Плоды фалленианского дерева", count: 1, price: 80, image: image, id: 4 },
   ],
 };
 
 const OrderFullInfo = () => {
+  const location = useLocation();
+  let background = location.state && location.state.background;
+
   return (
-    <div className={styles.wrapper}>
-      <p className={cn("text text_type_digits-default mb-10", styles.number)}>{data.number}</p>
+    <div className={cn(styles.wrapper, {
+      [styles.indent]: !background,
+    })}>
+      <p className={cn("text text_type_digits-default mb-10", styles.number, {
+      [styles.text]: background,
+    })}>{data.number}</p>
       <h1 className="text text_type_main-medium mb-3">{data.title}</h1>
       <p
         className={cn("text text_type_main-default mb-15", {

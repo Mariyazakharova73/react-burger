@@ -40,6 +40,7 @@ import {
 import FeedItemPage from "../../pages/FeedItemPage/FeedItemPage";
 import FeedPage from "../../pages/FeedPage/FeedPage";
 import ProfileOrderItemPage from "../../pages/ProfileOrderItemPage/ProfileOrderItemPage";
+import { wsActionTypes } from "../../types/wsTypes";
 
 const App: React.FC = () => {
   const [isOpenOrder, setIsOpenOrder] = useState(false);
@@ -59,6 +60,7 @@ const App: React.FC = () => {
   }, [ingredientsForBurger, bun]);
 
   useEffect(() => {
+    dispatch({ type: wsActionTypes.WS_CONNECTION_START });
     dispatch(getDataIngredients());
     if (getCookie("accessToken")) {
       dispatch(getUserThunk()); // загружаем пользователя
@@ -179,6 +181,30 @@ const App: React.FC = () => {
             element={
               <Modal onClose={handleClose} title="Детали ингредиента">
                 <IngredientDetails />
+              </Modal>
+            }
+          />
+        </Routes>
+      )}
+      {background && (
+        <Routes>
+          <Route
+            path={PROFILE_ORDER_PATH}
+            element={
+              <Modal onClose={handleClose} title="">
+                <ProfileOrderItemPage/>
+              </Modal>
+            }
+          />
+        </Routes>
+      )}
+      {background && (
+        <Routes>
+          <Route
+            path={FEED_ITEM_PATH}
+            element={
+              <Modal onClose={handleClose} title="">
+                <FeedItemPage/>
               </Modal>
             }
           />

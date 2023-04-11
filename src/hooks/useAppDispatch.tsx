@@ -3,4 +3,6 @@ import { AnyAction } from "redux";
 import { ThunkDispatch } from "redux-thunk";
 import { RootState } from "../services";
 
-export const useAppDispatch = () => useDispatch<ThunkDispatch<RootState, unknown, AnyAction>>();
+export type AppDispatch = ThunkDispatch<RootState, unknown, AnyAction>;
+
+export const useAppDispatch = () => useDispatch<AppDispatch>();

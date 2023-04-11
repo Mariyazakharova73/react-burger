@@ -2,6 +2,7 @@ import React from "react";
 import styles from "./FeedPage.module.css";
 import cn from "classnames";
 import OrderCard from "../../components/OrderCard/OrderCard";
+import { useAppDispatch } from "../../hooks/useAppDispatch";
 
 export const data = [
   {
@@ -11,6 +12,7 @@ export const data = [
     images: 4,
     price: "480",
     done: true,
+    id: 1,
   },
   {
     number: "#034534",
@@ -18,6 +20,7 @@ export const data = [
     date: "Сегодня, 13:20",
     images: 9,
     price: "560",
+    id: 2,
   },
   {
     number: "#034533",
@@ -25,6 +28,7 @@ export const data = [
     date: "Вчера, 13:50",
     images: 5,
     price: "510",
+    id: 3,
   },
   {
     number: "#034532",
@@ -32,6 +36,7 @@ export const data = [
     date: "2 дня назад, 21:53",
     images: 9,
     price: "320",
+    id: 4,
   },
 ];
 
@@ -40,6 +45,9 @@ const digits: string[] = ["034533", "034532", "034530", "034527", "034525"];
 const digitsInWork: string[] = ["034538", "034541", "034542"];
 
 const FeedPage = () => {
+
+  const dispatch = useAppDispatch();
+
   return (
     <main className={cn("pt-10", styles.content)}>
       <h1 className="text text_type_main-large">Лента заказов</h1>
@@ -47,7 +55,7 @@ const FeedPage = () => {
         <div className={styles.container}>
           <ul className={styles.list}>
             {data.map((item) => {
-              return <OrderCard key={item.number} item={item}></OrderCard>;
+              return <OrderCard key={item.number} item={item} />;
             })}
           </ul>
         </div>

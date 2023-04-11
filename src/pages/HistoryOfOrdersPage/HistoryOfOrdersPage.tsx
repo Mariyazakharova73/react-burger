@@ -13,7 +13,7 @@ const HistoryOfOrdersPage = () => {
       <div className={styles.historyCardsWrapper}>
         <ul className={styles.container}>
           {data.map((item) => {
-            return <OrderCard key={item.number} item={item} status={true}></OrderCard>;
+            return <OrderCard key={item.number} item={item} status={true}/>;
           })}
         </ul>
       </div>

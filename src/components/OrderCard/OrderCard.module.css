@@ -1,3 +1,8 @@
+.link {
+  text-decoration: none;
+  color: inherit;
+}
+
 .item {
   background: var(--bg-header);
   border-radius: 40px;
