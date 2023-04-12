@@ -1,57 +1,77 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styles from "./OrderFullInfo.module.css";
 import cn from "classnames";
-import image from "../../images/bun-01.png";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useLocation } from "react-router";
+import { useLocation, useParams } from "react-router";
+import { useTypedSelector } from "../../hooks/useTypedSelector";
+import uuid from "react-uuid";
+import {
+  addDataForIngredients,
+  calculateCount,
+  calculateSumm,
+  getIngredientsWithCount,
+  getStringDate,
+} from "../../utils/helpers";
+import { getDataIngredients } from "../../services/actions/actions";
+import { useAppDispatch } from "../../hooks/useAppDispatch";
 
-const data = {
-  number: "#034533",
-  title: "Black Hole Singularity острый бургер",
-  date: "Вчера, 13:50",
-  images: 4,
-  price: "510",
-  done: true,
-  arr: [
-    { name: "Флюоресцентная булка R2-D3", count: 2, price: 20, image: image, id: 1 },
-    { name: "Филе Люминесцентного тетраодонтимформа", count: 1, price: 300, image: image, id: 2 },
-    { name: "Соус традиционный галактический", count: 1, price: 30, image: image, id: 3 },
-    { name: "Плоды фалленианского дерева", count: 1, price: 80, image: image, id: 4 },
-  ],
-};
-
-const OrderFullInfo = () => {
+const OrderFullInfo: React.FC = () => {
   const location = useLocation();
+  const { id } = useParams();
   let background = location.state && location.state.background;
+  const orders = useTypedSelector((state) => state.ws.data[0]?.orders);
+  const ingredients = useTypedSelector((state) => state.ingredients?.ingredients);
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    if (ingredients.length === 0) {
+      dispatch(getDataIngredients());
+    }
+  }, [ingredients]);
+
+  if (!ingredients || !orders) return <></>
+
+  const newOrders = addDataForIngredients(orders, ingredients);
+  const selectedOrderItem = newOrders?.filter((item) => {
+    return item._id === id;
+  })[0];
+
+  const obj = calculateCount(selectedOrderItem?.ingredients);
+
+  const newIngredients = getIngredientsWithCount(obj, ingredients);
 
   return (
-    <div className={cn(styles.wrapper, {
-      [styles.indent]: !background,
-    })}>
-      <p className={cn("text text_type_digits-default mb-10", styles.number, {
-      [styles.text]: background,
-    })}>{data.number}</p>
-      <h1 className="text text_type_main-medium mb-3">{data.title}</h1>
+    <div
+      className={cn(styles.wrapper, {
+        [styles.indent]: !background,
+      })}
+    >
       <p
-        className={cn("text text_type_main-default mb-15", {
-          [styles.done]: data.done,
+        className={cn("text text_type_digits-default mb-10", styles.number, {
+          [styles.text]: background,
         })}
       >
-        {data.done ? "Выполнен" : "Создан"}
+        #{selectedOrderItem.number}
+      </p>
+      <h1 className="text text_type_main-medium mb-3">{selectedOrderItem.name}</h1>
+      <p
+        className={cn("text text_type_main-default mb-15", {
+          [styles.done]: selectedOrderItem.status === "done",
+        })}
+      >
+        {selectedOrderItem.status ? "Выполнен" : "Создан"}
       </p>
       <p className="text text_type_main-medium mb-6">Состав:</p>
       <div className={styles.container}>
         <ul className={styles.list}>
-          {data.arr.map((item) => {
+          {newIngredients?.map((item) => {
             return (
-              <li key={item.name} className={cn(styles.listItem, "mb-4")}>
+              <li key={uuid()} className={cn(styles.listItem, "mb-4")}>
                 <div className={styles.imageWrapper}>
-                  <img className={styles.image} src={item.image} alt="Ингредиент." />
+                  <img className={styles.image} src={item?.image} alt={`${item.name}`} />
                 </div>
                 <p className={cn("text text_type_main-default", styles.name)}>{item.name}</p>
-
                 <div className={cn("text text_type_digits-default mr-6", styles.price)}>
-                  {item.count} x {item.price} <CurrencyIcon type="primary" />
+                  {item.count} x {item?.price} <CurrencyIcon type="primary" />
                 </div>
               </li>
             );
@@ -59,9 +79,11 @@ const OrderFullInfo = () => {
         </ul>
       </div>
       <div className={styles.summWrapper}>
-        <p className="text text_type_main-default text_color_inactive">{data.date}</p>
+        <p className="text text_type_main-default text_color_inactive">
+          {getStringDate(selectedOrderItem.createdAt)}
+        </p>
         <div className={styles.summ}>
-          {data.price} <CurrencyIcon type="primary" />
+          {calculateSumm(newIngredients)} <CurrencyIcon type="primary" />
         </div>
       </div>
     </div>

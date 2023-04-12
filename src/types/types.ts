@@ -1,4 +1,5 @@
 import { ChangeEvent, FormEvent, ReactElement, ReactNode, Ref } from "react";
+import { IWSNewOrder } from "./wsTypes";
 
 type TVoidFunc = () => void;
 
@@ -50,7 +51,7 @@ export interface ICardListProps {
 export interface IOrderedIngredientProps {
   item: IIngredient;
   index: number;
-  moveCard: (dragIndex: number, hoverIndex: number) => void
+  moveCard: (dragIndex: number, hoverIndex: number) => void;
 }
 
 export interface IOrder {
@@ -131,3 +132,19 @@ export interface IIngredientDetailsPageProps {
 export interface IErrors {
   [key: string]: string;
 }
+
+export enum orderItemActionTypes {
+  GET_ORDER_ITEM = "GET_ORDER_ITEM",
+  DELETE_ORDER_ITEM = "DELETE_ORDER_ITEM",
+}
+
+export interface IOrderCardProps {
+  item: IWSNewOrder;
+  status?: any;
+}
+
+export interface ICount {
+  [key: string]: number;
+}
+
+export type TNewIngredient = IIngredient & { count: number };

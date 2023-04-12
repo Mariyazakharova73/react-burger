@@ -17,6 +17,7 @@ export const rootReducer = combineReducers({
   ingredients: ingredientsReducer,
   user: userReducer,
   ws: wsReducer,
+  
 });
 
 const wsActions: TWSStoreActions = {

@@ -1,3 +1,6 @@
+import dayjs from "dayjs";
+import { IIngredient } from "./types";
+
 export enum wsActionTypes {
   // для создания объекта класса WebSocket:
   WS_CONNECTION_START = "WS_CONNECTION_START",
@@ -15,6 +18,16 @@ export enum wsActionTypes {
 
 export interface IWSOrder {
   ingredients: string[];
+  _id: string;
+  status: string;
+  name: string;
+  number: number;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface IWSNewOrder {
+  ingredients: IIngredient[];
   _id: string;
   status: string;
   name: string;

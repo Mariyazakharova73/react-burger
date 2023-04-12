@@ -9,9 +9,11 @@ import {
   IIngredient,
   burgerActionTypes,
   requestActionTypes,
+  orderItemActionTypes,
 } from "../../types/types";
 import { GET_INGREDIENTS } from "../../utils/constants";
 import { getOrderOptions, request } from "../../utils/request";
+import { IWSNewOrder } from "../../types/wsTypes";
 
 export function getCard(selectedCard: TIngredientDetails) {
   return {
@@ -111,3 +113,17 @@ export const getDataOrder = (data: string[]): ThunkActionType => {
       });
   };
 };
+
+
+export function getOrderItem(selectedOrder: IWSNewOrder) {
+  return {
+    type: orderItemActionTypes.GET_ORDER_ITEM,
+    payload: selectedOrder,
+  };
+}
+
+export function deleteOrderItem() {
+  return {
+    type: orderItemActionTypes.DELETE_ORDER_ITEM,
+  };
+}

@@ -50,20 +50,21 @@
 
 .numbersContainer {
   display: flex;
-  gap: 36px;
+  justify-content: space-between;
 }
 
-.numbersItemContainer {
-  max-width: 272px;
-  width: 100%;
-}
-
-.digits {}
+.numbersItemContainer {}
 
 .digitsList {
   margin: 0;
   list-style-type: none;
   padding: 0;
+  height: 325px;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  column-gap: 10px;
+  width: 100%;
 }
 
 .digitsText {

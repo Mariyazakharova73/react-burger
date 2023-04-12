@@ -3,42 +3,22 @@ import styles from "./OrderCard.module.css";
 import cn from "classnames";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Link, useLocation } from "react-router-dom";
-import { IIngredient } from "../../types/types";
+import { IOrderCardProps } from "../../types/types";
 import uuid from "react-uuid";
-import dayjs from "dayjs";
-import relativeTime from "dayjs/plugin/relativeTime";
-import calendar from "dayjs/plugin/calendar";
-require("dayjs/locale/ru");
-dayjs.extend(relativeTime);
-dayjs.extend(calendar);
+import { useAppDispatch } from "../../hooks/useAppDispatch";
+import { calculatePrice, getStringDate } from "../../utils/helpers";
 
-const OrderCard: React.FC<any> = ({ item, status }) => {
+const OrderCard: React.FC<IOrderCardProps> = ({ item, status }) => {
   const location = useLocation();
 
   const handleClick = () => {
-    console.log("click");
-  };
-
-  const calculatePrice = (arr: IIngredient[]): number => {
-    return arr.reduce((acc, curr) => {
-      return acc + curr?.price;
-    }, 0);
-  };
-
-  const getStringDate = (date: dayjs.Dayjs | Date) => {
-    return `${dayjs(date)
-      .locale("ru")
-      .calendar(null, {
-        sameDay: "[Сегодня], h:mm",
-        lastDay: "[Вчера], h:mm",
-        sameElse: `${dayjs(date).locale("ru").fromNow()}, h:mm`,
-      })}`;
+    
   };
 
   return (
     <Link
       key={item._id}
-      to={location.pathname === "/feed" ? `/feed/${item._id}` : `/profile/orders/${item.id}`}
+      to={location.pathname === "/feed" ? `/feed/${item._id}` : `/profile/orders/${item._id}`}
       state={{ background: location }}
       className={cn("", styles.link)}
     >
@@ -63,12 +43,12 @@ const OrderCard: React.FC<any> = ({ item, status }) => {
         </div>
         <div className={styles.imageWrapper}>
           <ul className={styles.imageItemWrapper}>
-            {item.ingredients.slice(0, 6).map((ingredient: IIngredient, index: number) => {
+            {item.ingredients?.slice(0, 6).map((ingredient, index: number) => {
               return (
                 <li
                   key={uuid()}
                   className={cn(styles.listItem, {
-                    [styles.overlay]: item.ingredients.length > 6 && index === 0,
+                    [styles.overlay]: item.ingredients?.length > 6 && index === 0,
                   })}
                 >
                   <img
@@ -79,8 +59,8 @@ const OrderCard: React.FC<any> = ({ item, status }) => {
                 </li>
               );
             })}
-            {item.ingredients.length > 6 ? (
-              <p className={styles.count}>+{item.ingredients.length - 6}</p>
+            {item.ingredients?.length > 6 ? (
+              <p className={styles.count}>+{item.ingredients?.length - 6}</p>
             ) : null}
           </ul>
           <div className={styles.priceWrapper}>
