@@ -45,8 +45,21 @@ const digits: string[] = ["034533", "034532", "034530", "034527", "034525"];
 const digitsInWork: string[] = ["034538", "034541", "034542"];
 
 const FeedPage = () => {
-  const allOrders = useTypedSelector((state) => state.ws?.data);
-  console.log(allOrders)
+  const allOrders = useTypedSelector((state) => state.ws.data[0]);
+  const orders = useTypedSelector((state) => state.ws.data[0]?.orders);
+
+  const ingredients = useTypedSelector((state) => state.ingredients.ingredients);
+
+  const newOrders = orders?.map((item) => {
+   const  newIngredients = item.ingredients.map((id) => {
+      return ingredients.find((el) => {
+        return el._id === id;
+      });
+    });
+   return {...item, ingredients: newIngredients}
+  });
+
+  console.log(newOrders)
 
   return (
     <main className={cn("pt-10", styles.content)}>
@@ -54,7 +67,7 @@ const FeedPage = () => {
       <div className={cn("pt-5", styles.wrapper)}>
         <div className={styles.container}>
           <ul className={styles.list}>
-            {data.map((item) => {
+            {newOrders?.map((item) => {
               return <OrderCard key={item.number} item={item} />;
             })}
           </ul>
@@ -92,11 +105,11 @@ const FeedPage = () => {
           </div>
           <div>
             <p className="text text_type_main-medium m-0">Выполнено за все время:</p>
-            <p className="m-0 text text_type_digits-large">28 752</p>
+            <p className="m-0 text text_type_digits-large">{allOrders?.total}</p>
           </div>
           <div>
             <p className="text text_type_main-medium m-0">Выполнено за сегодня:</p>
-            <p className="m-0 text text_type_digits-large">138</p>
+            <p className="m-0 text text_type_digits-large">{allOrders?.totalToday}</p>
           </div>
         </div>
       </div>

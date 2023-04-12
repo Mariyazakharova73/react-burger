@@ -70,7 +70,7 @@
 }
 
 .image {
-  object-fit: contain;
+  object-fit: cover;
   object-position: center;
   width: 64px;
   height: 64px;

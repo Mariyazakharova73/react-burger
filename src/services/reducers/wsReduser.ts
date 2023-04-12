@@ -43,9 +43,9 @@ export const wsReducer = (state = initialState, action: TWSActions) => {
       return {
         ...state,
         error: undefined,
-        data: [...state.data, action.payload],
+        data: [action.payload],
       };
-      
+
     default:
       return state;
   }
