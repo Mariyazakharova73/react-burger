@@ -3,14 +3,10 @@ import styles from "./FeedPage.module.css";
 import cn from "classnames";
 import OrderCard from "../../components/OrderCard/OrderCard";
 import { useTypedSelector } from "../../hooks/useTypedSelector";
-import { addDataForIngredients } from "../../utils/helpers";
 
 const FeedPage = () => {
   const allOrders = useTypedSelector((state) => state.ws.data[0]);
   const orders = useTypedSelector((state) => state.ws.data[0]?.orders);
-  const ingredients = useTypedSelector((state) => state.ingredients.ingredients);
-
-  const newOrders = addDataForIngredients(orders, ingredients)
 
   const finishedOrders = orders?.filter((item) => {
     return item.status === "done";
@@ -26,7 +22,7 @@ const FeedPage = () => {
       <div className={cn("pt-5", styles.wrapper)}>
         <div className={styles.container}>
           <ul className={styles.list}>
-            {newOrders?.map((item) => {
+            {orders?.map((item) => {
               return <OrderCard key={item.number} item={item} />;
             })}
           </ul>

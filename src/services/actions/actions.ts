@@ -13,7 +13,6 @@ import {
 } from "../../types/types";
 import { GET_INGREDIENTS } from "../../utils/constants";
 import { getOrderOptions, request } from "../../utils/request";
-import { IWSNewOrder } from "../../types/wsTypes";
 
 export function getCard(selectedCard: TIngredientDetails) {
   return {
@@ -114,8 +113,7 @@ export const getDataOrder = (data: string[]): ThunkActionType => {
   };
 };
 
-
-export function getOrderItem(selectedOrder: IWSNewOrder) {
+export function getOrderItem(selectedOrder: IIngredient[]) {
   return {
     type: orderItemActionTypes.GET_ORDER_ITEM,
     payload: selectedOrder,

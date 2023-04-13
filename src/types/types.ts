@@ -1,5 +1,5 @@
 import { ChangeEvent, FormEvent, ReactElement, ReactNode, Ref } from "react";
-import { IWSNewOrder } from "./wsTypes";
+import { IWSNewOrder, IWSOrder } from "./wsTypes";
 
 type TVoidFunc = () => void;
 
@@ -139,7 +139,7 @@ export enum orderItemActionTypes {
 }
 
 export interface IOrderCardProps {
-  item: IWSNewOrder;
+  item: IWSOrder;
   status?: any;
 }
 
@@ -148,3 +148,4 @@ export interface ICount {
 }
 
 export type TNewIngredient = IIngredient & { count: number };
+

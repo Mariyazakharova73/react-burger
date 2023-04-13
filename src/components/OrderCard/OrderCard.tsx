@@ -1,18 +1,25 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styles from "./OrderCard.module.css";
 import cn from "classnames";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Link, useLocation } from "react-router-dom";
 import { IOrderCardProps } from "../../types/types";
 import uuid from "react-uuid";
+import { addDataForIngredients, calculatePrice, getStringDate } from "../../utils/helpers";
+import { useTypedSelector } from "../../hooks/useTypedSelector";
 import { useAppDispatch } from "../../hooks/useAppDispatch";
-import { calculatePrice, getStringDate } from "../../utils/helpers";
+import { getDataIngredients, getOrderItem } from "../../services/actions/actions";
 
 const OrderCard: React.FC<IOrderCardProps> = ({ item, status }) => {
   const location = useLocation();
+  const dispatch = useAppDispatch();
+  const ingredients = useTypedSelector((state) => state.ingredients.ingredients);
+
+  const newArr = addDataForIngredients(item.ingredients, ingredients);
 
   const handleClick = () => {
-    
+    console.log(newArr)
+    dispatch(getOrderItem(newArr));
   };
 
   return (
@@ -43,7 +50,7 @@ const OrderCard: React.FC<IOrderCardProps> = ({ item, status }) => {
         </div>
         <div className={styles.imageWrapper}>
           <ul className={styles.imageItemWrapper}>
-            {item.ingredients?.slice(0, 6).map((ingredient, index: number) => {
+            {newArr?.slice(0, 6).map((ingredient, index: number) => {
               return (
                 <li
                   key={uuid()}
@@ -66,7 +73,7 @@ const OrderCard: React.FC<IOrderCardProps> = ({ item, status }) => {
           <div className={styles.priceWrapper}>
             <CurrencyIcon type="primary" />
             <p className={cn("text text_type_digits-default", styles.price)}>
-              {calculatePrice(item.ingredients)}
+              {calculatePrice(newArr)}
             </p>
           </div>
         </div>

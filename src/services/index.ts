@@ -9,15 +9,16 @@ import { wsReducer } from "./reducers/wsReduser";
 import { socketMiddleware } from "../services/middleware";
 import { WS_URL } from "../utils/constants";
 import { TWSStoreActions, wsActionTypes } from "../types/wsTypes";
+import { selectedOrderReducer } from "./reducers/selectedOrderReducer";
 
 export const rootReducer = combineReducers({
   card: selectedCardReducer,
   order: orderDetailsReducer,
+  selectedOrder: selectedOrderReducer,
   buy: ingredientsForBurgerReducer,
   ingredients: ingredientsReducer,
   user: userReducer,
   ws: wsReducer,
-  
 });
 
 const wsActions: TWSStoreActions = {

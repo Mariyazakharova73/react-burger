@@ -7,17 +7,6 @@ require("dayjs/locale/ru");
 dayjs.extend(relativeTime);
 dayjs.extend(calendar);
 
-export const addDataForIngredients = (ordersArr: IWSOrder[], ingredientsArr: IIngredient[]) => {
-  return ordersArr?.map((item) => {
-    const newIngredients = item.ingredients?.map((id) => {
-      return ingredientsArr?.find((el) => {
-        return el._id === id;
-      });
-    });
-    return { ...item, ingredients: newIngredients };
-  });
-};
-
 export const calculatePrice = (arr: IIngredient[]): number => {
   return arr?.reduce((acc, curr) => {
     return acc + curr?.price;
@@ -34,7 +23,7 @@ export const getStringDate = (date: string) => {
     })}`;
 };
 
-export const calculateCount = (arr: any[]) => {
+export const calculateCount = (arr: IIngredient[]) => {
   const countItems: ICount = {};
   for (const item of arr) {
     countItems[item._id] = countItems[item._id] ? countItems[item._id] + 1 : 1;
@@ -58,4 +47,16 @@ export const calculateSumm = (arr: TNewIngredient[]) => {
   return arr?.reduce((acc, curr) => {
     return acc + curr?.count * curr?.price;
   }, 0);
+};
+
+export const addDataForIngredients = (IdArr: string[], ingredientsArr: IIngredient[]) => {
+  let newArr: IIngredient[] = [];
+  IdArr?.forEach((itemString) => {
+    const dataIngredient = ingredientsArr.find((item) => {
+      return item._id === itemString;
+    });
+    if (!dataIngredient) return;
+    newArr = [...newArr, dataIngredient];
+  });
+  return newArr;
 };
