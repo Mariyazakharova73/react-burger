@@ -60,7 +60,6 @@ const App: React.FC = () => {
   }, [ingredientsForBurger, bun]);
 
   useEffect(() => {
-    dispatch({ type: wsActionTypes.WS_CONNECTION_START });
     dispatch(getDataIngredients());
     if (getCookie("accessToken")) {
       dispatch(getUserThunk()); // загружаем пользователя

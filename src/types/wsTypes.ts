@@ -1,4 +1,3 @@
-import dayjs from "dayjs";
 import { IIngredient } from "./types";
 
 export enum wsActionTypes {
@@ -12,8 +11,10 @@ export enum wsActionTypes {
   WS_CONNECTION_CLOSED = "WS_CONNECTION_CLOSED",
   // при получении сообщения от сервера:
   WS_GET_MESSAGE = "WS_GET_MESSAGE",
+  WS_GET_ORDERS = "WS_GET_ORDERS",
   // для отправки сообщений на сервер:
   WS_SEND_MESSAGE = "WS_SEND_MESSAGE",
+  WS_CONNECTION_START_ORDERS = "WS_CONNECTION_START_ORDERS",
 }
 
 export interface IWSOrder {
@@ -47,6 +48,10 @@ export interface IWSConnectionStart {
   readonly type: wsActionTypes.WS_CONNECTION_START;
 }
 
+export interface IWSConnectionStartOrders {
+  readonly type: wsActionTypes.WS_CONNECTION_START_ORDERS;
+}
+
 export interface IWSConnectionSuccessAction {
   readonly type: wsActionTypes.WS_CONNECTION_SUCCESS;
 }
@@ -65,6 +70,11 @@ export interface IWSGetMessageAction {
   readonly payload: IWSData;
 }
 
+export interface IWSGetOrdersAction {
+  readonly type: wsActionTypes.WS_GET_ORDERS;
+  readonly payload: any;
+}
+
 export interface IWSSendMessageAction {
   readonly type: wsActionTypes.WS_SEND_MESSAGE;
   readonly payload: { message: string };
@@ -76,13 +86,17 @@ export type TWSActions =
   | IWSConnectionErrorAction
   | IWSConnectionClosedAction
   | IWSGetMessageAction
-  | IWSSendMessageAction;
+  | IWSSendMessageAction
+  | IWSConnectionStartOrders
+  | IWSGetOrdersAction;
 
 export type TWSStoreActions = {
   wsInit: wsActionTypes.WS_CONNECTION_START;
+  wsInitOrders: wsActionTypes.WS_CONNECTION_START_ORDERS;
   wsSendMessage: wsActionTypes.WS_SEND_MESSAGE;
   onOpen: wsActionTypes.WS_CONNECTION_SUCCESS;
   onClose: wsActionTypes.WS_CONNECTION_CLOSED;
   onError: wsActionTypes.WS_CONNECTION_ERROR;
   onMessage: wsActionTypes.WS_GET_MESSAGE;
+  onOrders: wsActionTypes.WS_GET_ORDERS;
 };

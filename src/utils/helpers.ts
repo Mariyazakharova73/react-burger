@@ -1,6 +1,5 @@
 import dayjs from "dayjs";
 import { ICount, IIngredient, TNewIngredient } from "./../types/types";
-import { IWSNewOrder, IWSOrder } from "./../types/wsTypes";
 import relativeTime from "dayjs/plugin/relativeTime";
 import calendar from "dayjs/plugin/calendar";
 require("dayjs/locale/ru");

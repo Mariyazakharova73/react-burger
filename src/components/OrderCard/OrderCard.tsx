@@ -8,7 +8,7 @@ import uuid from "react-uuid";
 import { addDataForIngredients, calculatePrice, getStringDate } from "../../utils/helpers";
 import { useTypedSelector } from "../../hooks/useTypedSelector";
 import { useAppDispatch } from "../../hooks/useAppDispatch";
-import { getDataIngredients, getOrderItem } from "../../services/actions/actions";
+import { getOrderItem } from "../../services/actions/actions";
 
 const OrderCard: React.FC<IOrderCardProps> = ({ item, status }) => {
   const location = useLocation();
@@ -18,7 +18,6 @@ const OrderCard: React.FC<IOrderCardProps> = ({ item, status }) => {
   const newArr = addDataForIngredients(item.ingredients, ingredients);
 
   const handleClick = () => {
-    console.log(newArr)
     dispatch(getOrderItem(newArr));
   };
 

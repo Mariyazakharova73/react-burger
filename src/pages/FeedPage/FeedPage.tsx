@@ -1,12 +1,15 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styles from "./FeedPage.module.css";
 import cn from "classnames";
 import OrderCard from "../../components/OrderCard/OrderCard";
 import { useTypedSelector } from "../../hooks/useTypedSelector";
+import { useAppDispatch } from "../../hooks/useAppDispatch";
+import { wsActionTypes } from "../../types/wsTypes";
 
 const FeedPage = () => {
   const allOrders = useTypedSelector((state) => state.ws.data[0]);
   const orders = useTypedSelector((state) => state.ws.data[0]?.orders);
+  const dispatch = useAppDispatch();
 
   const finishedOrders = orders?.filter((item) => {
     return item.status === "done";
@@ -15,6 +18,13 @@ const FeedPage = () => {
   const inWorkOrders = orders?.filter((item) => {
     return item.status !== "done";
   });
+
+  useEffect(() => {
+    dispatch({ type: wsActionTypes.WS_CONNECTION_START });
+    return () => {
+      dispatch({ type: wsActionTypes.WS_CONNECTION_CLOSED });
+    };
+  }, []);
 
   return (
     <main className={cn("pt-10", styles.content)}>

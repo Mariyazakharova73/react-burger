@@ -1,6 +1,6 @@
 export const BASE_URL = "https://norma.nomoreparties.space/api/";
-
 export const WS_URL = "wss://norma.nomoreparties.space/orders/all";
+export const WS_ORDER_URL = "wss://norma.nomoreparties.space/orders";
 
 export const BLANK_CARD = {
   name: "",
@@ -12,7 +12,6 @@ export const BLANK_CARD = {
 };
 
 export const ADD_INGREDIENT = "ADD_INGREDIENT";
-
 export const GET_INGREDIENTS = "GET_INGREDIENTS";
 
 export const BUN_BY_DEFAULT = {
@@ -39,6 +38,7 @@ export const ENDPOINT_FOR_TOKEN = "auth/token";
 export const ENDPOINT_FOR_UPDATE_TOKEN = "auth/token";
 export const ENDPOINT_FOR_FORGOT_PASSWORD = "password-reset";
 export const ENDPOINT_FOR_RESET_PASSWORD = "password-reset/reset";
+
 export const REGISTER_USER_SUCCES = "REGISTER_USER_SUCCES";
 export const GET_USER_SUCCESS = "GET_USER_SUCCESS";
 export const REMOVE_USER = "REMOVE_USER";

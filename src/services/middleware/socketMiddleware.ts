@@ -1,20 +1,26 @@
 import type { AnyAction, Middleware, MiddlewareAPI } from "redux";
 import { AppDispatch } from "../../hooks/useAppDispatch";
 import { TWSStoreActions } from "../../types/wsTypes";
+import { WS_ORDER_URL, WS_URL } from "../../utils/constants";
+import { getCookie } from "../../utils/cookie";
 import { RootState } from "../index";
 
-export const socketMiddleware = (wsUrl: string, wsActions: TWSStoreActions): Middleware => {
+export const socketMiddleware = (wsActions: TWSStoreActions): Middleware => {
   return ((store: MiddlewareAPI<AppDispatch, RootState>) => {
     let socket: WebSocket | null = null;
 
     return (next) => (action: AnyAction) => {
       const { dispatch, getState } = store;
       const { type } = action;
-      const { wsInit, wsSendMessage, onOpen, onClose, onError, onMessage } = wsActions;
+      const { wsInit, wsInitOrders, wsSendMessage, onOpen, onClose, onError, onMessage } =
+        wsActions;
 
       if (type === wsInit) {
         // объект класса WebSocket
-        socket = new WebSocket(wsUrl);
+        socket = new WebSocket(WS_URL);
+      } else if (type === wsInitOrders) {
+        const accessToken = getCookie("accessToken")?.replace('Bearer ','');
+        socket = new WebSocket(`${WS_ORDER_URL}?token=${accessToken}`);
       }
       if (socket) {
         // функция, которая вызывается при открытии сокета

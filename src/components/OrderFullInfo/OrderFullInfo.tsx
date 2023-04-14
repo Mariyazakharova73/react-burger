@@ -15,8 +15,10 @@ import {
 import { getDataIngredients, getOrderItem } from "../../services/actions/actions";
 import { useAppDispatch } from "../../hooks/useAppDispatch";
 import { wsActionTypes } from "../../types/wsTypes";
+import { FEED_PATH } from "../../utils/constants";
 
 const OrderFullInfo: React.FC = () => {
+  const dispatch = useAppDispatch();
   const location = useLocation();
   const { id } = useParams();
   let background = location.state && location.state.background;
@@ -28,6 +30,20 @@ const OrderFullInfo: React.FC = () => {
   const newOrders = addDataForIngredients(selectedOrderItem?.ingredients, ingredients);
   const obj = calculateCount(newOrders);
   const newIngredients = getIngredientsWithCount(obj, ingredients);
+
+  useEffect(() => {
+    if (location.pathname.includes(FEED_PATH)) {
+      dispatch({ type: wsActionTypes.WS_CONNECTION_START });
+      return () => {
+        dispatch({ type: wsActionTypes.WS_CONNECTION_CLOSED });
+      };
+    } else {
+      dispatch({ type: wsActionTypes.WS_CONNECTION_START_ORDERS });
+      return () => {
+        dispatch({ type: wsActionTypes.WS_CONNECTION_CLOSED });
+      };
+    }
+  }, [location.pathname]);
 
   return (
     <div

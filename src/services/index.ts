@@ -7,7 +7,6 @@ import { userReducer } from "./reducers/userReducer";
 import thunk from "redux-thunk";
 import { wsReducer } from "./reducers/wsReduser";
 import { socketMiddleware } from "../services/middleware";
-import { WS_URL } from "../utils/constants";
 import { TWSStoreActions, wsActionTypes } from "../types/wsTypes";
 import { selectedOrderReducer } from "./reducers/selectedOrderReducer";
 
@@ -23,11 +22,13 @@ export const rootReducer = combineReducers({
 
 const wsActions: TWSStoreActions = {
   wsInit: wsActionTypes.WS_CONNECTION_START,
+  wsInitOrders: wsActionTypes.WS_CONNECTION_START_ORDERS,
   wsSendMessage: wsActionTypes.WS_SEND_MESSAGE,
   onOpen: wsActionTypes.WS_CONNECTION_SUCCESS,
   onClose: wsActionTypes.WS_CONNECTION_CLOSED,
   onError: wsActionTypes.WS_CONNECTION_ERROR,
   onMessage: wsActionTypes.WS_GET_MESSAGE,
+  onOrders: wsActionTypes.WS_GET_ORDERS,
 };
 
 const composeEnhancers =
@@ -35,7 +36,7 @@ const composeEnhancers =
 
 export const store = createStore(
   rootReducer,
-  composeEnhancers(applyMiddleware(thunk, socketMiddleware(WS_URL, wsActions)))
+  composeEnhancers(applyMiddleware(thunk, socketMiddleware(wsActions)))
 );
 
 // export type RootState = ReturnType<typeof rootReducer>;
