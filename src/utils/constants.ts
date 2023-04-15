@@ -1,6 +1,7 @@
+import { getCookie } from "./cookie";
+
 export const BASE_URL = "https://norma.nomoreparties.space/api/";
-export const WS_URL = "wss://norma.nomoreparties.space/orders/all";
-export const WS_ORDER_URL = "wss://norma.nomoreparties.space/orders";
+export const WS_URL = "wss://norma.nomoreparties.space/orders";
 
 export const BLANK_CARD = {
   name: "",
@@ -55,3 +56,5 @@ export const FEED_PATH = "/feed";
 export const FEED_ITEM_PATH = "/feed/:id";
 export const INGREDIENT_PATH = "/ingredients/:ingredientId";
 export const ERROR_PATH = "*";
+
+export const ACCESSTOKEN = getCookie("accessToken")?.replace("Bearer ", "");

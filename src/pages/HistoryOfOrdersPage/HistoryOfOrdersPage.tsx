@@ -3,17 +3,19 @@ import Menu from "../../components/Menu/Menu";
 import styles from "../HistoryOfOrdersPage/HistoryOfOrdersPage.module.css";
 import OrderCard from "../../components/OrderCard/OrderCard";
 import { useTypedSelector } from "../../hooks/useTypedSelector";
-import { wsActionTypes } from "../../types/wsTypes";
 import { useAppDispatch } from "../../hooks/useAppDispatch";
+import { closeTheConnection, getAllOrders } from "../../services/actions/wsActions";
 
 const HistoryOfOrdersPage: React.FC = () => {
   const userOrders = useTypedSelector((state) => state.ws.data[0]);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch({ type: wsActionTypes.WS_CONNECTION_START_ORDERS });
+    dispatch(getAllOrders());
+    console.log("HistoryOfOrdersPage");
     return () => {
-      dispatch({ type: wsActionTypes.WS_CONNECTION_CLOSED });
+      console.log("unmountHistoryOfOrdersPage");
+      dispatch(closeTheConnection());
     };
   }, []);
 
@@ -24,7 +26,7 @@ const HistoryOfOrdersPage: React.FC = () => {
       </div>
       <div className={styles.historyCardsWrapper}>
         <ul className={styles.container}>
-          {userOrders?.orders.map((item) => {
+          {userOrders?.orders?.map((item) => {
             return <OrderCard key={item.number} item={item} status={true} />;
           })}
         </ul>

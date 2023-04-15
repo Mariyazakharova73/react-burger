@@ -37,6 +37,7 @@ export const wsReducer = (state = initialState, action: TWSActions) => {
         ...state,
         error: undefined,
         wsConnected: false,
+        data: [],
       };
 
     case wsActionTypes.WS_GET_MESSAGE:

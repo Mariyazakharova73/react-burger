@@ -56,7 +56,7 @@ const Card: React.FC<ICardProps> = ({ item }) => {
     >
       <li ref={dragRef} style={{ opacity }} className={styles.item} onClick={handleClick}>
         <Counter
-          count={item.type === "bun" ? (item._id === bun._id ? 2 : 0) : count}
+          count={item.type === "bun" ? (item._id === bun?._id ? 2 : 0) : count}
           size="default"
         />
         <img src={item.image} alt={`${item.name}.`} />

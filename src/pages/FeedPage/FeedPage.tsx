@@ -4,7 +4,7 @@ import cn from "classnames";
 import OrderCard from "../../components/OrderCard/OrderCard";
 import { useTypedSelector } from "../../hooks/useTypedSelector";
 import { useAppDispatch } from "../../hooks/useAppDispatch";
-import { wsActionTypes } from "../../types/wsTypes";
+import { closeTheConnection, getAllOrders } from "../../services/actions/wsActions";
 
 const FeedPage = () => {
   const allOrders = useTypedSelector((state) => state.ws.data[0]);
@@ -20,9 +20,11 @@ const FeedPage = () => {
   });
 
   useEffect(() => {
-    dispatch({ type: wsActionTypes.WS_CONNECTION_START });
+    dispatch(getAllOrders());
+    console.log("FeedPage");
     return () => {
-      dispatch({ type: wsActionTypes.WS_CONNECTION_CLOSED });
+      console.log("unmountFeedPage");
+      dispatch(closeTheConnection());
     };
   }, []);
 

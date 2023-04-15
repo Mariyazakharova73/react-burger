@@ -23,8 +23,12 @@ const BurgerConstructor: React.FC<IBurgerConstructorProps> = ({ handleOpenOrder 
     const priceOfFillings = draggedElementsWithoutBun.reduce((acc, item) => {
       return acc + item.price;
     }, 0);
-    const priceOfBuns = bun?.price * 2;
-    return priceOfFillings + priceOfBuns;
+    if (bun) {
+      const priceOfBuns = bun?.price * 2;
+      return priceOfFillings + priceOfBuns;
+    } else {
+      return priceOfFillings;
+    }
   };
 
   const [{ isHover }, dropTargerRef] = useDrop({
@@ -76,14 +80,18 @@ const BurgerConstructor: React.FC<IBurgerConstructorProps> = ({ handleOpenOrder 
   return (
     <section className={cn("pl-4 pt-25", styles.wrapper)}>
       <div ref={dropTargerRefBun} className={`${isHoverBun ? styles.onHover : ""}`}>
-        <ConstructorElement
-          extraClass={cn("ml-6 mr-2", styles.element)}
-          type="top"
-          isLocked={true}
-          text={`${bun.name} (верх)`}
-          price={bun.price}
-          thumbnail={bun.image}
-        />
+        {bun ? (
+          <ConstructorElement
+            extraClass={cn("ml-6 mr-2", styles.element)}
+            type="top"
+            isLocked={true}
+            text={`${bun.name} (верх)`}
+            price={bun.price}
+            thumbnail={bun.image}
+          />
+        ) : (
+          <div className={styles.ingredients}>Пожалуйста, перенесите сюда булочку создания заказ</div>
+        )}
       </div>
       <ul
         className={cn("pr-2", styles.list, `${isHover ? styles.onHover : ""}`)}
@@ -96,19 +104,19 @@ const BurgerConstructor: React.FC<IBurgerConstructorProps> = ({ handleOpenOrder 
             );
           })
         ) : (
-          <div className={styles.ingredients}>
-            Вы можете поменять булочку, добавить начинку и соусы.
-          </div>
+          <div className={styles.ingredients}>Пожалуйста, добавьте ингредиенты</div>
         )}
       </ul>
-      <ConstructorElement
-        extraClass={cn("ml-6 mr-2", styles.element)}
-        type="bottom"
-        isLocked={true}
-        text={`${bun.name} (низ)`}
-        price={bun.price}
-        thumbnail={bun.image}
-      />
+      {bun && (
+        <ConstructorElement
+          extraClass={cn("ml-6 mr-2", styles.element)}
+          type="bottom"
+          isLocked={true}
+          text={`${bun.name} (низ)`}
+          price={bun.price}
+          thumbnail={bun.image}
+        />
+      )}
 
       <div className={cn("mt-10", styles.container)}>
         <p className={cn("text text_type_digits-medium mr-10", styles.sum)}>
@@ -117,7 +125,13 @@ const BurgerConstructor: React.FC<IBurgerConstructorProps> = ({ handleOpenOrder 
             <CurrencyIcon type="primary" />
           </>
         </p>
-        <Button htmlType="button" type="primary" size="large" onClick={handleOpenOrder}>
+        <Button
+          htmlType="button"
+          type="primary"
+          size="large"
+          disabled={!bun}
+          onClick={handleOpenOrder}
+        >
           Оформить заказ
         </Button>
       </div>

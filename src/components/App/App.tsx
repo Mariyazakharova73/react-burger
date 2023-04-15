@@ -40,7 +40,7 @@ import {
 import FeedItemPage from "../../pages/FeedItemPage/FeedItemPage";
 import FeedPage from "../../pages/FeedPage/FeedPage";
 import ProfileOrderItemPage from "../../pages/ProfileOrderItemPage/ProfileOrderItemPage";
-import { wsActionTypes } from "../../types/wsTypes";
+import { ErrorNotification } from "../Notifications/Notification";
 
 const App: React.FC = () => {
   const [isOpenOrder, setIsOpenOrder] = useState(false);
@@ -56,7 +56,11 @@ const App: React.FC = () => {
     const arrId = ingredientsForBurger.map((item) => {
       return item._id;
     });
-    return [...arrId, bun._id, bun._id];
+    if (bun) {
+      return [...arrId, bun._id, bun._id];
+    } else {
+      return arrId;
+    }
   }, [ingredientsForBurger, bun]);
 
   useEffect(() => {
@@ -71,6 +75,7 @@ const App: React.FC = () => {
       dispatch(getDataOrder(arrIdWithBuns));
       setIsOpenOrder(true);
     } else {
+      ErrorNotification("Необходима авторизация!");
       navigate(LOGIN_PATH);
     }
   };
@@ -130,38 +135,10 @@ const App: React.FC = () => {
             </ProtectedRoute>
           }
         />
-        <Route
-          path={PROFILE_ORDERS_PATH}
-          element={
-            <ProtectedRoute>
-              <HistoryOfOrdersPage />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path={PROFILE_ORDER_PATH}
-          element={
-            <ProtectedRoute>
-              <ProfileOrderItemPage />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path={FEED_PATH}
-          element={
-            <ProtectedRoute>
-              <FeedPage />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path={FEED_ITEM_PATH}
-          element={
-            <ProtectedRoute>
-              <FeedItemPage />
-            </ProtectedRoute>
-          }
-        />
+        <Route path={PROFILE_ORDERS_PATH} element={<HistoryOfOrdersPage />} />
+        <Route path={PROFILE_ORDER_PATH} element={<ProfileOrderItemPage />} />
+        <Route path={FEED_PATH} element={<FeedPage />} />
+        <Route path={FEED_ITEM_PATH} element={<FeedItemPage />} />
         <Route
           path={INGREDIENT_PATH}
           element={

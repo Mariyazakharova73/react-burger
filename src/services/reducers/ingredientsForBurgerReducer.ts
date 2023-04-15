@@ -1,14 +1,13 @@
 import { burgerActionTypes, IIngredient } from "../../types/types";
-import { BUN_BY_DEFAULT } from "../../utils/constants";
 
 export interface IIngredientsForBurgerState {
   ingredientsForBurger: IIngredient[];
-  bun: IIngredient;
+  bun: IIngredient | null;
 }
 
 const initialState: IIngredientsForBurgerState = {
   ingredientsForBurger: [],
-  bun: BUN_BY_DEFAULT,
+  bun: null,
 };
 
 export interface IAddIngredientAction {

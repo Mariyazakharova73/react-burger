@@ -12,12 +12,12 @@ import {
   getIngredientsWithCount,
   getStringDate,
 } from "../../utils/helpers";
-import { getDataIngredients, getOrderItem } from "../../services/actions/actions";
 import { useAppDispatch } from "../../hooks/useAppDispatch";
-import { wsActionTypes } from "../../types/wsTypes";
 import { FEED_PATH } from "../../utils/constants";
+import { getAllOrders, getUserOrders } from "../../services/actions/wsActions";
 
 const OrderFullInfo: React.FC = () => {
+  
   const dispatch = useAppDispatch();
   const location = useLocation();
   const { id } = useParams();
@@ -33,15 +33,11 @@ const OrderFullInfo: React.FC = () => {
 
   useEffect(() => {
     if (location.pathname.includes(FEED_PATH)) {
-      dispatch({ type: wsActionTypes.WS_CONNECTION_START });
-      return () => {
-        dispatch({ type: wsActionTypes.WS_CONNECTION_CLOSED });
-      };
+      dispatch(getAllOrders());
+      console.log("попап, FeedfullInfo");
     } else {
-      dispatch({ type: wsActionTypes.WS_CONNECTION_START_ORDERS });
-      return () => {
-        dispatch({ type: wsActionTypes.WS_CONNECTION_CLOSED });
-      };
+      dispatch(getUserOrders());
+      console.log("попап, OrdersPagefullInfo");
     }
   }, [location.pathname]);
 
