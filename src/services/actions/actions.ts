@@ -39,12 +39,6 @@ export function addIngredient(obj: IIngredient) {
   };
 }
 
-export function clearIngredients() {
-  return {
-    type: burgerActionTypes.CLEAR_INGREDIENTS,
-  };
-}
-
 export function deleteIngredient(id?: string) {
   return {
     type: burgerActionTypes.DELETE_INGREDIENT,

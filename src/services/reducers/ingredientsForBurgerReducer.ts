@@ -15,10 +15,6 @@ export interface IAddIngredientAction {
   payload: IIngredient;
 }
 
-export interface IClearIngredientsAction {
-  type: burgerActionTypes.CLEAR_INGREDIENTS;
-}
-
 export interface IDeleteIngredientAction {
   type: burgerActionTypes.DELETE_INGREDIENT;
   payload: string;
@@ -38,8 +34,7 @@ export type IIngredientsForBurgerAction =
   | IAddIngredientAction
   | IUpdateListAction
   | ISetCurrentBunAction
-  | IDeleteIngredientAction
-  | IClearIngredientsAction;
+  | IDeleteIngredientAction;
 
 export const ingredientsForBurgerReducer = (
   state = initialState,
@@ -48,8 +43,6 @@ export const ingredientsForBurgerReducer = (
   switch (action.type) {
     case burgerActionTypes.ADD_INGREDIENT:
       return { ...state, ingredientsForBurger: [...state.ingredientsForBurger, action.payload] };
-    case burgerActionTypes.CLEAR_INGREDIENTS:
-      return { ...state, ingredientsForBurger: [], bun: null };
     case burgerActionTypes.DELETE_INGREDIENT:
       return {
         ...state,

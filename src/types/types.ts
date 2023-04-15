@@ -83,7 +83,6 @@ export enum burgerActionTypes {
   DELETE_INGREDIENT = "DELETE_INGREDIENT",
   UPDATE_LIST = "UPDATE_LIST",
   SET_CURRENT_BUN = "SET_CURRENT_BUN",
-  CLEAR_INGREDIENTS = "CLEAR_INGREDIENTS",
 }
 
 export enum requestActionTypes {
