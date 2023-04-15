@@ -16,7 +16,6 @@ export const ProtectedRoute: React.FC<IProtectedRouteProps> = ({
 
     return <Navigate to={from} />;
   }
- 
 
   if (!onlyUnAuth && !user) {
     return <Navigate to={{ pathname: LOGIN_PATH }} state={{ from: location }} />;

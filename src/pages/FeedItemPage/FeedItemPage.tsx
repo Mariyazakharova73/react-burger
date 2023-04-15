@@ -4,7 +4,7 @@ import OrderFullInfo from "../../components/OrderFullInfo/OrderFullInfo";
 const FeedItemPage = () => {
   return (
     <main>
-      <OrderFullInfo/>
+      <OrderFullInfo />
     </main>
   );
 };

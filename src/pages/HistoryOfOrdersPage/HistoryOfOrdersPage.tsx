@@ -4,17 +4,15 @@ import styles from "../HistoryOfOrdersPage/HistoryOfOrdersPage.module.css";
 import OrderCard from "../../components/OrderCard/OrderCard";
 import { useTypedSelector } from "../../hooks/useTypedSelector";
 import { useAppDispatch } from "../../hooks/useAppDispatch";
-import { closeTheConnection, getAllOrders } from "../../services/actions/wsActions";
+import { closeTheConnection, getUserOrders } from "../../services/actions/wsActions";
 
 const HistoryOfOrdersPage: React.FC = () => {
   const userOrders = useTypedSelector((state) => state.ws.data[0]);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(getAllOrders());
-    console.log("HistoryOfOrdersPage");
+    dispatch(getUserOrders());
     return () => {
-      console.log("unmountHistoryOfOrdersPage");
       dispatch(closeTheConnection());
     };
   }, []);

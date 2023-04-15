@@ -90,7 +90,9 @@ const BurgerConstructor: React.FC<IBurgerConstructorProps> = ({ handleOpenOrder 
             thumbnail={bun.image}
           />
         ) : (
-          <div className={styles.ingredients}>Пожалуйста, перенесите сюда булочку создания заказ</div>
+          <div className={styles.ingredients}>
+            Пожалуйста, перенесите сюда булочку создания заказа
+          </div>
         )}
       </div>
       <ul

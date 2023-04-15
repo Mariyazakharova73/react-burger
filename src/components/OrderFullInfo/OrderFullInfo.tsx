@@ -4,7 +4,6 @@ import cn from "classnames";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useLocation, useParams } from "react-router";
 import { useTypedSelector } from "../../hooks/useTypedSelector";
-import uuid from "react-uuid";
 import {
   addDataForIngredients,
   calculateCount,
@@ -17,7 +16,6 @@ import { FEED_PATH } from "../../utils/constants";
 import { getAllOrders, getUserOrders } from "../../services/actions/wsActions";
 
 const OrderFullInfo: React.FC = () => {
-  
   const dispatch = useAppDispatch();
   const location = useLocation();
   const { id } = useParams();
@@ -34,10 +32,8 @@ const OrderFullInfo: React.FC = () => {
   useEffect(() => {
     if (location.pathname.includes(FEED_PATH)) {
       dispatch(getAllOrders());
-      console.log("попап, FeedfullInfo");
     } else {
       dispatch(getUserOrders());
-      console.log("попап, OrdersPagefullInfo");
     }
   }, [location.pathname]);
 
@@ -67,7 +63,7 @@ const OrderFullInfo: React.FC = () => {
         <ul className={styles.list}>
           {newIngredients?.map((item) => {
             return (
-              <li key={uuid()} className={cn(styles.listItem, "mb-4")}>
+              <li key={item._id} className={cn(styles.listItem, "mb-4")}>
                 <div className={styles.imageWrapper}>
                   <img className={styles.image} src={item?.image} alt={`${item.name}`} />
                 </div>

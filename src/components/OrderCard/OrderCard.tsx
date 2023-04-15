@@ -4,7 +4,6 @@ import cn from "classnames";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Link, useLocation } from "react-router-dom";
 import { IOrderCardProps } from "../../types/types";
-import uuid from "react-uuid";
 import { addDataForIngredients, calculatePrice, getStringDate } from "../../utils/helpers";
 import { useTypedSelector } from "../../hooks/useTypedSelector";
 import { useAppDispatch } from "../../hooks/useAppDispatch";
@@ -52,7 +51,7 @@ const OrderCard: React.FC<IOrderCardProps> = ({ item, status }) => {
             {newArr?.slice(0, 6).map((ingredient, index: number) => {
               return (
                 <li
-                  key={uuid()}
+                  key={index}
                   className={cn(styles.listItem, {
                     [styles.overlay]: item.ingredients?.length > 6 && index === 0,
                   })}

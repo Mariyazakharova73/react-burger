@@ -11,10 +11,9 @@ export const socketMiddleware = (wsActions: TWSStoreActions): Middleware => {
     return (next) => (action: AnyAction) => {
       const { dispatch, getState } = store;
       const { type, payload } = action;
-      const { wsInit, wsSendMessage, onOpen, onClose, onError, onMessage } =
-        wsActions;
+      const { wsInit, wsSendMessage, onOpen, onClose, onError, onMessage } = wsActions;
 
-      if (type === wsInit) {   
+      if (type === wsInit) {
         socket = new WebSocket(`${WS_URL}${payload}`);
         // const accessToken = getCookie("accessToken")?.replace("Bearer ", "");
         // socket = new WebSocket(`${WS_ORDER_URL}?token=${accessToken}`);

@@ -1,6 +1,3 @@
-import { AnyAction } from "redux";
-import { ThunkAction } from "redux-thunk";
-import { RootState } from "../index";
 import {
   cardActionTypes,
   TIngredientDetails,
@@ -10,6 +7,7 @@ import {
   burgerActionTypes,
   requestActionTypes,
   orderItemActionTypes,
+  ThunkActionType,
 } from "../../types/types";
 import { GET_INGREDIENTS } from "../../utils/constants";
 import { getOrderOptions, request } from "../../utils/request";
@@ -38,6 +36,12 @@ export function addIngredient(obj: IIngredient) {
   return {
     type: burgerActionTypes.ADD_INGREDIENT,
     payload: obj,
+  };
+}
+
+export function clearIngredients() {
+  return {
+    type: burgerActionTypes.CLEAR_INGREDIENTS,
   };
 }
 
@@ -80,8 +84,6 @@ export function getDataFailed() {
     type: requestActionTypes.GET_DATA_FAILED,
   };
 }
-
-type ThunkActionType = ThunkAction<void, RootState, unknown, AnyAction>;
 
 export const getDataIngredients = (): ThunkActionType => {
   return (dispatch) => {

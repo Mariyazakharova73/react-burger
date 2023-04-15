@@ -1,5 +1,8 @@
 import { ChangeEvent, FormEvent, ReactElement, ReactNode, Ref } from "react";
-import { IWSNewOrder, IWSOrder } from "./wsTypes";
+import { AnyAction } from "redux";
+import { ThunkAction } from "redux-thunk";
+import { RootState } from "../services";
+import { IWSOrder } from "./wsTypes";
 
 type TVoidFunc = () => void;
 
@@ -80,6 +83,7 @@ export enum burgerActionTypes {
   DELETE_INGREDIENT = "DELETE_INGREDIENT",
   UPDATE_LIST = "UPDATE_LIST",
   SET_CURRENT_BUN = "SET_CURRENT_BUN",
+  CLEAR_INGREDIENTS = "CLEAR_INGREDIENTS",
 }
 
 export enum requestActionTypes {
@@ -149,3 +153,4 @@ export interface ICount {
 
 export type TNewIngredient = IIngredient & { count: number };
 
+export type ThunkActionType = ThunkAction<void, RootState, unknown, AnyAction>;

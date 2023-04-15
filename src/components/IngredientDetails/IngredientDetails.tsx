@@ -8,7 +8,7 @@ import { useAppDispatch } from "../../hooks/useAppDispatch";
 
 const IngredientDetails: React.FC = () => {
   const selectedCard = useTypedSelector((state) => state.card.selectedCard);
-  
+
   const info = [
     { title: "Калории,ккал", value: selectedCard.calories },
     { title: "Белки, г", value: selectedCard.proteins },

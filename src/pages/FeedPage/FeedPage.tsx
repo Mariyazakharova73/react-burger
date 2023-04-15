@@ -21,9 +21,7 @@ const FeedPage = () => {
 
   useEffect(() => {
     dispatch(getAllOrders());
-    console.log("FeedPage");
     return () => {
-      console.log("unmountFeedPage");
       dispatch(closeTheConnection());
     };
   }, []);

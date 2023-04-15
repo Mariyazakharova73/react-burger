@@ -6,7 +6,7 @@ import AppHeader from "../AppHeader/AppHeader";
 import Modal from "../Modal/Modal";
 import OrderDetails from "../OrderDetails/OrderDetails";
 import IngredientDetails from "../IngredientDetails/IngredientDetails";
-import { deleteCard } from "../../services/actions/actions";
+import { clearIngredients, deleteCard } from "../../services/actions/actions";
 import { getDataIngredients, getDataOrder } from "../../services/actions/actions";
 import { useAppDispatch } from "../../hooks/useAppDispatch";
 import { useTypedSelector } from "../../hooks/useTypedSelector";
@@ -52,7 +52,7 @@ const App: React.FC = () => {
   const bun = useTypedSelector((state) => state.buy.bun);
   const { isLoggedIn } = useTypedSelector((state) => state.user);
 
-  const arrIdWithBuns = React.useMemo<string[]>(() => {
+  let arrIdWithBuns = React.useMemo<string[]>(() => {
     const arrId = ingredientsForBurger.map((item) => {
       return item._id;
     });
@@ -73,6 +73,7 @@ const App: React.FC = () => {
   const handleOpenOrder = () => {
     if (isLoggedIn) {
       dispatch(getDataOrder(arrIdWithBuns));
+      dispatch(clearIngredients());
       setIsOpenOrder(true);
     } else {
       ErrorNotification("Необходима авторизация!");

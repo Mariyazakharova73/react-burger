@@ -15,22 +15,6 @@ export const BLANK_CARD = {
 export const ADD_INGREDIENT = "ADD_INGREDIENT";
 export const GET_INGREDIENTS = "GET_INGREDIENTS";
 
-export const BUN_BY_DEFAULT = {
-  _id: "60d3b41abdacab0026a733c6",
-  name: "Краторная булка N-200i",
-  type: "bun",
-  proteins: 80,
-  fat: 24,
-  carbohydrates: 53,
-  calories: 420,
-  price: 1255,
-  image: "https://code.s3.yandex.net/react/code/bun-02.png",
-  image_mobile: "https://code.s3.yandex.net/react/code/bun-02-mobile.png",
-  image_large: "https://code.s3.yandex.net/react/code/bun-02-large.png",
-  __v: 0,
-  count: 2,
-};
-
 export const ENDPOINT_FOR_LOGIN = "auth/login";
 export const ENDPOINT_FOR_REGISTER = "auth/register";
 export const ENDPOINT_FOR_LOGOUT = "auth/logout";
