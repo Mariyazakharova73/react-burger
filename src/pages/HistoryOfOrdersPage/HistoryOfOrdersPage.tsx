@@ -5,17 +5,19 @@ import OrderCard from "../../components/OrderCard/OrderCard";
 import { useTypedSelector } from "../../hooks/useTypedSelector";
 import { useAppDispatch } from "../../hooks/useAppDispatch";
 import { closeTheConnection, getUserOrders } from "../../services/actions/wsActions";
+import { getCookie } from "../../utils/cookie";
 
 const HistoryOfOrdersPage: React.FC = () => {
   const userOrders = useTypedSelector((state) => state.ws.data[0]);
   const dispatch = useAppDispatch();
+  const token = getCookie("accessToken");
 
   useEffect(() => {
     dispatch(getUserOrders());
     return () => {
       dispatch(closeTheConnection());
     };
-  }, []);
+  }, [token]);
 
   return (
     <main className={styles.wrapper}>

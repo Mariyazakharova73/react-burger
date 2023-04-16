@@ -14,6 +14,7 @@ import {
 import { useAppDispatch } from "../../hooks/useAppDispatch";
 import { FEED_PATH } from "../../utils/constants";
 import { getAllOrders, getUserOrders } from "../../services/actions/wsActions";
+import { getCookie } from "../../utils/cookie";
 
 const OrderFullInfo: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -28,6 +29,7 @@ const OrderFullInfo: React.FC = () => {
   const newOrders = addDataForIngredients(selectedOrderItem?.ingredients, ingredients);
   const obj = calculateCount(newOrders);
   const newIngredients = getIngredientsWithCount(obj, ingredients);
+  const token = getCookie("accessToken");
 
   useEffect(() => {
     if (location.pathname.includes(FEED_PATH)) {
@@ -35,7 +37,7 @@ const OrderFullInfo: React.FC = () => {
     } else {
       dispatch(getUserOrders());
     }
-  }, [location.pathname]);
+  }, [location.pathname, token]);
 
   return (
     <div

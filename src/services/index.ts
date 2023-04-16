@@ -9,6 +9,7 @@ import { wsReducer } from "./reducers/wsReduser";
 import { socketMiddleware } from "../services/middleware";
 import { TWSStoreActions, wsActionTypes } from "../types/wsTypes";
 import { selectedOrderReducer } from "./reducers/selectedOrderReducer";
+import { WS_URL } from "../utils/constants";
 
 export const rootReducer = combineReducers({
   card: selectedCardReducer,
@@ -28,6 +29,7 @@ const wsActions: TWSStoreActions = {
   onError: wsActionTypes.WS_CONNECTION_ERROR,
   onMessage: wsActionTypes.WS_GET_MESSAGE,
   onOrders: wsActionTypes.WS_GET_ORDERS,
+  wsClose: wsActionTypes.WS_CLOSE
 };
 
 const composeEnhancers =
@@ -35,7 +37,7 @@ const composeEnhancers =
 
 export const store = createStore(
   rootReducer,
-  composeEnhancers(applyMiddleware(thunk, socketMiddleware(wsActions)))
+  composeEnhancers(applyMiddleware(thunk, socketMiddleware(wsActions, WS_URL)))
 );
 
 // export type RootState = ReturnType<typeof rootReducer>;

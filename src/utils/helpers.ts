@@ -13,13 +13,12 @@ export const calculatePrice = (arr: IIngredient[]): number => {
 };
 
 export const getStringDate = (date: string) => {
-  return `${dayjs(date)
-    .locale("ru")
-    .calendar(null, {
-      sameDay: "[Сегодня], h:mm",
-      lastDay: "[Вчера], h:mm",
-      sameElse: `${dayjs(date).locale("ru").fromNow()}, h:mm`,
-    })}`;
+  return `${dayjs(date).locale("ru").calendar(null, {
+    sameDay: "[Сегодня], H:mm",
+    lastDay: "[Вчера], H:mm",
+    lastWeek: `DD MMMM YYYY, H:mm`,
+    sameElse: `DD MMMM YYYY, H:mm`,
+  })}`;
 };
 
 export const calculateCount = (arr: IIngredient[]) => {

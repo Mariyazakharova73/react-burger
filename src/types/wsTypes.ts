@@ -14,6 +14,7 @@ export enum wsActionTypes {
   WS_GET_ORDERS = "WS_GET_ORDERS",
   // для отправки сообщений на сервер:
   WS_SEND_MESSAGE = "WS_SEND_MESSAGE",
+  WS_CLOSE = "WS_CLOSE",
 }
 
 export interface IWSOrder {
@@ -76,6 +77,10 @@ export interface IWSSendMessageAction {
   readonly payload: { message: string };
 }
 
+export interface IWSCloseAction {
+  readonly type: wsActionTypes.WS_CLOSE;
+}
+
 export type TWSActions =
   | IWSConnectionStart
   | IWSConnectionSuccessAction
@@ -83,7 +88,8 @@ export type TWSActions =
   | IWSConnectionClosedAction
   | IWSGetMessageAction
   | IWSSendMessageAction
-  | IWSGetOrdersAction;
+  | IWSGetOrdersAction
+  | IWSCloseAction;
 
 export type TWSStoreActions = {
   wsInit: wsActionTypes.WS_CONNECTION_START;
@@ -93,4 +99,5 @@ export type TWSStoreActions = {
   onError: wsActionTypes.WS_CONNECTION_ERROR;
   onMessage: wsActionTypes.WS_GET_MESSAGE;
   onOrders: wsActionTypes.WS_GET_ORDERS;
+  wsClose: wsActionTypes.WS_CLOSE;
 };

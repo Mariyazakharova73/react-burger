@@ -1,22 +1,19 @@
 import type { AnyAction, Middleware, MiddlewareAPI } from "redux";
 import { AppDispatch } from "../../hooks/useAppDispatch";
 import { TWSStoreActions } from "../../types/wsTypes";
-import { WS_URL } from "../../utils/constants";
 import { RootState } from "../index";
 
-export const socketMiddleware = (wsActions: TWSStoreActions): Middleware => {
+export const socketMiddleware = (wsActions: TWSStoreActions, wsUrl: string): Middleware => {
   return ((store: MiddlewareAPI<AppDispatch, RootState>) => {
     let socket: WebSocket | null = null;
 
     return (next) => (action: AnyAction) => {
       const { dispatch, getState } = store;
       const { type, payload } = action;
-      const { wsInit, wsSendMessage, onOpen, onClose, onError, onMessage } = wsActions;
+      const { wsInit, wsSendMessage, onOpen, onClose, onError, onMessage, wsClose } = wsActions;
 
       if (type === wsInit) {
-        socket = new WebSocket(`${WS_URL}${payload}`);
-        // const accessToken = getCookie("accessToken")?.replace("Bearer ", "");
-        // socket = new WebSocket(`${WS_ORDER_URL}?token=${accessToken}`);
+        socket = new WebSocket(`${wsUrl}${payload}`);
       }
       if (socket) {
         // функция, которая вызывается при открытии сокета
@@ -44,6 +41,10 @@ export const socketMiddleware = (wsActions: TWSStoreActions): Middleware => {
           // функция для отправки сообщения на сервер
           socket.send(JSON.stringify(message));
         }
+      }
+
+      if (type === wsClose) {
+        socket?.close();
       }
 
       next(action);
