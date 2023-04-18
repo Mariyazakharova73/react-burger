@@ -21,7 +21,7 @@ const OrderFullInfo: React.FC = () => {
   const location = useLocation();
   const { id } = useParams();
   let background = location.state && location.state.background;
-  
+
   const orders = useTypedSelector((state) => state.ws.data[0]?.orders);
   const ingredients = useTypedSelector((state) => state.ingredients?.ingredients);
   const selectedOrderItem = orders?.filter((item) => {
@@ -33,10 +33,11 @@ const OrderFullInfo: React.FC = () => {
   const token = getCookie("accessToken");
 
   useEffect(() => {
-    dispatch(closeTheConnection());
     if (location.pathname.includes(FEED_PATH)) {
+      dispatch(closeTheConnection());
       dispatch(getAllOrders());
     } else {
+      dispatch(closeTheConnection());
       dispatch(getUserOrders());
     }
   }, [location.pathname, token]);
