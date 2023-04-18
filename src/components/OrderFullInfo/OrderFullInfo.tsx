@@ -13,7 +13,7 @@ import {
 } from "../../utils/helpers";
 import { useAppDispatch } from "../../hooks/useAppDispatch";
 import { FEED_PATH } from "../../utils/constants";
-import { getAllOrders, getUserOrders } from "../../services/actions/wsActions";
+import { closeTheConnection, getAllOrders, getUserOrders } from "../../services/actions/wsActions";
 import { getCookie } from "../../utils/cookie";
 
 const OrderFullInfo: React.FC = () => {
@@ -21,6 +21,7 @@ const OrderFullInfo: React.FC = () => {
   const location = useLocation();
   const { id } = useParams();
   let background = location.state && location.state.background;
+  
   const orders = useTypedSelector((state) => state.ws.data[0]?.orders);
   const ingredients = useTypedSelector((state) => state.ingredients?.ingredients);
   const selectedOrderItem = orders?.filter((item) => {
@@ -32,6 +33,7 @@ const OrderFullInfo: React.FC = () => {
   const token = getCookie("accessToken");
 
   useEffect(() => {
+    dispatch(closeTheConnection());
     if (location.pathname.includes(FEED_PATH)) {
       dispatch(getAllOrders());
     } else {

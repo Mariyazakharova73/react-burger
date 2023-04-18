@@ -135,8 +135,22 @@ const App: React.FC = () => {
             </ProtectedRoute>
           }
         />
-        <Route path={PROFILE_ORDERS_PATH} element={<HistoryOfOrdersPage />} />
-        <Route path={PROFILE_ORDER_PATH} element={<ProfileOrderItemPage />} />
+        <Route
+          path={PROFILE_ORDERS_PATH}
+          element={
+            <ProtectedRoute>
+              <HistoryOfOrdersPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path={PROFILE_ORDER_PATH}
+          element={
+            <ProtectedRoute>
+              <ProfileOrderItemPage />
+            </ProtectedRoute>
+          }
+        />
         <Route path={FEED_PATH} element={<FeedPage />} />
         <Route path={FEED_ITEM_PATH} element={<FeedItemPage />} />
         <Route
