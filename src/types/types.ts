@@ -126,6 +126,7 @@ export interface ICookieProps {
 export interface IProtectedRouteProps {
   onlyUnAuth?: boolean;
   children: ReactElement;
+  background?: Location;
 }
 
 export interface IIngredientDetailsPageProps {

@@ -24,7 +24,9 @@ const OrderCard: React.FC<IOrderCardProps> = ({ item, status }) => {
     <Link
       key={item._id}
       to={location.pathname === "/feed" ? `/feed/${item._id}` : `/profile/orders/${item._id}`}
-      state={{ background: { ...location, pathname: `${location.pathname}/${item._id}` } }}
+      state={{
+        background: location,
+      }}
       className={cn("", styles.link)}
     >
       <li className={cn("p-6", styles.item)} onClick={handleClick}>

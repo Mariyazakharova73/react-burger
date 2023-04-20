@@ -91,7 +91,7 @@ const BurgerConstructor: React.FC<IBurgerConstructorProps> = ({ handleOpenOrder 
           />
         ) : (
           <div className={styles.ingredients}>
-            Пожалуйста, перенесите сюда булочку создания заказа
+            Пожалуйста, перенесите сюда булочку для создания заказа
           </div>
         )}
       </div>

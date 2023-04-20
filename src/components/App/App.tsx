@@ -138,7 +138,7 @@ const App: React.FC = () => {
         <Route
           path={PROFILE_ORDERS_PATH}
           element={
-            <ProtectedRoute>
+            <ProtectedRoute background={background}>
               <HistoryOfOrdersPage />
             </ProtectedRoute>
           }
