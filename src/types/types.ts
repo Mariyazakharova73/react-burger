@@ -1,4 +1,8 @@
 import { ChangeEvent, FormEvent, ReactElement, ReactNode, Ref } from "react";
+import { AnyAction } from "redux";
+import { ThunkAction } from "redux-thunk";
+import { RootState } from "../services";
+import { IWSOrder } from "./wsTypes";
 
 type TVoidFunc = () => void;
 
@@ -50,7 +54,7 @@ export interface ICardListProps {
 export interface IOrderedIngredientProps {
   item: IIngredient;
   index: number;
-  moveCard: (dragIndex: number, hoverIndex: number) => void
+  moveCard: (dragIndex: number, hoverIndex: number) => void;
 }
 
 export interface IOrder {
@@ -122,6 +126,7 @@ export interface ICookieProps {
 export interface IProtectedRouteProps {
   onlyUnAuth?: boolean;
   children: ReactElement;
+  background?: Location;
 }
 
 export interface IIngredientDetailsPageProps {
@@ -131,3 +136,21 @@ export interface IIngredientDetailsPageProps {
 export interface IErrors {
   [key: string]: string;
 }
+
+export enum orderItemActionTypes {
+  GET_ORDER_ITEM = "GET_ORDER_ITEM",
+  DELETE_ORDER_ITEM = "DELETE_ORDER_ITEM",
+}
+
+export interface IOrderCardProps {
+  item: IWSOrder;
+  status?: any;
+}
+
+export interface ICount {
+  [key: string]: number;
+}
+
+export type TNewIngredient = IIngredient & { count: number };
+
+export type ThunkActionType = ThunkAction<void, RootState, unknown, AnyAction>;

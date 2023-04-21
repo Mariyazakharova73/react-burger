@@ -22,7 +22,6 @@ import "react-notifications-component/dist/theme.css";
 import { getUserThunk } from "../../services/actions/userActions";
 import { getCookie } from "../../utils/cookie";
 import { ProtectedRoute } from "../../HOC/ProtectedRoute";
-import OrderPage from "../../pages/OrderPage/OrderPage";
 import HistoryOfOrdersPage from "../../pages/HistoryOfOrdersPage/HistoryOfOrdersPage";
 import {
   ERROR_PATH,
@@ -30,12 +29,18 @@ import {
   INGREDIENT_PATH,
   LOGIN_PATH,
   MAIN_PATH,
-  ORDERS_PATH,
+  FEED_PATH,
+  FEED_ITEM_PATH,
   PROFILE_ORDERS_PATH,
+  PROFILE_ORDER_PATH,
   PROFILE_PATH,
   REGISTER_PATH,
   RESET_PASSWORD_PATH,
 } from "../../utils/constants";
+import FeedItemPage from "../../pages/FeedItemPage/FeedItemPage";
+import FeedPage from "../../pages/FeedPage/FeedPage";
+import ProfileOrderItemPage from "../../pages/ProfileOrderItemPage/ProfileOrderItemPage";
+import { ErrorNotification } from "../Notifications/Notification";
 
 const App: React.FC = () => {
   const [isOpenOrder, setIsOpenOrder] = useState(false);
@@ -47,11 +52,15 @@ const App: React.FC = () => {
   const bun = useTypedSelector((state) => state.buy.bun);
   const { isLoggedIn } = useTypedSelector((state) => state.user);
 
-  const arrIdWithBuns = React.useMemo<string[]>(() => {
+  let arrIdWithBuns = React.useMemo<string[]>(() => {
     const arrId = ingredientsForBurger.map((item) => {
       return item._id;
     });
-    return [...arrId, bun._id, bun._id];
+    if (bun) {
+      return [...arrId, bun._id, bun._id];
+    } else {
+      return arrId;
+    }
   }, [ingredientsForBurger, bun]);
 
   useEffect(() => {
@@ -66,6 +75,7 @@ const App: React.FC = () => {
       dispatch(getDataOrder(arrIdWithBuns));
       setIsOpenOrder(true);
     } else {
+      ErrorNotification("Необходима авторизация!");
       navigate(LOGIN_PATH);
     }
   };
@@ -128,19 +138,21 @@ const App: React.FC = () => {
         <Route
           path={PROFILE_ORDERS_PATH}
           element={
-            <ProtectedRoute>
+            <ProtectedRoute background={background}>
               <HistoryOfOrdersPage />
             </ProtectedRoute>
           }
         />
         <Route
-          path={ORDERS_PATH}
+          path={PROFILE_ORDER_PATH}
           element={
             <ProtectedRoute>
-              <OrderPage />
+              <ProfileOrderItemPage />
             </ProtectedRoute>
           }
         />
+        <Route path={FEED_PATH} element={<FeedPage />} />
+        <Route path={FEED_ITEM_PATH} element={<FeedItemPage />} />
         <Route
           path={INGREDIENT_PATH}
           element={
@@ -159,6 +171,30 @@ const App: React.FC = () => {
             element={
               <Modal onClose={handleClose} title="Детали ингредиента">
                 <IngredientDetails />
+              </Modal>
+            }
+          />
+        </Routes>
+      )}
+      {background && (
+        <Routes>
+          <Route
+            path={PROFILE_ORDER_PATH}
+            element={
+              <Modal onClose={handleClose} title="">
+                <ProfileOrderItemPage />
+              </Modal>
+            }
+          />
+        </Routes>
+      )}
+      {background && (
+        <Routes>
+          <Route
+            path={FEED_ITEM_PATH}
+            element={
+              <Modal onClose={handleClose} title="">
+                <FeedItemPage />
               </Modal>
             }
           />

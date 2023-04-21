@@ -12,6 +12,7 @@
 * redux-thunk
 * react-dnd
 * typescript
+* WebSocket
 
 **Функции**
 

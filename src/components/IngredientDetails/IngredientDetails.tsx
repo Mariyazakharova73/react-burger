@@ -3,11 +3,12 @@ import styles from "./IngredientDetails.module.css";
 import cn from "classnames";
 import { useTypedSelector } from "../../hooks/useTypedSelector";
 import { useParams } from "react-router-dom";
-import { getCard, getDataIngredients } from "../../services/actions/actions";
+import { getCard } from "../../services/actions/actions";
 import { useAppDispatch } from "../../hooks/useAppDispatch";
 
 const IngredientDetails: React.FC = () => {
   const selectedCard = useTypedSelector((state) => state.card.selectedCard);
+
   const info = [
     { title: "Калории,ккал", value: selectedCard.calories },
     { title: "Белки, г", value: selectedCard.proteins },
@@ -20,9 +21,6 @@ const IngredientDetails: React.FC = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    if (ingredients.length === 0) {
-      dispatch(getDataIngredients());
-    }
     const obj = ingredients.find((item) => item._id === ingredientId);
     if (obj) {
       const dataForModal = {

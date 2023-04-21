@@ -7,7 +7,7 @@ export const InfoNotification = (message: string): void => {
     content: InfoContent,
     message: message,
     insert: "top",
-    container: "top-right",
+    container: "top-left",
     dismiss: {
       duration: 2000,
     },
@@ -19,7 +19,7 @@ export const ErrorNotification = (message: string): void => {
     content: ErrorContent,
     message: message,
     insert: "top",
-    container: "top-right",
+    container: "top-left",
     dismiss: {
       duration: 2000,
     },

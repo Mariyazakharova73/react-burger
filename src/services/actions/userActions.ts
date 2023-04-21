@@ -1,7 +1,9 @@
-import { AnyAction } from "redux";
-import { ThunkAction } from "redux-thunk";
-import { RootState } from "../index";
-import { IUser, requestActionTypes, updateUserActionTypes } from "../../types/types";
+import {
+  IUser,
+  requestActionTypes,
+  ThunkActionType,
+  updateUserActionTypes,
+} from "../../types/types";
 import {
   ENDPOINT_FOR_LOGIN,
   ENDPOINT_FOR_LOGOUT,
@@ -75,8 +77,6 @@ export function logout() {
   };
 }
 
-type ThunkActionType = ThunkAction<void, RootState, unknown, AnyAction>;
-
 export const registerUserThunk = (
   name?: string,
   email?: string,
@@ -99,10 +99,7 @@ export const registerUserThunk = (
   };
 };
 
-export const authorizeUserThunk = (
-  email?: string,
-  password?: string
-): ThunkActionType => {
+export const authorizeUserThunk = (email?: string, password?: string): ThunkActionType => {
   return (dispatch) => {
     dispatch(getData());
     request(ENDPOINT_FOR_LOGIN, getLoginOptions(email, password))

@@ -23,6 +23,7 @@ export const getOrderOptions = (data: string[]) => {
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
+      Authorization: getCookie("accessToken"),
     },
     body: JSON.stringify({
       ingredients: data,

@@ -20,7 +20,7 @@ export function setCookie(name: string, value: string, props?: ICookieProps) {
       updatedCookie += "=" + propValue;
     }
   }
-  document.cookie = updatedCookie;
+  document.cookie = `${updatedCookie};path=/`;
 }
 
 export function getCookie(name: string) {

@@ -4,7 +4,12 @@ import cn from "classnames";
 import styles from "../Form/Form.module.css";
 import { Link, useLocation } from "react-router-dom";
 import { IFormProps } from "../../types/types";
-import { FORGOT_PASSWORD_PATH, LOGIN_PATH, REGISTER_PATH, RESET_PASSWORD_PATH,  } from "../../utils/constants";
+import {
+  FORGOT_PASSWORD_PATH,
+  LOGIN_PATH,
+  REGISTER_PATH,
+  RESET_PASSWORD_PATH,
+} from "../../utils/constants";
 
 export const Form: React.FC<IFormProps> = ({
   title,
@@ -18,8 +23,7 @@ export const Form: React.FC<IFormProps> = ({
   const { pathname } = useLocation();
 
   const isRegisterPage = pathname === REGISTER_PATH;
-  const isLoginPage = pathname === LOGIN_PATH
-  ;
+  const isLoginPage = pathname === LOGIN_PATH;
   const isFogotPasswordPage = pathname === FORGOT_PASSWORD_PATH;
   const isResetPasswordPage = pathname === RESET_PASSWORD_PATH;
 

@@ -98,7 +98,7 @@ const BurgerIngredients: React.FC = () => {
         })}
       </div>
       <div className={styles.container} ref={refForContainer}>
-        {info.map((item, index) => {
+        {info.map((item) => {
           return <CardList key={item.name} ref={item.title} arr={item.arr} title={item.name} />;
         })}
       </div>

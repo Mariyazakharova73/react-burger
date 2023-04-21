@@ -1,6 +1,3 @@
-import { AnyAction } from "redux";
-import { ThunkAction } from "redux-thunk";
-import { RootState } from "../index";
 import {
   cardActionTypes,
   TIngredientDetails,
@@ -9,6 +6,8 @@ import {
   IIngredient,
   burgerActionTypes,
   requestActionTypes,
+  orderItemActionTypes,
+  ThunkActionType,
 } from "../../types/types";
 import { GET_INGREDIENTS } from "../../utils/constants";
 import { getOrderOptions, request } from "../../utils/request";
@@ -80,8 +79,6 @@ export function getDataFailed() {
   };
 }
 
-type ThunkActionType = ThunkAction<void, RootState, unknown, AnyAction>;
-
 export const getDataIngredients = (): ThunkActionType => {
   return (dispatch) => {
     dispatch(getData); // начало выполенния запроса
@@ -111,3 +108,16 @@ export const getDataOrder = (data: string[]): ThunkActionType => {
       });
   };
 };
+
+export function getOrderItem(selectedOrder: IIngredient[]) {
+  return {
+    type: orderItemActionTypes.GET_ORDER_ITEM,
+    payload: selectedOrder,
+  };
+}
+
+export function deleteOrderItem() {
+  return {
+    type: orderItemActionTypes.DELETE_ORDER_ITEM,
+  };
+}

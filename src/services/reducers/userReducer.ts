@@ -1,4 +1,4 @@
-import { REMOVE_USER } from "./../../utils/constants";
+import { REMOVE_USER } from "../../utils/constants";
 import { IUser, requestActionTypes, updateUserActionTypes } from "../../types/types";
 import { GET_USER_SUCCESS, REGISTER_USER_SUCCES } from "../../utils/constants";
 import { IRequestAction, IRequestFailedAction } from "./ingredientsReducer";

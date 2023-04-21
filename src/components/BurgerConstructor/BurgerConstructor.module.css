@@ -55,9 +55,11 @@
 }
 
 .ingredients {
-  min-height: 50px;
+  min-height: 70px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  border: 2px dashed;
+  border-radius: 50px;
 }
