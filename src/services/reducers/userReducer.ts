@@ -19,7 +19,7 @@ export const initialState: IUserState = {
 
 export interface IRegisterUserSuccessAction {
   type: typeof REGISTER_USER_SUCCES;
-  payload: IUser;
+  //payload: IUser;
 }
 
 export interface IGetUserAction {
@@ -27,9 +27,17 @@ export interface IGetUserAction {
   payload: IUser;
 }
 
+export interface IUpdateUserRequestAction {
+  type: updateUserActionTypes.UPDATE_USER_REQUEST;
+}
+
 export interface IUpdateUserAction {
-  type: updateUserActionTypes;
+  type: updateUserActionTypes.UPDATE_USER_SUCCESS;
   payload: IUser;
+}
+
+export interface IUpdateUserFailedAction {
+  type: updateUserActionTypes.UPDATE_USER_FAILED;
 }
 
 export interface IRemoveUserAction {
@@ -42,6 +50,8 @@ export type IUserAction =
   | IRequestFailedAction
   | IGetUserAction
   | IUpdateUserAction
+  | IUpdateUserRequestAction
+  | IUpdateUserFailedAction
   | IRemoveUserAction;
 
 export const userReducer = (state = initialState, action: IUserAction) => {
@@ -68,9 +78,8 @@ export const userReducer = (state = initialState, action: IUserAction) => {
     case REMOVE_USER: {
       return {
         ...state,
-        logged: false,
+        isLoggedIn: false,
         user: null,
-        isAuthChecked: false,
       };
     }
 

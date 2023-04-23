@@ -3,7 +3,7 @@ import { BLANK_CARD } from "../../utils/constants";
 import { CARD_BUN, CARD_FILLING } from "../../utils/constantsForTests";
 import { initialState, selectedCardReducer } from "./selectedCardReducer";
 
-describe("selectedCardReducer reducer", () => {
+describe("selectedCardReducer", () => {
   it("should return the initial state", () => {
     expect(selectedCardReducer(undefined, {} as any)).toEqual(initialState);
   });

@@ -2,7 +2,7 @@ import { burgerActionTypes } from "../../types/types";
 import { INGREDIENT_SAUSE, INGREDIENT_MAIN } from "../../utils/constantsForTests";
 import { ingredientsForBurgerReducer, initialState } from "./ingredientsForBurgerReducer";
 
-describe("ingredientsForBurgerReducer reducer", () => {
+describe("ingredientsForBurgerReducer", () => {
   it("should return the initial state", () => {
     expect(ingredientsForBurgerReducer(undefined, {} as any)).toEqual(initialState);
   });
@@ -42,6 +42,18 @@ describe("ingredientsForBurgerReducer reducer", () => {
     ).toEqual({
       ...initialState,
       ingredientsForBurger: [INGREDIENT_SAUSE, INGREDIENT_MAIN],
+    });
+  });
+
+  it("should handle SET_CURRENT_BUN", () => {
+    expect(
+      ingredientsForBurgerReducer(initialState, {
+        type: burgerActionTypes.SET_CURRENT_BUN,
+        payload: INGREDIENT_SAUSE,
+      })
+    ).toEqual({
+      ...initialState,
+      bun: INGREDIENT_SAUSE,
     });
   });
 });
