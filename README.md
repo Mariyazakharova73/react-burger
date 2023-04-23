@@ -7,14 +7,7 @@
 
 **Технологии и инструменты**
 
-* react
-* react-redux
-* redux-thunk
-* react-dnd
-* typescript
-* WebSocket
-* Jest
-* Cypress
+`react, react-redux, redux-thunk, react-dnd, typescript, WebSocket, Jest, Cypress`
 
 **Функции**
 
