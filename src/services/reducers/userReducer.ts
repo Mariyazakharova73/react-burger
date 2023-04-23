@@ -10,7 +10,7 @@ export interface IUserState {
   dataFailed: boolean;
 }
 
-const initialState: IUserState = {
+export const initialState: IUserState = {
   user: null,
   isLoggedIn: false,
   dataRequest: false,

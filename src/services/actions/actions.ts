@@ -84,6 +84,7 @@ export const getDataIngredients = (): ThunkActionType => {
     dispatch(getData); // начало выполенния запроса
     request("ingredients")
       .then((res) => {
+        console.log(res.data)
         dispatch(getIngredients(res.data));
       })
       .catch((err) => {

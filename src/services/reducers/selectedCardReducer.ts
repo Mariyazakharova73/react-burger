@@ -16,7 +16,7 @@ export interface ISelectedCardDeleteAction {
 
 export type ISelectedCardAction = ISelectedCardShowAction | ISelectedCardDeleteAction;
 
-const initialState: ISelectedCardState = {
+export const initialState: ISelectedCardState = {
   selectedCard: BLANK_CARD,
 };
 

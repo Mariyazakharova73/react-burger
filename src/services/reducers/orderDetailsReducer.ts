@@ -7,7 +7,7 @@ export interface IOrderDetailsState {
   dataFailed: boolean;
 }
 
-const initialState: IOrderDetailsState = {
+export const initialState: IOrderDetailsState = {
   order: {},
   dataRequest: false,
   dataFailed: false,

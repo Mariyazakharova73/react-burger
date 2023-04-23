@@ -5,7 +5,7 @@ import { ingredientsForBurgerReducer } from "./reducers/ingredientsForBurgerRedu
 import { ingredientsReducer } from "./reducers/ingredientsReducer";
 import { userReducer } from "./reducers/userReducer";
 import thunk from "redux-thunk";
-import { wsReducer } from "./reducers/wsReduser";
+import { wsReducer } from "./reducers/wsReducer";
 import { socketMiddleware } from "../services/middleware";
 import { TWSStoreActions, wsActionTypes } from "../types/wsTypes";
 import { selectedOrderReducer } from "./reducers/selectedOrderReducer";
