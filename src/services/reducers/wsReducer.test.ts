@@ -1,5 +1,5 @@
 import { wsActionTypes } from "../../types/wsTypes";
-import { ORDER, WS_DATA } from "../../utils/constantsForTests";
+import { WS_DATA } from "../../utils/constantsForTests";
 import { wsReducer, initialState } from "./wsReducer";
 
 describe("wsReducer", () => {
