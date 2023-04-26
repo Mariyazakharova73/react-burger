@@ -1,10 +1,10 @@
 export const CARD_BUN = {
-  name: "Соус Spicy-X",
-  fat: 20,
-  proteins: 30,
-  carbohydrates: 40,
-  calories: 30,
-  image_large: "https://code.s3.yandex.net/react/code/sauce-02-large.png",
+  name: "Флюоресцентная булка R2-D3",
+  fat: 26,
+  proteins: 44,
+  carbohydrates: 85,
+  calories: 643,
+  image_large: "https://code.s3.yandex.net/react/code/bun-01-large.png",
 };
 
 export const CARD_FILLING = {

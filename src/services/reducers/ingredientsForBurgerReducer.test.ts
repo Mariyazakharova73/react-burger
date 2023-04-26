@@ -9,7 +9,7 @@ describe("ingredientsForBurgerReducer", () => {
 
   it("should handle ADD_INGREDIENT", () => {
     expect(
-      ingredientsForBurgerReducer(initialState, {
+      ingredientsForBurgerReducer(initialState, {  
         type: burgerActionTypes.ADD_INGREDIENT,
         payload: INGREDIENT_SAUSE,
       })
@@ -18,7 +18,7 @@ describe("ingredientsForBurgerReducer", () => {
       ingredientsForBurger: [...initialState.ingredientsForBurger, INGREDIENT_SAUSE],
     });
   });
-
+ 
   it("should handle DELETE_INGREDIENT", () => {
     expect(
       ingredientsForBurgerReducer(initialState, {
