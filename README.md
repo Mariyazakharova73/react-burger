@@ -20,6 +20,6 @@
 - Запуск тестов `npm run cypress:open` и `npm run test`
 - Запуск приложения `npm start`
 
-<!-- **Cсылка на страницу проекта**
+**Cсылка на страницу проекта**
 
-* [Ссылка: "react-burger"]() -->
+* [Ссылка: "react-burger"](https://mariyazakharova73.github.io/react-burger)
