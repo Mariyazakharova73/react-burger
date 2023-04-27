@@ -1,0 +1,20 @@
+{
+  "files": {
+    "main.css": "/Mariyazakharova73/react-burger/static/css/main.cb43fc0e.css",
+    "main.js": "/Mariyazakharova73/react-burger/static/js/main.c0980500.js",
+    "static/media/JetBrainsMono-Bold.woff": "/Mariyazakharova73/react-burger/static/media/JetBrainsMono-Bold.4faa26a0896a05fa59d8.woff",
+    "static/media/JetBrainsMono-Regular.woff": "/Mariyazakharova73/react-burger/static/media/JetBrainsMono-Regular.7b6954020ef8e4128174.woff",
+    "static/media/done.svg": "/Mariyazakharova73/react-burger/static/media/done.31a1ff64caec96dc16e878192d668fea.svg",
+    "static/media/JetBrainsMono-Bold.woff2": "/Mariyazakharova73/react-burger/static/media/JetBrainsMono-Bold.17dccf5024084786a71a.woff2",
+    "static/media/JetBrainsMono-Regular.woff2": "/Mariyazakharova73/react-burger/static/media/JetBrainsMono-Regular.c49470ac578960e78187.woff2",
+    "static/media/iceland.woff": "/Mariyazakharova73/react-burger/static/media/iceland.77ad7fc2baffd9305538.woff",
+    "static/media/iceland.woff2": "/Mariyazakharova73/react-burger/static/media/iceland.4ae67a017a5ff82bbbb7.woff2",
+    "index.html": "/Mariyazakharova73/react-burger/index.html",
+    "main.cb43fc0e.css.map": "/Mariyazakharova73/react-burger/static/css/main.cb43fc0e.css.map",
+    "main.c0980500.js.map": "/Mariyazakharova73/react-burger/static/js/main.c0980500.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.cb43fc0e.css",
+    "static/js/main.c0980500.js"
+  ]
+}
