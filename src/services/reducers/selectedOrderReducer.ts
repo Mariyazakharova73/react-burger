@@ -15,7 +15,7 @@ export interface ISelectedOrderDeleteAction {
 
 export type ISelectedOrderAction = ISelectedOrderShowAction | ISelectedOrderDeleteAction;
 
-const initialState: ISelectedOrderState = {
+export const initialState: ISelectedOrderState = {
   selectedOrder: [],
 };
 

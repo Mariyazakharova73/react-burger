@@ -6,7 +6,7 @@ interface IWSState {
   error?: Event;
 }
 
-const initialState: IWSState = {
+export const initialState: IWSState = {
   wsConnected: false,
   data: [],
 };

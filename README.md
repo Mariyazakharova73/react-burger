@@ -7,23 +7,19 @@
 
 **Технологии и инструменты**
 
-* react
-* react-redux
-* redux-thunk
-* react-dnd
-* typescript
-* WebSocket
+`react, react-redux, redux-thunk, react-dnd, typescript, WebSocket, Jest, Cypress`
 
 **Функции**
 
 * На главной странице можно собрать заказ из любых позиций меню через Drag'n'Drop
 * Подсчет общей стоимости заказа
 
-**Начало работы**
+**Установка, запуск приложения и тестов**
 
-npm install - устанавливает необходимые пакеты<br/>
-npm start - запускает проект<br/>
+- Установка `npm i`
+- Запуск тестов `npm run cypress:open` и `npm run test`
+- Запуск приложения `npm start`
 
-<!-- **Cсылка на страницу проекта**
+**Cсылка на проект**
 
-* [Ссылка: "react-burger"]() -->
+* [Ссылка: "react-burger"](https://mariyazakharova73.github.io/react-burger/)

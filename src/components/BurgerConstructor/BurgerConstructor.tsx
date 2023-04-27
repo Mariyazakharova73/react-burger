@@ -79,7 +79,11 @@ const BurgerConstructor: React.FC<IBurgerConstructorProps> = ({ handleOpenOrder 
 
   return (
     <section className={cn("pl-4 pt-25", styles.wrapper)}>
-      <div ref={dropTargerRefBun} className={`${isHoverBun ? styles.onHover : ""}`}>
+      <div
+        id="bunContainer"
+        ref={dropTargerRefBun}
+        className={`${isHoverBun ? styles.onHover : ""}`}
+      >
         {bun ? (
           <ConstructorElement
             extraClass={cn("ml-6 mr-2", styles.element)}
@@ -96,6 +100,7 @@ const BurgerConstructor: React.FC<IBurgerConstructorProps> = ({ handleOpenOrder 
         )}
       </div>
       <ul
+        id="list"
         className={cn("pr-2", styles.list, `${isHover ? styles.onHover : ""}`)}
         ref={dropTargerRef}
       >

@@ -5,7 +5,7 @@ export interface IIngredientsForBurgerState {
   bun: IIngredient | null;
 }
 
-const initialState: IIngredientsForBurgerState = {
+export const initialState: IIngredientsForBurgerState = {
   ingredientsForBurger: [],
   bun: null,
 };

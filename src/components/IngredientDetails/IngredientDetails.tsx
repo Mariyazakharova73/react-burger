@@ -31,6 +31,7 @@ const IngredientDetails: React.FC = () => {
         carbohydrates: obj.carbohydrates,
         image_large: obj.image_large,
       };
+      console.log(obj)
       dispatch(getCard(dataForModal));
     }
   }, [ingredients]);
