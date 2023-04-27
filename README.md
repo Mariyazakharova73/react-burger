@@ -22,4 +22,4 @@
 
 **Cсылка на проект**
 
-* [Ссылка: "react-burger"](https://mariyazakharova73.github.io/react-burger)
+* [Ссылка: "react-burger"](https://mariyazakharova73.github.io/react-burger/)
